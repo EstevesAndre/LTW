@@ -2,7 +2,7 @@
     function getAllReligions()
     {
         global $dbRel;
-        $stmt = $dbRel->prepare("SELECT * FROM religion ORDER BY rel_type");
+        $stmt = $dbRel->prepare("SELECT * FROM channel ORDER BY cType");
         $stmt->execute();
         return $stmt->fetchAll();
     }
