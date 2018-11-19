@@ -26,7 +26,8 @@
         <p class="text">Prayer is an invocation or act that seeks to activate a rapport with an object of worship, typically a deity, through deliberate communication. In the narrow sense, the term refers to an act of supplication or intercession directed towards a deity, or a deified ancestor.</p>
         <p class="text">More generally, prayer can also have the purpose of thanksgiving or praise, and in comparative religion is closely associated with more abstract forms of meditation and with charms or spells.</p>
         <a class="button" href="./fresh.php">Come pray with us!</a>
-    <div>    
+    </div>  
+    <?php include'../partials/footer.php';?> 
 </body>
 
 </html>

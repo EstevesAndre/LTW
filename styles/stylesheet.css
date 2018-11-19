@@ -105,10 +105,12 @@ header .login-register {
 
 header a:hover {
 	background-color: #37758e;
+	transition: 0.3s;
 }
 
 header .login-register:hover {
 	background-color: #cf1b1ba2;
+	transition: 0.3s;
 }
 
 header .logo:hover {
@@ -201,8 +203,9 @@ svg {
 	color: #f1f1f1;
 	font-size: 25px;
 	font-weight: 300;
-	height: 55px;
-	padding-top: 28px;
+	min-height: 0px;
+	padding-top: 22px;
+	padding-bottom: 28px;
 	padding-left: 2.5%;
 	padding-right: 2.5%;
 	background-color: #5f5f5f;
@@ -215,4 +218,118 @@ svg {
 
 .section .button:hover {
 	background-color: #37758e;
+	transition: 0.3s;
+}
+
+footer {
+	width: 100%;
+	float: left;
+	position: relative;
+	height: 100px;
+	background-color: #5f5f5f;
+}
+footer .copywrite {
+	width: 50%;
+  	float: left;
+  	padding-top: 43px;
+  	min-height: 0px;
+  	padding-left: 25px;
+}
+footer .copywrite span {
+  	font-family: Lato;
+	  font-size: 15px;
+	  color: #f1f1f1;
+	  font-weight: 300;
+}
+
+.article-container {
+	float: left;
+	min-height: 600px;
+	width: 100%;
+	background-image: url('../assets/sky.jpg');
+	background-size: cover;
+}
+
+.min-article {
+	position: relative;
+	background-color: #f1f1f1;
+	width: 30%;
+	margin-left: 1.5%;
+	float: left;
+	margin-top: 15px;
+	padding-left: 10px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	height: 150px;
+}
+
+.min-article .article-head {
+	float: left;
+	width: 100%;
+	min-height: 50px;
+}
+
+.min-article .article-head span {
+	font-family: Lato;
+}
+
+.min-article .article-head .title {
+	float: left;
+	font-size: 25px;
+	margin-top: 15px;
+	width: 100%;
+	margin-left: 10px;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+.min-article .article-head .time span {
+	font-weight: 300;
+	font-size: 13px;
+	width: 100%;
+	float: left;
+}
+
+.min-article .article-head .op span {
+	font-weight: 300;
+	font-size: 13px;
+	width: 100%;
+	float: left;
+}
+
+.min-article .article-head .category span {
+	font-size: 18px;
+	width: 100%;
+	float: left;
+	margin-bottom: 5px;
+}
+
+.min-article .article-head .category span {
+	font-size: 18px;
+	width: 100%;
+	float: left;
+	margin-bottom: 5px;
+}
+
+.min-article .text-container {
+	font-family: Lato;
+	font-weight: 300;
+	height: 100px;
+	white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+   	text-overflow: ellipsis;
+}
+
+.min-article .footer {
+	width: 100%;
+	position: absolute;
+	bottom: 15px;
+	height: 10px;
+}
+
+.min-article .footer img {
+	width: 20px;
+	height: 20px;
 }
