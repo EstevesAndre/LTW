@@ -99,8 +99,8 @@ header .button p {
 }
 
 header .login-register {
-    float: right;
-	margin-right: 4%;
+	float: right;
+	margin-right: 2.5%;
 }
 
 header a:hover {
@@ -329,7 +329,84 @@ footer .copywrite span {
 	height: 10px;
 }
 
-.min-article .footer img {
-	width: 20px;
-	height: 20px;
+.min-article .footer div {
+	float: left;
+	margin-right: 5px;
+}
+
+.min-article .footer div img {
+	width: 18px;
+	height: 18px;
+}
+
+.category {
+	position: relative;
+	width: 22%;
+	float: left;
+	margin-left: 2.5%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.category:hover {
+	filter: blur(1px);
+	transition: 300ms;
+}
+
+.category img {
+	width: 100%;
+}
+
+.form-container {
+	width: 45%;
+	padding-left: 5%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+
+.form-container form {
+	width: 90%;
+	min-height: 560px;
+	background-color: #f1f1f1;
+	padding-top: 20px;
+}
+
+.form-container form p {
+	font-size: 20px;
+	font-family: Lato;
+	font-weight: 300;
+	margin-left: 10%;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.form-container form .title {
+	font-family: Lato;
+	font-size: 30px;
+	text-align: center;
+	font-weight: 300;
+}
+
+.form-container form input {
+	width: 80%;
+	margin-left: 10%;
+	height: 30px;
+	font-size: 20px;
+	border: 0px;
+	font-weight: 300;
+}
+
+.form-container form .button {
+	margin-top: 20px;
+	width: 30%;
+	margin-left: 35%;
+	height: 60px;
+	background-color: #5f5f5f;
+	color: #f1f1f1;
+}
+
+.form-container form .button:hover {
+	background-color: #cf1b1bd2;
+	transition: 0.3s;
 }
