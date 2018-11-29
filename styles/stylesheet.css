@@ -98,18 +98,8 @@ header .button p {
 	margin-top: 23px;
 }
 
-header .login-register {
-	float: right;
-	margin-right: 2.5%;
-}
-
 header a:hover {
 	background-color: #37758e;
-	transition: 0.3s;
-}
-
-header .login-register:hover {
-	background-color: #cf1b1ba2;
 	transition: 0.3s;
 }
 
