@@ -10,8 +10,7 @@ CREATE TABLE userLikesChannel (
 
 CREATE TABLE user (
     username VARCHAR PRIMARY KEY,
-    password VARCHAR NOT NULL,
-    name VARCHAR
+    password VARCHAR NOT NULL
 );
 
 CREATE TABLE publication (
@@ -64,9 +63,9 @@ INSERT INTO channel VALUES (NULL, 'Taoism');
 INSERT INTO channel VALUES (NULL, 'Folk channels');
 INSERT INTO channel VALUES (NULL, 'Irchannel');
 
-INSERT INTO user VALUES ('Antero13', 'cdb56f6c494214b5c6cfa536daf2e42929e430e9', 'Antero');
-INSERT INTO user VALUES ('Pedro459669', '79e9dc154939fb9d31d59c4b1082d7b29edd6415', 'Pedro');
-INSERT INTO user VALUES ('Andre548392', '8ef49ffc8627c1efffda5812de595253b788185e', 'Andre');
+INSERT INTO user VALUES ('Antero13', 'cdb56f6c494214b5c6cfa536daf2e42929e430e9');
+INSERT INTO user VALUES ('Pedro459669', '79e9dc154939fb9d31d59c4b1082d7b29edd6415');
+INSERT INTO user VALUES ('Andre548392', '8ef49ffc8627c1efffda5812de595253b788185e');
 
 INSERT INTO userLikesChannel VALUES(
     2,
