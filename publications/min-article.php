@@ -1,5 +1,5 @@
 <article class="min-article">
-    <a href="">
+    <a href="../pages/publication.php">
         <div class="article-head">
             <div class="category"><span>Dudeism</span></div>
             <div class="op"><span>Posted by dudeist_boss69</span></div>

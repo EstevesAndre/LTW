@@ -40,10 +40,10 @@
             <div class="form-container">
                 <form method="post" action="../actions/action_signup.php">
                     <p class="title">Join Us</p>
-                    <p>Username:</p>
-                    <input type="text" name="username"><br>
                     <p>E-mail:</p>
                     <input type="email" name="email"><br>
+                    <p>Username:</p>
+                    <input type="text" name="username"><br>
                     <p>Password:</p>
                     <input type="password" name="password"><br>
                     <input class="button" type="submit" value="Register">

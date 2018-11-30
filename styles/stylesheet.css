@@ -344,6 +344,11 @@ footer .copywrite span {
 	transition: 300ms;
 }
 
+.min-article .article-head .category:hover {
+	filter: none;
+}
+
+
 .category img {
 	width: 100%;
 }
@@ -400,4 +405,23 @@ footer .copywrite span {
 .form-container form .button:hover {
 	background-color: #cf1b1bd2;
 	transition: 0.3s;
+}
+
+.max-article {
+	width: 70%;
+	margin-left: 15%;
+	float: left;
+	height: 600px;
+	background-color: #f1f1f1;
+	overflow: scroll;
+}
+
+header .login-register:hover {
+	background-color: #cf1b1ba2;
+	transition: 0.3s;
+}
+
+header .login-register {
+	float: right;
+	margin-right: 2.5%;
 }
