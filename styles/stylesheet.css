@@ -355,7 +355,7 @@ footer .copywrite span {
 
 .form-container {
 	width: 45%;
-	padding-left: 5%;
+	padding-left: 30%;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	float: left;
@@ -363,6 +363,8 @@ footer .copywrite span {
 
 .form-container form {
 	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
 	min-height: 560px;
 	background-color: #f1f1f1;
 	padding-top: 20px;
@@ -373,6 +375,7 @@ footer .copywrite span {
 	font-family: Lato;
 	font-weight: 300;
 	margin-left: 10%;
+	margin-right: 10%;
 	margin-top: 20px;
 	margin-bottom: 10px;
 }
@@ -384,9 +387,14 @@ footer .copywrite span {
 	font-weight: 300;
 }
 
+.form-container form .title a{
+	font-weight: 500;
+}
+
 .form-container form input {
 	width: 80%;
 	margin-left: 10%;
+	margin-right: 10%;
 	height: 30px;
 	font-size: 20px;
 	border: 0px;
@@ -394,7 +402,8 @@ footer .copywrite span {
 }
 
 .form-container form .button {
-	margin-top: 20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
 	width: 30%;
 	margin-left: 35%;
 	height: 60px;
