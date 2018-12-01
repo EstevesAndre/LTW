@@ -506,5 +506,61 @@ header .login-register {
 .max-article .dynamic-article .comment-section {
 	float: left;
 	width: 100%;
-	background-color: #00000060;
+	border-top: 1px solid #5f5f5f;
+	margin-top: 10px;
+	padding-top: 20px;
+}
+
+.max-article .dynamic-article .comment-section .new-comment {
+	width: 100%;
+	float: left;
+}
+
+.max-article .dynamic-article .comment-section .new-comment textarea {
+	width: 100%;
+	border: 0px;
+	outline: none;
+}
+
+.max-article .dynamic-article .comment-section .new-comment .button {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	width: 15%;
+	height: 30px;
+	background-color: #5f5f5f;
+	color: #f1f1f1;
+}
+
+.max-article .dynamic-article .comment-section .new-comment .button:hover {
+	background-color: #cf1b1bd2;
+	transition: 0.3s;
+}
+
+.max-article .dynamic-article .comment-section .comment {
+	float: left;
+	width: 100%;
+	margin-bottom: 15px;
+	border-top: 1px solid #5f5f5f;
+	padding-top: 10px;
+}
+
+.max-article .dynamic-article .comment-section .comment .com-user {
+	font-size: 15px;
+	float: left;
+}
+
+.max-article .dynamic-article .comment-section .comment .com-date {
+	font-size: 15px;
+	float: left;
+}
+
+.max-article .dynamic-article .comment-section .comment .sep {
+	font-size: 15px;
+	float: left;
+}
+
+.max-article .dynamic-article .comment-section .comment .com-text {
+	width: 100%;
+	float: left;
+	margin-top: 5px;
 }

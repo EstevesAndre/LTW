@@ -24,22 +24,24 @@
                 </div>
                 <div class="comment-section">
                     <div class="new-comment">
-                        <textarea rows="4" cols="100">
-                        </textarea><br>
+                        <textarea rows="4" cols="100"></textarea><br>
                         <input class="button" type="submit" value="Comment">
                     </div>
                     <div class="comment">
-                        <p class="com-user">aterito91</p>
+                        <p class="com-user">anterito91</p>
+                        <p class="sep"> - </p>
                         <p class="com-date">5 hours ago</p>
                         <p class="com-text">Antero total é o nosso profeta</p>
                     </div>
                     <div class="comment">
-                        <p class="com-user">aterito91</p>
+                        <p class="com-user">anterito91</p>
+                        <p class="sep"> - </p>
                         <p class="com-date">5 hours ago</p>
                         <p class="com-text">Antero total é o nosso profeta</p>
                     </div>
                     <div class="comment">
-                        <p class="com-user">aterito91</p>
+                        <p class="com-user">anterito91</p>
+                        <p class="sep"> - </p>
                         <p class="com-date">5 hours ago</p>
                         <p class="com-text">Antero total é o nosso profeta</p>
                     </div>
