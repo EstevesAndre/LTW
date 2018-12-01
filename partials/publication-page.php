@@ -23,18 +23,25 @@
                     </div>
                 </div>
                 <div class="comment-section">
-                    <div class="comment">
-                        <p>Antero total é o nosso profeta</p>
-                    </div>
-                    <div class="comment">
-                        <p>Antero total é o nosso profeta</p>
-                    </div>
-                    <div class="comment">
-                        <p>Antero total é o nosso profeta</p>
-                    </div>
                     <div class="new-comment">
-                        <input type="text" name="Write something"><br>
+                        <textarea rows="4" cols="100">
+                        </textarea><br>
                         <input class="button" type="submit" value="Comment">
+                    </div>
+                    <div class="comment">
+                        <p class="com-user">aterito91</p>
+                        <p class="com-date">5 hours ago</p>
+                        <p class="com-text">Antero total é o nosso profeta</p>
+                    </div>
+                    <div class="comment">
+                        <p class="com-user">aterito91</p>
+                        <p class="com-date">5 hours ago</p>
+                        <p class="com-text">Antero total é o nosso profeta</p>
+                    </div>
+                    <div class="comment">
+                        <p class="com-user">aterito91</p>
+                        <p class="com-date">5 hours ago</p>
+                        <p class="com-text">Antero total é o nosso profeta</p>
                     </div>
                 </div>
             </div>
