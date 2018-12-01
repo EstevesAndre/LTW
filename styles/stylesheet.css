@@ -564,3 +564,14 @@ header .login-register {
 	float: left;
 	margin-top: 5px;
 }
+
+.article-container .category-title {
+	width: 100%;
+	background-color: #3f3f3faa;
+	color: white;
+	font-family: Lato;
+	text-align: center;
+	font-size: 30px;
+	padding-top: 30px;
+	height: 70px;
+}
