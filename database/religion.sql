@@ -48,13 +48,24 @@ CREATE TABLE Comment (
     text VARCHAR NOT NULL
 );
 
--- Table: Voted
-DROP TABLE IF EXISTS Voted;
+-- Table: UpVote
+DROP TABLE IF EXISTS UpVote;
 
-CREATE TABLE Voted(
+CREATE TABLE UpVote(
     id INTEGER PRIMARY KEY,
     type CHAR NOT NULL,
-    username VARCHAR REFERENCES User, 
+    username VARCHAR REFERENCES User,
+    publication_id INTEGER NULL REFERENCES Publication(id),
+    comment_id INTEGER NULL REFERENCES Comment(id)
+);
+
+-- Table: DownVote
+DROP TABLE IF EXISTS DownVote;
+
+CREATE TABLE DownVote(
+    id INTEGER PRIMARY KEY,
+    type CHAR NOT NULL,
+    username VARCHAR REFERENCES User,
     publication_id INTEGER NULL REFERENCES Publication(id),
     comment_id INTEGER NULL REFERENCES Comment(id)
 );
@@ -109,7 +120,7 @@ INSERT INTO Publication VALUES (
     1507901651,
     'Buddhism',
     'TITLLEEEE',
-    'TEXTTTT',
+    'TEXTTTT'
 );
 
 INSERT INTO Comment VALUES(
@@ -132,7 +143,7 @@ INSERT INTO Comment VALUES(
     'HI_Comment_HERE'
 );
 
-INSERT INTO Voted VALUES(
+INSERT INTO UpVote VALUES(
     NULL,
     'P',
     'Antero13',
@@ -140,10 +151,18 @@ INSERT INTO Voted VALUES(
     NULL
 );
 
-INSERT INTO Voted VALUES(
+INSERT INTO DownVote VALUES(
     NULL,
     'C',
     'Andre548392',
     NULL,
     1
+);
+
+INSERT INTO DownVote VALUES(
+    NULL,
+    'P',
+    'Andre548392',
+    2,
+    NULL    
 );
