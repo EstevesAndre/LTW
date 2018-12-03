@@ -6,8 +6,7 @@
     <?php
         foreach($publications as $pub)
             draw_publication($pub);
-
-        //draw_add_publication();
+            draw_add_publication();
     ?>
     
     </div>
@@ -47,6 +46,18 @@
             </div>
         </div>
     </article>
+<?php
+    }
+?>
+
+<?php function draw_add_publication() 
+    {
+?>
+    <a href="../pages/new-article.php">
+        <article class="min-article">
+            <img class="add" src="../assets/plus.png" />
+        </article>
+    </a>
 <?php
     }
 ?>
@@ -110,4 +121,31 @@
         <p class="com-text">&nbsp  &nbsp@<?=$comment['tags']?>,&nbsp<?=$comment['text']?></p>
 <?php
     }
+?>
+
+<?php 
+    function draw_new_article() { 
+?>
+    <section id="login">        
+
+        <!-- Acrescentar class para fazer o css para isto -->
+        
+        <div class="article-container">
+            <div class="form-container">
+                <form method="post" action="../actions/login.php">
+                    <p class="title">New Article</p><br><br>
+                    <p>Title:</p>
+                    <input type="text" name="username"><br>
+                    <p>Category:</p>
+                    <input type="text" name="username"><br>
+                    <p>Write Something:</p>
+                    <textarea></textarea><br>
+                    <input class="button" type="submit" value="Post">
+                </form>
+            </div>
+        </div>
+
+    </section>
+<?php 
+    } 
 ?>

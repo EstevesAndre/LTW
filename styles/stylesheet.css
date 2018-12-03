@@ -248,6 +248,15 @@ footer .copywrite span {
 	padding-bottom: 40px;
 }
 
+.min-article .add {
+	width: 15%;
+	position: absolute;
+	left: 42.5%;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
 .min-article .article-head {
 	float: left;
 	width: 100%;
@@ -355,6 +364,7 @@ footer .copywrite span {
 	margin-top: 20px;
 	margin-bottom: 20px;
 	float: left;
+	overflow: scroll;
 }
 
 .form-container form {
@@ -395,6 +405,18 @@ footer .copywrite span {
 	font-size: 20px;
 	border: 0px;
 	font-weight: 300;
+	outline: none;
+}
+
+.form-container form textarea {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	height: 70px;
+	font-size: 15px;
+	border: 0px;
+	font-weight: 300;
+	outline: none;
 }
 
 .form-container form .button {
