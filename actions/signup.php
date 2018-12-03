@@ -2,9 +2,9 @@
     include_once('../includes/session.php');
     include_once('../database/db_checkUser.php');
 
+    $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $name = $_POST['name'];
 
     // Don't allow certain characters
     if ( !preg_match ("/^[a-zA-Z0-9]+$/", $username)) {
@@ -13,7 +13,7 @@
     }
 
     try{
-        insertUser($username, $password);
+        insertUser($username, $email, $password);
         $_SESSION['username'] = $username;
         $_SESSION['messages'][] = array('type' => 'success', 'content' => 'Signed up and logged in!');
         header('Location ../pages/mainMenu.php');
