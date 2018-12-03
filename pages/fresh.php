@@ -5,12 +5,12 @@
     include_once('../templates/template_publications.php');
 
     // verifies if user is logged in
-    if (isset($_SESSION['username']))
-        die(header('Location: mainMenu.php'));
+    if (!isset($_SESSION['username']))
+        die(header('Location: login.php'));
         
     $publications = getPublications();
 
-    draw_header('', ' | Fresh');
+    draw_header($_SESSION['username'], ' | Fresh');
     draw_publications($publications);
     draw_footer();
 ?>
