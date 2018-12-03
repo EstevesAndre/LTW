@@ -2,6 +2,15 @@
     include_once('../includes/database.php');
     
     //DONE
+    function getPublications()
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Publication');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    //DONE
     function getUserPublications($username)
     {
         $db = Database::instance()->db();
@@ -25,6 +34,15 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT * FROM Comment WHERE username= ?');
         $stmt->execute(array($username));
+        return $stmt->fetchAll();
+    }
+
+    //DONE
+    function getPublicationComments($pudlication_id)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Comment WHERE publication_id= ?');
+        $stmt->execute(array($pudlication_id));
         return $stmt->fetchAll();
     }
 
@@ -84,7 +102,7 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT * FROM Publication WHERE id= ?');
         $stmt->execute(array($idPublication));
-        return $stmt->fetch()?true:false; // return true if a line exists
+        return $stmt->fetch(); // return true if a line exists
     }
 
     //DONE
@@ -115,7 +133,7 @@
     //DONE
     function getUserVotes($username, $upDown)
     {
-        $db = Database::instace()->db();
+        $db = Database::instance()->db();
         if($upDown == 1)
             $stmt = $db->prepare('SELECT count(*) FROM UpVote WHERE username= ?');
         else if($upDown == -1)
@@ -127,17 +145,38 @@
     }
 
     //DONE
+    function getPublicationUpVotes($publication_id)
+    {
+        $db = Database::instance()->db();
+
+        $upVotes = $db->prepare('SELECT count(*) as up FROM upVote WHERE publication_id= ?');
+        $upVotes->execute(array($publication_id));
+        return $upVotes->fetch();
+    }
+
+    //DONE
+    function getPublicationDownVotes($publication_id)
+    {
+        $db = Database::instance()->db();
+
+        $downVotes = $db->prepare('SELECT count(*) AS down FROM downVote WHERE publication_id= ?');
+        $downVotes->execute(array($publication_id));
+        return $downVotes->fetch();
+
+    }
+
+    //DONE
     function get_PC_Votes($pub_com_id, $upDown, $pub_com)
     {
-        $db = Database::instace()->db();
+        $db = Database::instance()->db();
         if($upDown == 1 && $pub_com == 1)
             $stmt = $db->prepare('SELECT count(*) FROM UpVote WHERE publication_id= ?');
         else if($upDown == 1 && $pub_com == -1)
             $stmt = $db->prepare('SELECT count(*) FROM UpVote WHERE comment_id= ?');
         else if($upDown == -1 && $pub_com == 1)
-            $stmt = $db->prepare('SELECT count(*) FROM DownVote WHERE publication_id= ?')
+            $stmt = $db->prepare('SELECT count(*) FROM DownVote WHERE publication_id= ?');
         else if($upDown == -1 && $pub_com == -1)
-            $stmt = $db->prepare('SELECT count(*) FROM DownVote WHERE comment_id= ?')
+            $stmt = $db->prepare('SELECT count(*) FROM DownVote WHERE comment_id= ?');
         else return;
 
         $stmt->execute(array($pub_com_id));
