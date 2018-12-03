@@ -114,6 +114,7 @@ header .logo:hover {
 	min-height: 0px;
 	background-color: rgba(0,0,0,0.5);
 	margin-left: 5%;
+	margin-right: 5%;
 	margin-top: 100px;
 }
 
@@ -133,6 +134,7 @@ header .logo:hover {
 	min-height: 0px;
 	background-color: rgba(0,0,0,0.5);
 	margin-left: 5%;
+	margin-right: 5%;
 	margin-top: 50px;
 	margin-bottom: 200px;
 }
@@ -168,6 +170,8 @@ svg {
 	font-size: 40px;
 	font-weight: 300;
 	margin-bottom: 80px;
+	margin-left: 5%;
+	margin-right: 5%;
 }
 
 .section .text {
@@ -364,7 +368,6 @@ footer .copywrite span {
 	margin-top: 20px;
 	margin-bottom: 20px;
 	float: left;
-	overflow: scroll;
 }
 
 .form-container form {
@@ -591,4 +594,33 @@ header .login-register {
 	font-size: 30px;
 	padding-top: 30px;
 	height: 70px;
+}
+
+@media screen and (max-width: 860px) {
+	.section .button {
+		width: 30%;
+		margin-left: 35%;
+	}
+
+	.form-container {
+		width: 100%;
+		padding-left: 0;
+		margin-top: 10px;
+		margin-bottom: 0px;
+	}
+
+	.min-article {
+		width: 90%;
+		margin-left: 3.5%;
+		margin-bottom: 15px;
+
+	}
+
+	.category {
+		width: 45%;
+		margin-left: 3%;
+	}
+	.category:hover {
+		filter: none;
+	}
 }
