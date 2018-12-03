@@ -19,9 +19,23 @@
                 <a href="../pages/mainMenu.php" class="logo"> </a>            
                 <a href="../pages/mainMenu.php" class="button"><p>Home</p> </a>            
                 <a href="../pages/fresh.php" class="button"><p>Fresh</p> </a>            
-                <a href="../pages/categories.php" class="button"><p>Categories</p> </a>       
-                <a href="../pages/signup.php" class="button login-register"><p>Register</p> </a>         
-                <a href="../pages/login.php" class="button login-register"><p>Login</p> </a>  
+                <a href="../pages/categories.php" class="button"><p>Categories</p> </a>
+<?php
+                if($username == null)
+                {
+?>       
+                    <a href="../pages/signup.php" class="button login-register"><p>Register</p> </a>         
+                    <a href="../pages/login.php" class="button login-register"><p>Login</p> </a>  
+<?php
+                }
+                else
+                {
+?>
+                    <a href="../actions/logout.php" class="button login-register"><p>Logout</p> </a>         
+                    <p class="button login-register"><?=$username?></p>  
+<?php
+                }
+?>
             </header>
 
 <?php } ?>
