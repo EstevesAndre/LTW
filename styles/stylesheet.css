@@ -66,13 +66,6 @@ header {
 	background-color: #5f5f5f;
 }
 
-
-header {
-	float: left;
-    width: 100%;
-    margin-right: 2.5%;
-}
-
 header .logo {
 	float: left;
 	margin-left: 2.5%;
@@ -423,8 +416,7 @@ header .login-register:hover {
 }
 
 header .login-register {
-	float: right;
-	margin-right: 2.5%;
+	float: right; 	
 }
 
 .max-article {

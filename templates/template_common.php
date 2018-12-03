@@ -19,8 +19,9 @@
                 <a href="../pages/mainMenu.php" class="logo"> </a>            
                 <a href="../pages/mainMenu.php" class="button"><p>Home</p> </a>            
                 <a href="../pages/fresh.php" class="button"><p>Fresh</p> </a>            
-                <a href="../pages/categories.php" class="button"><p>Categories</p> </a>                
-                <a href="../pages/login.php" class="button login-register"><p>Login | Register</p> </a>
+                <a href="../pages/categories.php" class="button"><p>Categories</p> </a>       
+                <a href="../pages/signup.php" class="button login-register"><p>Register</p> </a>         
+                <a href="../pages/login.php" class="button login-register"><p>Login</p> </a>  
             </header>
 
 <?php } ?>
