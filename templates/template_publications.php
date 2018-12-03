@@ -17,6 +17,7 @@
 
 <?php function draw_publication($pub) 
     {
+        date_default_timezone_set('Europe/London');
         $time = strtotime($pub['published']);
         $myFormatForView = date("m/d/y g:i A", $time);
 ?>
@@ -53,6 +54,7 @@
  <?php 
     function draw_singlePublication($pub,$comments,$upVotes,$downVotes) 
     {
+        date_default_timezone_set('Europe/London');
         $time = strtotime($pub['published']);
         $myFormatForView = date("m/d/y g:i A", $time);
 ?>
@@ -98,6 +100,7 @@
 <?php
     function draw_comment($comment)
     {
+        date_default_timezone_set('Europe/London');
         $time = strtotime($comment['published']);
         $myFormatForView = date("m/d/y g:i A", $time);
 ?>    

@@ -8,7 +8,7 @@
     if (isset($_SESSION['username']))
         die(header('Location: mainMenu.php'));
         
-    draw_header(null);
+    draw_header(' | Sign Up');
     draw_signup();
     draw_footer();
 ?>

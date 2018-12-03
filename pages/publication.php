@@ -16,7 +16,7 @@
     $upVotes = getPublicationUpVotes($pub_id);
     $downVotes = getPublicationDownVotes($pub_id);
 
-    draw_header(null);
+    draw_header('', ' | ' . $pub['title']);
     draw_singlePublication($pub,$comments,$upVotes,$downVotes);
     draw_footer();
 ?>

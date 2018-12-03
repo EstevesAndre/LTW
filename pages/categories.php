@@ -7,7 +7,7 @@
     if (isset($_SESSION['username']))
         die(header('Location: mainMenu.php'));
         
-    draw_header(null);
+    draw_header('', ' | Categories');
     draw_categories();
     draw_footer();
 ?>

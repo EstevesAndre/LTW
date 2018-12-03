@@ -266,6 +266,9 @@ footer .copywrite span {
 	margin-left: 10px;
 	margin-top: 15px;
 	margin-bottom: 5px;
+	white-space: nowrap;
+	overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .min-article .article-head .time span {

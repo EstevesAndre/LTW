@@ -10,7 +10,7 @@
         
     $publications = getPublications();
 
-    draw_header(null);
+    draw_header('', ' | Fresh');
     draw_publications($publications);
     draw_footer();
 ?>
