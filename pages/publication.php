@@ -1,6 +1,6 @@
 <?php 
     include_once('../includes/session.php');
-    include_once('../database/db_getLists.php');
+    include_once('../database/db_getQueries.php');
     include_once('../templates/template_common.php');
     include_once('../templates/template_publications.php');
 
@@ -13,10 +13,9 @@
 
     $comments = getPublicationComments($pub_id);
 
-    $upVotes = getPublicationUpVotes($pub_id);
-    $downVotes = getPublicationDownVotes($pub_id);
+    $votes = [ 'up' => getPublicationVotes($pub_id,1)['cnt'], 'down' => getPublicationVotes($pub_id,-1)['cnt']];
 
     draw_header($_SESSION['username'], ' | ' . $pub['title']);
-    draw_singlePublication($pub,$comments,$upVotes,$downVotes);
+    draw_singlePublication($pub,$comments,$votes);
     draw_footer();
 ?>
