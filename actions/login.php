@@ -15,7 +15,7 @@
     else
     {
         $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Login failed!');
-        header('Location: ../pages/login.php');
+        header('Location: ../pages/signup.php');
     }
 
 ?>
