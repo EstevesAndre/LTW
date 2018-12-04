@@ -63,11 +63,11 @@
     }
 
     //DONE
-    function checkIsPublicationOwner($idPublication, $username)
+    function checkIsPublicationOwner($username, $idPublication)
     {        
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Publication WHERE id= ? AND username= ?');
-        $stmt->execute(array($idPublication, $username));
+        $stmt = $db->prepare('SELECT * FROM Publication WHERE username= ? AND id= ?');
+        $stmt->execute(array($username, $idPublication));
         return $stmt->fetch()?true:false; // return true if a line exists
     }
     
@@ -145,25 +145,15 @@
     }
 
     //DONE
-    function getPublicationUpVotes($publication_id)
+    function getPublicationVotes($publication_id, $upDown)
     {
         $db = Database::instance()->db();
 
-        $upVotes = $db->prepare('SELECT count(*) as up FROM upVote WHERE publication_id= ?');
-        $upVotes->execute(array($publication_id));
+        $upVotes = $db->prepare('SELECT count(*) as cnt FROM Votes WHERE publication_id= ? AND upDown= ?');
+        $upVotes->execute(array($publication_id,$upDown));
         return $upVotes->fetch();
     }
 
-    //DONE
-    function getPublicationDownVotes($publication_id)
-    {
-        $db = Database::instance()->db();
-
-        $downVotes = $db->prepare('SELECT count(*) AS down FROM downVote WHERE publication_id= ?');
-        $downVotes->execute(array($publication_id));
-        return $downVotes->fetch();
-
-    }
 
     //DONE
     function get_PC_Votes($pub_com_id, $upDown, $pub_com)
@@ -211,6 +201,13 @@
         else return;
 
         $stmt->execute(array($idVote));
+    }
+
+    function toggleItem($publication_id) {
+        $db = Database::instance()->db();
+
+        $stmt = $db->prepare('UPDATE Publication SET item_done = 1 - item_done WHERE item_id = ?');
+        $stmt->execute(array($publication_id));
     }
 
 ?>
