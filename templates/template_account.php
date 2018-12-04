@@ -1,10 +1,9 @@
 <?php 
-    function draw_login() { 
+    function draw_login() 
+    { 
 ?>
-    <section id="login">        
+    <section id="login">    
 
-        <!-- Acrescentar class para fazer o css para isto -->
-        
         <div class="article-container">
             <div class="form-container">
                 <form method="post" action="../actions/login.php">
@@ -26,7 +25,8 @@
 
 
 <?php 
-    function draw_signup() { 
+    function draw_signup() 
+    { 
 ?>
     <section id="signup">
         
@@ -46,6 +46,7 @@
             </div>
         </div>
 
-
     </section>
-<?php } ?>
+<?php 
+    } 
+?>

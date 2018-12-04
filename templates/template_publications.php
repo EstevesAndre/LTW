@@ -16,16 +16,13 @@
 
 <?php function draw_publication($pub) 
     {
-        date_default_timezone_set('Europe/London');
-        $time = strtotime($pub['published']);
-        $myFormatForView = date("m/d/y g:i A", $time);
 ?>
     <article class="min-article">
         <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
             <div class="article-head">
                 <div class="categories"><span><?=$pub['tags']?></span></div>
                 <div class="op"><span>Posted by <?=$pub['username']?></span></div>
-                <div class="time"><span><?=$myFormatForView?></span></div>
+                <div class="time"><span><?=$pub['timestamp']?></span></div>
                 <div class="title"><span><?=$pub['title']?></span></div>
             </div>
             <div class="text-container">
@@ -63,18 +60,15 @@
 ?>
 
  <?php 
-    function draw_singlePublication($pub,$comments,$upVotes,$downVotes) 
+    function draw_singlePublication($pub,$comments,$votes) 
     {
-        date_default_timezone_set('Europe/London');
-        $time = strtotime($pub['published']);
-        $myFormatForView = date("m/d/y g:i A", $time);
 ?>
     <div class="article-container">
         <article class="max-article">
             <div class="static-article">
                 <p class="article-category"><?=$pub['tags']?></p>
                 <p class="op"><span>Posted by <?=$pub['username']?></span></p>
-                <p class="time"><span><?=$myFormatForView?></span></p>
+                <p class="time"><span><?=$pub['timestamp']?></span></p>
                 <p class="title"><span><?=$pub['title']?></span></p>
                 <p class="text"><?=$pub['fulltext']?></p>
             </div>
@@ -82,11 +76,11 @@
                 <div class="vote-section">
                     <div class="votes">
                         <img src="../assets/thumbs-up.png" />
-                        <span><?=$upVotes['up']?></span>
+                        <span><?=$votes['up']?></span>
                     </div>
                     <div class="votes">
                         <img src="../assets/thumb-down.png" />
-                        <span><?=$downVotes['down']?></span>
+                        <span><?=$votes['down']?></span>
                     </div>
                 </div>
                 <div class="comment-section">
@@ -95,10 +89,10 @@
                         <input class="button" type="submit" value="Comment">
                     </div>
                     <div class="comment">
-<?php   
-    foreach($comments as $comment)
-        draw_comment($comment);
-?>                    
+                    <?php   
+                        foreach($comments as $comment)
+                            draw_comment($comment);
+                    ?>                    
                     </div>
                 </div>
             </div>
@@ -111,36 +105,31 @@
 <?php
     function draw_comment($comment)
     {
-        date_default_timezone_set('Europe/London');
-        $time = strtotime($comment['published']);
-        $myFormatForView = date("m/d/y g:i A", $time);
 ?>    
         <p class="com-user"><?=$comment['username']?></p>
         <p class="sep">&nbsp - &nbsp</p>
-        <p class="com-date"><?=$myFormatForView?></p>    
+        <p class="com-date"><?=$comment['timestamp']?></p>    
         <p class="com-text">&nbsp  &nbsp@<?=$comment['tags']?>,&nbsp<?=$comment['text']?></p>
 <?php
     }
 ?>
 
 <?php 
-    function draw_new_article() { 
+    function draw_new_article() 
+    { 
 ?>
-    <section id="login">        
-
-        <!-- Acrescentar class para fazer o css para isto -->
-        
+    <section id="login">      
         <div class="article-container">
             <div class="form-container">
-                <form method="post" action="../actions/login.php">
+                <form method="post" action="../actions/add_publication.php">
                     <p class="title">New Article</p><br><br>
                     <p>Title:</p>
-                    <input type="text" name="username"><br>
+                        <input type="text" name="title"><br>
                     <p>Category:</p>
-                    <input type="text" name="username"><br>
+                        <input type="text" name="category" placeholder="Ex: 'Buddhism,Christianity'"><br>
                     <p>Write Something:</p>
-                    <textarea></textarea><br>
-                    <input class="button" type="submit" value="Post">
+                        <textarea name="fulltext"></textarea><br>
+                        <input class="button" type="submit" value="Post">
                 </form>
             </div>
         </div>

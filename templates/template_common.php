@@ -1,7 +1,8 @@
 <?php 
-    function draw_header($username, $subtitle) { 
+    function draw_header($username, $subtitle) 
+    { 
 ?>
-<!DOCTYPE html>
+    <!DOCTYPE html>
     <html>
         <head>
             <meta charset="utf-8" />
@@ -20,28 +21,30 @@
                 <a href="../pages/mainMenu.php" class="button"><p>Home</p> </a>            
                 <a href="../pages/fresh.php" class="button"><p>Fresh</p> </a>            
                 <a href="../pages/categories.php" class="button"><p>Categories</p> </a>
-<?php
-                if($username == null)
-                {
-?>       
-                    <a href="../pages/signup.php" class="button login-register"><p>Register</p> </a>         
-                    <a href="../pages/login.php" class="button login-register"><p>Login</p> </a>  
-<?php
-                }
-                else
-                {
-?>
-                    <a href="../actions/logout.php" class="button login-register"><p>Logout</p> </a>         
-                    <p class="button login-register"><?=$username?></p>  
-<?php
-                }
-?>
+                <?php
+                    if($username == null)
+                    {
+                ?>       
+                        <a href="../pages/signup.php" class="button login-register"><p>Register</p> </a>         
+                        <a href="../pages/login.php" class="button login-register"><p>Login</p> </a>  
+                <?php
+                    }
+                    else
+                    {
+                ?>
+                        <a href="../actions/logout.php" class="button login-register"><p>Logout</p> </a>         
+                        <p class="button login-register"><?=$username?></p>  
+                <?php
+                    }
+                ?>
             </header>
-
-<?php } ?>
+<?php 
+    }
+?>
 
 <?php 
-    function draw_footer() { 
+    function draw_footer() 
+    { 
 ?>
             <footer>
                 <div class="copywrite">
@@ -50,4 +53,6 @@
             </footer>
         </body>
     </html>
-<?php } ?>
+<?php 
+    }
+?>
