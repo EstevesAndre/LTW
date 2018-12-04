@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS Publication;
 CREATE TABLE Publication (
     id INTEGER PRIMARY KEY,
     username VARCHAR REFERENCES User,
-    published INTEGER, -- date when this was published
+    timestamp DATETIME CHECK (timestamp > 0), -- date when this was published
     tags VARCHAR NOT NULL, -- comma separated tags
     title VARCHAR,
     fulltext VARCHAR NOT NULL
@@ -49,31 +49,21 @@ CREATE TABLE Comment (
     username VARCHAR REFERENCES User,
     publication_id INTEGER REFERENCES Publication(id),
     comment_id INTEGER NULL REFERENCES Comment(id), -- self relationship
-    published INTEGER, -- date when this was published
+    timestamp DATETIME CHECK (timestamp > 0), -- date when this was published
     tags VARCHAR, -- comma separated tags
     text VARCHAR NOT NULL
 );
 
--- Table: UpVote
-DROP TABLE IF EXISTS UpVote;
+-- Table: Votes
+DROP TABLE IF EXISTS Votes;
 
-CREATE TABLE UpVote(
+CREATE TABLE Votes(
     id INTEGER PRIMARY KEY,
     type CHAR NOT NULL,
     username VARCHAR REFERENCES User,
     publication_id INTEGER NULL REFERENCES Publication(id),
-    comment_id INTEGER NULL REFERENCES Comment(id)
-);
-
--- Table: DownVote
-DROP TABLE IF EXISTS DownVote;
-
-CREATE TABLE DownVote(
-    id INTEGER PRIMARY KEY,
-    type CHAR NOT NULL,
-    username VARCHAR REFERENCES User,
-    publication_id INTEGER NULL REFERENCES Publication(id),
-    comment_id INTEGER NULL REFERENCES Comment(id)
+    comment_id INTEGER NULL REFERENCES Comment(id),
+    upDown INTEGER NOT NULL CHECK (upDown = -1 OR upDown = 1)
 );
 
 INSERT INTO Channel VALUES (NULL, 'General');
@@ -113,7 +103,7 @@ INSERT INTO UserLikesChannel VALUES(
 INSERT INTO Publication VALUES (
     NULL,
     'Antero13',
-    1507901651,
+    '2018-08-12',
     'Buddhism,Christianity',
     'Nam aliquet leo vel scelerisque sagittis. Praesent hendrerit lectus et augue condimentum, vitae dapibus elit bibendum. Quisque id sapien nec nisl commodo vulputate. Cras vehicula semper lectus. Duis a purus in velit iaculis luctus id ac justo. Mauris a lectus eu dui aliquam pretium nec a massa. Suspendisse risus metus, laoreet quis velit eu, mollis auctor tellus. Maecenas vulputate, nulla a commodo porttitor, urna arcu viverra dolor, a eleifend lectus leo a justo.',
     'Morbi bibendum volutpat pellentesque. In bibendum est et orci semper rhoncus. Sed cursus vel orci sed malesuada. Fusce ac dictum ligula, quis hendrerit ipsum. Proin hendrerit a. 
@@ -123,7 +113,7 @@ INSERT INTO Publication VALUES (
 INSERT INTO Publication VALUES (
     NULL, 
     'Pedro459669',
-    1507901651,
+    '2018-12-03',
     'Buddhism',
     'TITLLEEEE',
     'TEXTTTT'
@@ -134,9 +124,19 @@ INSERT INTO Comment VALUES(
     'Andre548392',
     1,
     NULL,
-    1508247632,
+    '2018-12-04',
     'Pedro459669,Antero13',
     'I THINK THAT THIS IS LIT AF'
+);
+
+INSERT INTO Comment VALUES(
+    NULL,
+    'Antero13',
+    1,
+    NULL,
+    '2018-12-04',
+    'Pedro459669',
+    'nothing else'
 );
 
 INSERT INTO Comment VALUES(
@@ -144,31 +144,34 @@ INSERT INTO Comment VALUES(
     'Andre548392',
     NULL,
     2,
-    1508248632,
+    '2018-12-04',
     'Pedro459669',
     'HI_Comment_HERE'
 );
 
-INSERT INTO UpVote VALUES(
+INSERT INTO Votes VALUES(
     NULL,
     'P',
     'Antero13',
     2,
-    NULL
-);
-
-INSERT INTO DownVote VALUES(
-    NULL,
-    'C',
-    'Andre548392',
     NULL,
     1
 );
 
-INSERT INTO DownVote VALUES(
+INSERT INTO Votes VALUES(
+    NULL,
+    'C',
+    'Andre548392',
+    NULL,
+    1,
+    -1
+);
+
+INSERT INTO Votes VALUES(
     NULL,
     'P',
     'Andre548392',
     2,
-    NULL    
+    NULL,
+    -1
 );
