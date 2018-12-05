@@ -20,6 +20,24 @@
     }
 
     //DONE
+    function getUserInfo($username)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM User WHERE username= ?');
+        $stmt->execute(array($username));
+        return $stmt->fetch();
+    }
+
+    //DONE
+    function updateUser($username, $email, $name, $surname, $genre, $age)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('UPDATE User SET email= ? , name= ? , surname= ? , genre= ? , age= ? WHERE username= ?');
+        $stmt->execute(array($email, $name, $surname, $genre, $age, $username));
+        return $stmt->fetch();
+    }    
+    
+    //DONE
     function getAllReligions()
     {
         $db = Database::instance()->db();
@@ -102,7 +120,7 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT * FROM Publication WHERE id= ?');
         $stmt->execute(array($idPublication));
-        return $stmt->fetch(); // return true if a line exists
+        return $stmt->fetch();
     }
 
     //DONE
@@ -203,7 +221,7 @@
         $stmt->execute(array($idVote));
     }
 
-    function toggleItem($publication_id) {
+    function toggleFollowPublication($publication_id) {
         $db = Database::instance()->db();
 
         $stmt = $db->prepare('UPDATE Publication SET item_done = 1 - item_done WHERE item_id = ?');
