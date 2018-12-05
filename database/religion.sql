@@ -25,8 +25,12 @@ DROP TABLE IF EXISTS User;
 
 CREATE TABLE User (
     username VARCHAR PRIMARY KEY,
-    email VARCHAR UNIQUE,
-    password VARCHAR NOT NULL
+    email VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    name VARCHAR,
+    surname VARCHAR,
+    genre VARCHAR,
+    age INTEGER
 );
 
 -- Table: Publication
@@ -59,7 +63,7 @@ DROP TABLE IF EXISTS Votes;
 
 CREATE TABLE Votes(
     id INTEGER PRIMARY KEY,
-    type CHAR NOT NULL,
+    type CHAR CHECK (type = 'C' OR type = 'P'),
     username VARCHAR REFERENCES User,
     publication_id INTEGER NULL REFERENCES Publication(id),
     comment_id INTEGER NULL REFERENCES Comment(id),
@@ -81,9 +85,23 @@ INSERT INTO Channel VALUES (NULL, 'Taoism');
 INSERT INTO Channel VALUES (NULL, 'Folk Channels');
 INSERT INTO Channel VALUES (NULL, 'IrChannel');
 
-INSERT INTO User VALUES ('Antero13', 'antero@gmail.com', 'cdb56f6c494214b5c6cfa536daf2e42929e430e9');
-INSERT INTO User VALUES ('Pedro459669', 'pedro@gmail.com', '79e9dc154939fb9d31d59c4b1082d7b29edd6415');
-INSERT INTO User VALUES ('Andre548392', 'andre@gmail.com', '8ef49ffc8627c1efffda5812de595253b788185e');
+INSERT INTO User VALUES (
+    'Antero13',
+    'antero@gmail.com',
+    'cdb56f6c494214b5c6cfa536daf2e42929e430e9',
+    '','','',0);
+
+INSERT INTO User VALUES (
+    'Pedro459669',
+    'pedro@gmail.com',
+    '79e9dc154939fb9d31d59c4b1082d7b29edd6415',
+    '','','',0);
+
+INSERT INTO User VALUES (
+    'Andre548392',
+    'andre@gmail.com',
+    '8ef49ffc8627c1efffda5812de595253b788185e',
+    '','','',0);
 
 INSERT INTO UserLikesChannel VALUES(
     2,
@@ -153,6 +171,15 @@ INSERT INTO Votes VALUES(
     NULL,
     'P',
     'Antero13',
+    2,
+    NULL,
+    1
+);
+
+INSERT INTO Votes VALUES(
+    NULL,
+    'P',
+    'Pedro459669',
     2,
     NULL,
     1
