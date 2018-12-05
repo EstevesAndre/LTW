@@ -33,13 +33,18 @@
         </a>
         <div class="footer">
             <div class="thumbs-up">
-                <img src="../assets/thumbs-up.png" />
+                <i class="far fa-thumbs-up"></i>
             </div>
             <div class="thumbs-down">
-                <img src="../assets/thumb-down.png" />
+                <i class="far fa-thumbs-down"></i>
             </div>
             <div class="comments">
-                <img src="../assets/comment.png" />
+                <a href="../actions/add_comment.php?publication_id=<?=$pub['id']?>">
+                    <i class="far fa-comments"></i> 
+                </a>
+            </div>
+            <div class="trash">
+                <i class="far fa-trash-alt"></i>                
             </div>
         </div>
     </article>
@@ -75,18 +80,20 @@
             <div class="dynamic-article">
                 <div class="vote-section">
                     <div class="votes">
-                        <img src="../assets/thumbs-up.png" />
+                        <i class="far fa-thumbs-up"></i>
                         <span><?=$votes['up']?></span>
                     </div>
                     <div class="votes">
-                        <img src="../assets/thumb-down.png" />
+                        <i class="far fa-thumbs-down"></i>
                         <span><?=$votes['down']?></span>
                     </div>
                 </div>
                 <div class="comment-section">
                     <div class="new-comment">
-                        <textarea rows="4" cols="100"></textarea><br>
-                        <input class="button" type="submit" value="Comment">
+                        <form method="post" action="../actions/add_comment.php?publication_id=<?=$pub['id']?>">
+                            <textarea name="fulltext" rows="4" cols="100"></textarea><br>
+                            <input class="button" type="submit" value="Comment">
+                        </form>
                     </div>
                     <div class="comment">
                     <?php   
@@ -108,8 +115,12 @@
 ?>    
         <p class="com-user"><?=$comment['username']?></p>
         <p class="sep">&nbsp - &nbsp</p>
-        <p class="com-date"><?=$comment['timestamp']?></p>    
-        <p class="com-text">&nbsp  &nbsp@<?=$comment['tags']?>,&nbsp<?=$comment['text']?></p>
+        <p class="com-date"><?=$comment['timestamp']?></p> 
+        <p class="com-text">&nbsp  &nbsp
+        <?php if ($comment['tags'] != null) { ?> 
+            @<?=$comment['tags']?>,
+        <?php } ?>
+        &nbsp<?=$comment['text']?></p>
 <?php
     }
 ?>
