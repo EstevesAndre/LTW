@@ -21,7 +21,7 @@
     catch(PDOException $e)
     {
         die($e->getMessage());
-        $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Failed to signup!');
-        header('Location ../pages/signup.php');
-    }    
+        $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Failed to signup!');        
+        header('Location: ../pages/signup.php');
+    } 
 ?>
