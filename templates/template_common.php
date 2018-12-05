@@ -11,8 +11,9 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="stylesheet" type="text/css" media="screen" href="../styles/stylesheet.css" />
             <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
             <link rel="icon" href="../assets/logo.png" type="image/x-icon" />
-            <script src="../scripts/script.js"></script>
+            <script src="../scripts/main.js"></script>
         </head>
 
         <body>
@@ -33,11 +34,25 @@
                     {
                 ?>
                         <a href="../actions/logout.php" class="button login-register"><p>Logout</p> </a>         
-                        <p class="button login-register"><?=$username?></p>  
+                        <a href="../pages/profile.php" class="button login-register"><p>Hi, <?=$username?></p> </a>  
                 <?php
                     }
                 ?>
             </header>
+
+            <?php if (isset($_SESSION['messages'])) 
+                {
+            ?>
+                <section id="messages">
+                <?php foreach($_SESSION['messages'] as $message) { ?>
+                    <div class="<?=$message['type']?>"><?=$message['content']?></div>
+            <?php 
+                } 
+            ?>
+                </section>
+            <?php unset($_SESSION['messages']); 
+                } 
+            ?>
 <?php 
     }
 ?>
