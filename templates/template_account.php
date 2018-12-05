@@ -50,3 +50,31 @@
 <?php 
     } 
 ?>
+
+<?php
+    function draw_editProfile($user)
+    {
+?>
+    <section id="edit">
+        <div class="form-container">
+            <form method="post" action="../actions/update_profile.php">
+                <p class="title">Hello <?=$user['username']?>,</p><br>              
+                <p class="title">Edit your profile:</p><br>
+                
+                <p>Name:</p>
+                    <input type="text" name="name" placeholder=<?=$user['name']?>><br>                    
+                <p>Surname:</p>
+                    <input type="text" name="surname" placeholder=<?=$user['surname']?> ><br>
+                <p>Email:</p>
+                    <input type="text" name="email" placeholder=<?=$user['email']?>><br>
+                <p>Genre:</p>
+                    <input type="text" name="genre" placeholder=<?=$user['genre']?> ><br>
+                <p>Age:</p>
+                    <input type="text" name="age" placeholder=<?=$user['age']?> ><br>
+                <input class="button" type="submit" value="Save Changes">
+            </form>
+        </div>
+    </section>
+<?php
+    }
+?>
