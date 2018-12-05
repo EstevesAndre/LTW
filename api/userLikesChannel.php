@@ -10,17 +10,16 @@
 
 
     $publication_id = $_POST['publication_id'];
+    $publication = getPublication($publication_id);    
 
-    
-
-    // Verifies if item exists and user is owner
+    // Verifies if publication exists and user is owner
     if (!$publication || !checkIsPublicationOwner($_SESSION['username'], $publication['id']))
-        die(json_encode(array('error' => 'not_item_owner')));
+        die(json_encode(array('error' => 'not_publication_owner')));
 
     // Toggles the done state
-    toggleItem($item_id);
+    toggleItem($publication_id);
     // Gets the item from the database
     $publication = getPublication($publication_id);
     // Returns the item as JSON
-    echo json_encode($item);
+    echo json_encode($publication);
 ?>
