@@ -9,16 +9,20 @@
     function isLoginCorrect($username,$password)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM user WHERE username = ? AND password = ?');
-        $stmt->execute(array($username,sha1($password)));
-        return $stmt->fetch()?true:false; // return true if a line exists
+        $stmt = $db->prepare('SELECT * FROM user WHERE username = ?');
+        $stmt->execute(array($username));
+
+        $user = $stmt->fetch();
+        return $user !== false && password_verify($password, $user['password']);
     }
 
     function insertUser($username, $email, $password)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO user VALUES(?, ?, ?)');
-        $stmt->execute(array($username, $email, sha1($password)));
-        return $stmt->fetch()?true:false;
+
+        $options = ['cost' => 12];
+
+        $stmt = $db->prepare('INSERT INTO user VALUES(?, ?, ?, NULL, NULL, NULL, NULL)');
+        $stmt->execute(array($username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));
     }
 ?>
