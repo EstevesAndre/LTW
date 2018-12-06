@@ -574,10 +574,12 @@ header .login-register {
 	float: left;
 }
 
+/* HERE */
 .max-article .dynamic-article .comment-section .comment .sep {
 	font-size: 15px;
 	float: left;
 }
+/* HERE ^ */
 
 .max-article .dynamic-article .comment-section .comment .com-text {
 	width: 100%;
