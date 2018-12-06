@@ -90,11 +90,11 @@
     }
     
     //DONE
-    function checkIsCommentOwner($idComment, $username)
+    function checkIsCommentOwner($username, $idComment)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Comment WHERE id= ? AND username= ?');
-        $stmt->execute(array($idComment,$username));
+        $stmt = $db->prepare('SELECT * FROM Comment WHERE username= ? AND id= ?');
+        $stmt->execute(array($username, $idComment));
         return $stmt->fetch()?true:false; // return true if a line exists
     }
     
@@ -107,11 +107,13 @@
     }
 
     //DONE
-    function deletePublication($id)
+    function deletePublication($idPublication)
     {
+        deleteComments($idPublication);
+        deleteVotes($idPublication);
         $db = Database::instance()->db();
         $stmt = $db->prepare('DELETE FROM Publication WHERE id= ?');
-        $stmt->execute(array($id));
+        $stmt->execute(array($idPublication));
     }
 
     //DONE
@@ -132,6 +134,14 @@
     }
 
     //DONE
+    function deleteComments($publication_id)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('DELETE FROM Comment WHERE publication_id= ?');
+        $stmt->execute(array($publication_id));
+    }
+
+    //DONE
     function deleteComment($idComment)
     {
         $db = Database::instance()->db();
@@ -149,18 +159,13 @@
     }
 
     //DONE
-    function getUserVotes($username, $upDown)
+    function getCommentsOfComment($idComment)
     {
         $db = Database::instance()->db();
-        if($upDown == 1)
-            $stmt = $db->prepare('SELECT count(*) FROM UpVote WHERE username= ?');
-        else if($upDown == -1)
-            $stmt = $db->prepare('SELECT count(*) FROM DownVote WHERE username= ?');
-        else return;
-
-        $stmt->execute(array($username));
-        return $stmt->fetch()?true:false; // return true if a line exists
-    }
+        $stmt = $db->prepare('SELECT * FROM Comment WHERE id= ? AND IFNULL(publication_id, "") = ""');
+        $stmt->execute(array($idComment));
+        return $stmt->fetchAll(); 
+    }    
 
     //DONE
     function getPublicationVotes($publication_id, $upDown)
@@ -172,51 +177,49 @@
         return $upVotes->fetch();
     }
 
-
     //DONE
-    function get_PC_Votes($pub_com_id, $upDown, $pub_com)
-    {
+    function getVote($username, $publication_id)
+    {        
         $db = Database::instance()->db();
-        if($upDown == 1 && $pub_com == 1)
-            $stmt = $db->prepare('SELECT count(*) FROM UpVote WHERE publication_id= ?');
-        else if($upDown == 1 && $pub_com == -1)
-            $stmt = $db->prepare('SELECT count(*) FROM UpVote WHERE comment_id= ?');
-        else if($upDown == -1 && $pub_com == 1)
-            $stmt = $db->prepare('SELECT count(*) FROM DownVote WHERE publication_id= ?');
-        else if($upDown == -1 && $pub_com == -1)
-            $stmt = $db->prepare('SELECT count(*) FROM DownVote WHERE comment_id= ?');
-        else return;
 
-        $stmt->execute(array($pub_com_id));
-        return $stmt->fetch()?true:false; // return true if a line exists
+        $upVotes = $db->prepare('SELECT * FROM Votes WHERE username= ? AND publication_id= ?');
+        $upVotes->execute(array($username,$publication_id));
+
+        return $upVotes->fetch();
     }
 
     //DONE
-    function insertVote($type, $username, $idOfType, $upDown)
+    function insertVote($type, $username, $publication_id, $comment_id, $upDown)
     {
         $db = Database::instance()->db();
-        if($type === 'C' && $upDown == 1)
-            $stmt = $db->prepare('INSERT INTO UpVote VALUES(NULL, ?, ?, NULL, ?)');
-        else if($type === 'C' && $upDown == 1)
-            $stmt = $db->prepare('INSERT INTO DownVote VALUES(NULL, ?, ?, NULL, ?)');
-        else if($type === 'P' && $upDown == -1)
-            $stmt = $db->prepare('INSERT INTO DownVote VALUES(NULL, ?, ?, ?, NULL)');
-        else if($type === 'P' && $upDown == -1)
-            $stmt = $db->prepare('INSERT INTO DownVote VALUES(NULL, ?, ?, ?, NULL)');
-        else return;
+        $stmt = $db->prepare('INSERT INTO Votes VALUES(NULL, ?, ?, ?, ?, ?)');
 
-        $stmt->execute(array($type,$username,$idOfType));
+        $stmt->execute(array($type,$username,$publication_id, $comment_id, $upDown));
     }
 
     //DONE
-    function deleteVote($idVote, $upDown)
+    function deleteVote($idVote)
     {
         $db = Database::instance()->db();
-        if($upDown == 1)
-            $stmt = $db->prepare('DELETE FROM UpVote WHERE id= ?');
-        else if($upDown == -1)
-            $stmt = $db->prepare('DELETE FROM DownVote WHERE id= ?');
-        else return;
+        $stmt = $db->prepare('DELETE FROM Votes WHERE id= ?');
+
+        $stmt->execute(array($idVote));
+    }
+    
+    //DONE
+    function deleteVotes($publication_id)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('DELETE FROM Votes WHERE publication_id= ?');
+
+        $stmt->execute(array($publication_id));
+    }
+
+    //DONE
+    function toggleVote($idVote)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('UPDATE Votes SET upDown = -upDown WHERE id= ?');
 
         $stmt->execute(array($idVote));
     }
