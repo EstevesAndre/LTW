@@ -57,10 +57,10 @@
     function draw_editProfile($user)
     {
 ?>
-    <section id="edit">
+    <div class="article-container">
         <div class="form-container">
             <form method="post" action="../actions/update_profile.php">
-                <p class="title">Hello <?=$user['username']?>,</p><br>              
+                <p class="title">Hello <?=$user['username']?>,</p>          
                 <p class="title">Edit your profile:</p><br>
                 
                 <p>Name:</p>
@@ -76,7 +76,7 @@
                 <input class="button" type="submit" value="Save Changes">
             </form>
         </div>
-    </section>
+    </div>
 <?php
     }
 ?>

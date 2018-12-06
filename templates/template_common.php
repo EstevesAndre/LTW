@@ -17,7 +17,10 @@
         </head>
 
         <body>
-            <header>
+            <header class="topnav" id="myTopnav">
+                <a href="javascript:void(0);" class="icon" onclick="burguer_menu()">
+                    <i class="fa fa-bars"></i>
+                </a>
                 <a href="../pages/mainMenu.php" class="logo"> </a>            
                 <a href="../pages/mainMenu.php" class="button"><p>Home</p> </a>            
                 <a href="../pages/fresh.php" class="button"><p>Fresh</p> </a>            

@@ -128,14 +128,10 @@
                             <input class="button" type="submit" value="Comment">
                         </form>
                     </div>
-                    <div class="comment">
-                        <ol>
                             <?php   
                                 foreach($comments as $comment)
                                     draw_comment($comment, $pub['id']);
-                            ?>  
-                        </ol>                  
-                    </div>
+                            ?>                 
                 </div>
             </div>
         </article>
@@ -148,7 +144,7 @@
     function draw_comment($comment, $pub_id)
     {
 ?>        
-        <li>
+<div class="comment">
             <p class="com-user"><?=$comment['username']?></p>
             <p class="sep">&nbsp - &nbsp</p>
             <p class="com-date"><?=$comment['timestamp']?></p> 
@@ -160,8 +156,7 @@
                 @<?=$comment['tags']?>,
             <?php } ?>
             &nbsp<?=$comment['text']?></p>            
-        </li>
-        
+            </div>
 <?php
     }
 ?>
