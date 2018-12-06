@@ -482,6 +482,7 @@ header .login-register {
 .max-article .static-article .title {
 	font-size: 30px;
 	margin-bottom: 10px;
+	margin-top: 20px;
 }
 
 .max-article .static-article .text {
@@ -572,6 +573,7 @@ header .login-register {
 .max-article .dynamic-article .comment-section .comment .com-date {
 	font-size: 15px;
 	float: left;
+	margin-right: 10px;
 }
 
 /* HERE */
@@ -596,6 +598,13 @@ header .login-register {
 	font-size: 30px;
 	padding-top: 30px;
 	height: 70px;
+}
+
+.message-log {
+	font-family: Lato;
+	font-size: 30px;
+	text-align: center;
+	font-weight: 300;
 }
 
 @media screen and (max-width: 860px) {

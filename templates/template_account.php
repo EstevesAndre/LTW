@@ -7,7 +7,8 @@
         <div class="article-container">
             <div class="form-container">
                 <form method="post" action="../actions/login.php">
-                    <p class="title">Welcome Prayer</p><br><br>
+                <p class="title">Welcome Prayer</p><br><br>
+                <?php print_messages() ?>
                     <p>Username:</p>
                     <input type="text" name="username"><br>
                     <p>Password:</p>
@@ -33,7 +34,8 @@
         <div class="article-container">
             <div class="form-container">
                 <form method="post" action="../actions/signup.php">
-                    <p class="title">Create a new account<br>Join Us!</p>
+                    <p class="title">Create a new account</p>
+                    <?php print_messages() ?>
                     <p>Username:</p>
                     <input type="text" name="username"><br>
                     <p>E-mail:</p>

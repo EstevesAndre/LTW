@@ -8,7 +8,7 @@
     if(isLoginCorrect($username, $password))
     {
         $_SESSION['username'] = $username;
-        $_SESSION['messages'][] = array('type' => 'success', 'content' => 'Logged in successfully!');
+        //$_SESSION['messages'][] = array('type' => 'success', 'content' => 'Logged in successfully!');
         header('Location: ../pages/mainMenu.php');
     }
     else
