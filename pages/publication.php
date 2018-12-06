@@ -12,10 +12,14 @@
     $pub = getPublication($pub_id);
 
     $comments = getPublicationComments($pub_id);
-
-    $votes = [ 'up' => getPublicationVotes($pub_id,1)['cnt'], 'down' => getPublicationVotes($pub_id,-1)['cnt']];
+    $vote = getVote($_SESSION['username'], $pub_id);    
+    $votes_cnt = [ 'up' => getPublicationVotes($pub_id,1)['cnt'], 'down' => getPublicationVotes($pub_id,-1)['cnt']];
 
     draw_header($_SESSION['username'], ' | ' . $pub['title']);
-    draw_singlePublication($pub,$comments,$votes);
+    if($vote == NULL)
+        draw_singlePublication($pub,$comments, 0, $votes_cnt);
+    else 
+        draw_singlePublication($pub,$comments, $vote['upDown'], $votes_cnt);
+    
     draw_footer();
 ?>

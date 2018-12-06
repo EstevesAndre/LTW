@@ -5,8 +5,15 @@
 
     <?php
         foreach($publications as $pub)
-            draw_publication($pub);
-            draw_add_publication();
+        {
+            $vote = getVote($_SESSION['username'], $pub['id']);
+            if($vote == NULL)
+                draw_publication($pub, 0);
+            else 
+                draw_publication($pub,$vote['upDown']); 
+        }
+        
+        draw_add_publication();
     ?>
     
     </div>
@@ -14,7 +21,7 @@
     }
 ?>
 
-<?php function draw_publication($pub) 
+<?php function draw_publication($pub, $vote) 
     {
 ?>
     <article class="min-article">
@@ -33,18 +40,32 @@
         </a>
         <div class="footer">
             <div class="thumbs-up">
-                <i class="far fa-thumbs-up"></i>
+                <a href="../api/thumbsUpDown.php?publication_id=<?=$pub['id']?>&choice=up&option=fresh">
+                    <?php if($vote == 1) { ?>
+                        <i class="fas fa-thumbs-up"></i>
+                    <?php } else { ?>
+                        <i class="far fa-thumbs-up"></i>
+                    <?php } ?>
+                </a>
             </div>
-            <div class="thumbs-down">
-                <i class="far fa-thumbs-down"></i>
+            <div class="thumbs-down">                
+                <a href="../api/thumbsUpDown.php?publication_id=<?=$pub['id']?>&choice=down&option=fresh">
+                    <?php if($vote == -1) { ?>
+                        <i class="fas fa-thumbs-down"></i>
+                    <?php } else { ?>
+                        <i class="far fa-thumbs-down"></i>
+                    <?php } ?>
+                </a>
             </div>
             <div class="comments">
-                <a href="../actions/add_comment.php?publication_id=<?=$pub['id']?>">
+                <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
                     <i class="far fa-comments"></i> 
                 </a>
             </div>
             <div class="trash">
-                <i class="far fa-trash-alt"></i>                
+                <a href="../api/deletePublication.php?publication_id=<?=$pub['id']?>">
+                    <i class="far fa-trash-alt"></i>
+                </a> 
             </div>
         </div>
     </article>
@@ -65,7 +86,7 @@
 ?>
 
  <?php 
-    function draw_singlePublication($pub,$comments,$votes) 
+    function draw_singlePublication($pub, $comments, $vote, $votes_cnt) 
     {
 ?>
     <div class="article-container">
@@ -80,12 +101,24 @@
             <div class="dynamic-article">
                 <div class="vote-section">
                     <div class="votes">
-                        <i class="far fa-thumbs-up"></i>
-                        <span><?=$votes['up']?></span>
+                        <a href="../api/thumbsUpDown.php?publication_id=<?=$pub['id']?>&choice=up&option=single_article">
+                            <?php if($vote == 1) { ?>
+                                <i class="fas fa-thumbs-up"></i>
+                            <?php } else { ?>
+                                <i class="far fa-thumbs-up"></i>
+                            <?php } ?>
+                            <span><?=$votes_cnt['up']?></span>
+                        </a>
                     </div>
                     <div class="votes">
-                        <i class="far fa-thumbs-down"></i>
-                        <span><?=$votes['down']?></span>
+                        <a href="../api/thumbsUpDown.php?publication_id=<?=$pub['id']?>&choice=down&option=single_article">
+                            <?php if($vote == -1) { ?>
+                                <i class="fas fa-thumbs-down"></i>
+                            <?php } else { ?>
+                                <i class="far fa-thumbs-down"></i>
+                            <?php } ?>
+                            <span><?=$votes_cnt['down']?></span>
+                        </a>
                     </div>
                 </div>
                 <div class="comment-section">
@@ -96,10 +129,12 @@
                         </form>
                     </div>
                     <div class="comment">
-                    <?php   
-                        foreach($comments as $comment)
-                            draw_comment($comment);
-                    ?>                    
+                        <ol>
+                            <?php   
+                                foreach($comments as $comment)
+                                    draw_comment($comment, $pub['id']);
+                            ?>  
+                        </ol>                  
                     </div>
                 </div>
             </div>
@@ -110,17 +145,23 @@
 ?>
 
 <?php
-    function draw_comment($comment)
+    function draw_comment($comment, $pub_id)
     {
-?>    
-        <p class="com-user"><?=$comment['username']?></p>
-        <p class="sep">&nbsp - &nbsp</p>
-        <p class="com-date"><?=$comment['timestamp']?></p> 
-        <p class="com-text">&nbsp  &nbsp
-        <?php if ($comment['tags'] != null) { ?> 
-            @<?=$comment['tags']?>,
-        <?php } ?>
-        &nbsp<?=$comment['text']?></p>
+?>        
+        <li>
+            <p class="com-user"><?=$comment['username']?></p>
+            <p class="sep">&nbsp - &nbsp</p>
+            <p class="com-date"><?=$comment['timestamp']?></p> 
+            <a class="com-trash" href="../api/deleteComment.php?publication_id=<?=$pub_id?>&comment_id=<?=$comment['id']?>">
+                <i class="far fa-trash-alt"></i>
+            </a>
+            <p class="com-text">&nbsp  &nbsp
+            <?php if ($comment['tags'] != null) { ?> 
+                @<?=$comment['tags']?>,
+            <?php } ?>
+            &nbsp<?=$comment['text']?></p>            
+        </li>
+        
 <?php
     }
 ?>
