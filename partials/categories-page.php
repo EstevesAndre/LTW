@@ -1,28 +1,20 @@
 <?php 
-    function draw_categories() { 
+    function draw_categories($channels) { 
 ?>
     <div class="article-container">
 
-        <a href="" class="category">
-            <img src="../assets/jesus.jpg" />
-        </a>
+        <?php foreach($channels as $channel) 
+            {
+        ?>
+            <a href="../pages/category.php?category=<?=$channel['cType']?>" class="category">
+                <img src="../assets/Buddhism.png" />
+            </a>
+        <?php 
+            }
+        ?>
 
-        <a href="" class="category">
-            <img src="../assets/jesus.jpg" />
-        </a>
-
-        <a href="" class="category">
-            <img src="../assets/jesus.jpg" />
-        </a>
         
-        <a href="" class="category">
-            <img src="../assets/jesus.jpg" />
-        </a>
-
-        <a href="" class="category">
-            <img src="../assets/jesus.jpg" />
-        </a>
     </div>    
 <?php 
-    } 
+    }
 ?>

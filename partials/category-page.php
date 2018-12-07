@@ -1,14 +1,13 @@
 <?php 
-    function draw_category_page() { 
+    function draw_category_page($category, $pubOfCategory) { 
 ?>
     <div class="article-container">
         <div class="category-title">
-            <p>Pastafarianism</p>
+            <p><?=$category?></p>
         </div>
-        <?php include'../publications/min-article.php';?>
-        <?php include'../publications/min-article.php';?>
-        <?php include'../publications/min-article.php';?>
-        <?php include'../publications/min-article.php';?>
+        <?php
+            draw_publications($pubOfCategory);
+        ?>
     </div>
 <?php 
     }
