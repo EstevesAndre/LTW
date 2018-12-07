@@ -1,13 +1,15 @@
 <?php
     include_once('../includes/session.php');
-    include_once('../templates/template_common.php');    
+    include_once('../database/db_getQueries.php');
+    include_once('../templates/template_common.php');  
+    include_once('../templates/template_publications.php');    
     include_once('../partials/category-page.php');
 
-    // verifies if user is logged in
-    if (!isset($_SESSION['username']))
-        die(header('Location: login.php'));
-        
-    draw_header($_SESSION['username'], '');
-    draw_category_page();
+    $category = $_GET['category'];
+
+    $pubOfCategory = getCategoryPublications('%' . $category . '%');
+    
+    draw_header($_SESSION['username'], ' | ' . $category);
+    draw_category_page($category, $pubOfCategory);
     draw_footer();
 ?>
