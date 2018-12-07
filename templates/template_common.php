@@ -21,8 +21,8 @@
                 <a href="javascript:void(0);" class="icon" onclick="burguer_menu()">
                     <i class="fa fa-bars"></i>
                 </a>
-                <a href="../pages/mainMenu.php" class="logo"> </a>            
-                <a href="../pages/mainMenu.php" class="button"><p>Home</p> </a>            
+                <a href="../pages/initialPage.php" class="logo"> </a>            
+                <a href="../pages/initialPage.php" class="button"><p>Home</p> </a>            
                 <a href="../pages/fresh.php" class="button"><p>Fresh</p> </a>            
                 <a href="../pages/categories.php" class="button"><p>Categories</p> </a>
                 <?php
@@ -37,7 +37,8 @@
                     {
                 ?>
                         <a href="../actions/logout.php" class="button login-register"><p>Logout</p> </a>         
-                        <a href="../pages/profile.php" class="button login-register"><p>Hi, <?=$username?></p> </a>  
+                        <a class="button login-register"><p>20 points</p></a>
+                        <a href="../pages/profile.php" class="button login-register"><p>Hi, <?=$username?></p> </a> 
                 <?php
                     }
                 ?>
