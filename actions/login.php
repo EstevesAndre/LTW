@@ -9,7 +9,7 @@
     {
         $_SESSION['username'] = $username;
         //$_SESSION['messages'][] = array('type' => 'success', 'content' => 'Logged in successfully!');
-        header('Location: ../pages/mainMenu.php');
+        header('Location: ../pages/initialPage.php');
     }
     else
     {

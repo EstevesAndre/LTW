@@ -15,7 +15,7 @@
     $title = preg_replace ("/[^a-zA-Z\s]/", '', $title);
     $fulltext = preg_replace ("/[^a-zA-Z\s]/", '', $fulltext);
 
-    insertPublication($username,'2018-12-04 23:59:59',$category,$title,$fulltext);
+    insertPublication($username,$category,$title,$fulltext);
 
     header('Location: ../pages/fresh.php');
 ?>

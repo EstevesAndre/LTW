@@ -8,10 +8,14 @@
 
     $username = $_SESSION['username'];
     $publication_id = $_GET['publication_id'];
+    $comment_id = $_GET['comment_id'];
     $fulltext = $_POST['fulltext'];
     $fulltext = preg_replace ("/[^a-zA-Z\s]/", '', $fulltext);
 
-    insertComment($username, $publication_id, NULL, '2018-12-04 23:59:59', '', $fulltext);
+    if($comment_id != NULL)
+        insertComment($username, NULL, $comment_id, '', $fulltext);
+    else
+        insertComment($username, $publication_id, NULL, '', $fulltext);
    
     header("Location: ../pages/publication.php?publication_id=$publication_id");
 ?>

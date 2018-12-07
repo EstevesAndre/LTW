@@ -16,7 +16,7 @@
         insertUser($username, $email, $password);
         $_SESSION['username'] = $username;
         $_SESSION['messages'][] = array('type' => 'success', 'content' => 'Signed up and logged in!');
-        header('Location ../pages/mainMenu.php');
+        header('Location ../pages/initialPage.php');
     }
     catch(PDOException $e)
     {
