@@ -8,10 +8,14 @@
 
     $username = $_SESSION['username'];
     $publication_id = $_GET['publication_id'];
+    $comment_id = $_GET['comment_id'];
     $choice = $_GET['choice'];
     $option = $_GET['option'];
 
-    $vote = getVote($username, $publication_id);
+    if($comment_id != NULL)
+        $vote = getVote($username, NULL, $comment_id);
+    else
+        $vote = getVote($username, $publication_id, NULL);
 
     if($choice == 'up')
     {
@@ -23,7 +27,12 @@
                 toggleVote($vote['id']);
         }
         else
-            insertVote("P", $username, $publication_id, NULL, 1);
+        {
+            if($comment_id != NULL)
+                insertVote("C", $username, NULL, $comment_id, 1);
+            else
+                insertVote("P", $username, $publication_id, NULL, 1);
+        }
     }
     else if($choice == 'down')
     {
@@ -35,7 +44,12 @@
                 toggleVote($vote['id']);
         }
         else
-            insertVote("P", $username, $publication_id, NULL, -1);
+        {
+            if($comment_id != NULL)
+                insertVote("C", $username, NULL, $comment_id, -1);
+            else
+                insertVote("P", $username, $publication_id, NULL, -1);
+        }
     }
 
     if($option == 'fresh')        
