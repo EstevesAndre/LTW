@@ -30,7 +30,8 @@ CREATE TABLE User (
     name VARCHAR,
     surname VARCHAR,
     genre VARCHAR,
-    age INTEGER
+    age INTEGER,
+    points INTEGER
 );
 
 -- Table: Publication
@@ -89,19 +90,19 @@ INSERT INTO User VALUES (
     'Antero13',
     'antero@gmail.com',
     'cdb56f6c494214b5c6cfa536daf2e42929e430e9',
-    '','','',0);
+    '','','',0,0);
 
 INSERT INTO User VALUES (
     'Pedro459669',
     'pedro@gmail.com',
     '79e9dc154939fb9d31d59c4b1082d7b29edd6415',
-    '','','',0);
+    '','','',0,0);
 
 INSERT INTO User VALUES (
     'Andre548392',
     'andre@gmail.com',
     '8ef49ffc8627c1efffda5812de595253b788185e',
-    '','','',0);
+    '','','',0,0);
 
 INSERT INTO UserLikesChannel VALUES(
     2,

@@ -56,6 +56,15 @@
     }
 
     //DONE
+    function getChannels()
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Channel');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    //DONE
     function getPublicationComments($pudlication_id)
     {
         $db = Database::instance()->db();
@@ -80,6 +89,15 @@
         $stmt->execute(array($idChannel, $username));
     }
 
+    function getCategoryPublications($category)
+    {
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT * FROM Publication WHERE tags LIKE ?');
+        $stmt->execute(array($category));
+        return $stmt->fetchAll();
+    }
+
     //DONE
     function checkIsPublicationOwner($username, $idPublication)
     {        
@@ -99,18 +117,17 @@
     }
     
     //DONE
-    function insertPublication($username, $published, $tags, $title, $fulltext)
+    function insertPublication($username, $tags, $title, $fulltext)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO Publication VALUES(NULL, ?, ?, ?, ?, ?)');
-        $stmt->execute(array($username, $published, $tags, $title, $fulltext));
+        $stmt = $db->prepare("INSERT INTO Publication VALUES(NULL, ?, DATETIME('now'), ?, ?, ?)");
+        $stmt->execute(array($username, $tags, $title, $fulltext));
     }
 
     //DONE
     function deletePublication($idPublication)
     {
-        deleteComments($idPublication);
-        deleteVotes($idPublication);
+        deleteComments($idPublication, NULL);
         $db = Database::instance()->db();
         $stmt = $db->prepare('DELETE FROM Publication WHERE id= ?');
         $stmt->execute(array($idPublication));
@@ -126,24 +143,35 @@
     }
 
     //DONE
-    function insertComment($username, $publication_id, $comment_id, $published, $tags, $text)
+    function insertComment($username, $publication_id, $comment_id, $tags, $text)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO Comment VALUES(NULL, ?, ?, ?, ?, ?, ?)');
-        $stmt->execute(array($username, $publication_id, $comment_id, $published, $tags, $text));        
+        $stmt = $db->prepare("INSERT INTO Comment VALUES(NULL, ?, ?, ?, DATETIME('now'), ?, ?)");
+        $stmt->execute(array($username, $publication_id, $comment_id, $tags, $text));        
     }
 
     //DONE
-    function deleteComments($publication_id)
+    function deleteComments($publication_id, $comment_id)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('DELETE FROM Comment WHERE publication_id= ?');
-        $stmt->execute(array($publication_id));
+        
+        if($publication_id != NULL)
+        {
+            $stmt = $db->prepare('DELETE FROM Comment WHERE publication_id= ?');
+            $stmt->execute(array($publication_id));
+        }
+        else if($comment_id != NULL)
+        {
+            $stmt = $db->prepare('DELETE FROM Comment WHERE comment_id= ?');
+            $stmt->execute(array($comment_id));
+        }
     }
 
     //DONE
     function deleteComment($idComment)
     {
+        deleteVotes(NULL, $idComment);
+        deleteComments(NULL, $idComment);
         $db = Database::instance()->db();
         $stmt = $db->prepare('DELETE FROM Comment WHERE id= ?');
         $stmt->execute(array($idComment));
@@ -162,30 +190,46 @@
     function getCommentsOfComment($idComment)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Comment WHERE id= ? AND IFNULL(publication_id, "") = ""');
+        $stmt = $db->prepare('SELECT * FROM Comment WHERE comment_id= ?');
         $stmt->execute(array($idComment));
         return $stmt->fetchAll(); 
     }    
 
     //DONE
-    function getPublicationVotes($publication_id, $upDown)
+    function getPublicationVotes($publication_id, $comment_id, $upDown)
     {
         $db = Database::instance()->db();
 
-        $upVotes = $db->prepare('SELECT count(*) as cnt FROM Votes WHERE publication_id= ? AND upDown= ?');
-        $upVotes->execute(array($publication_id,$upDown));
-        return $upVotes->fetch();
+        if($publication_id != NULL)
+        {
+            $votes = $db->prepare('SELECT count(*) as cnt FROM Votes WHERE publication_id= ? AND upDown= ?');
+            $votes->execute(array($publication_id,$upDown));
+        }
+        else if($comment_id != NULL)
+        {
+            $votes = $db->prepare('SELECT count(*) as cnt FROM Votes WHERE comment_id= ? AND upDown= ?');
+            $votes->execute(array($comment_id,$upDown));
+        }
+        return $votes->fetch();
     }
 
     //DONE
-    function getVote($username, $publication_id)
+    function getVote($username, $publication_id, $comment_id)
     {        
         $db = Database::instance()->db();
 
-        $upVotes = $db->prepare('SELECT * FROM Votes WHERE username= ? AND publication_id= ?');
-        $upVotes->execute(array($username,$publication_id));
+        if($publication_id != NULL)
+        {
+            $votes = $db->prepare('SELECT * FROM Votes WHERE username= ? AND publication_id= ?');
+            $votes->execute(array($username,$publication_id));
+        }
+        else if($comment_id != NULL)
+        {
+            $votes = $db->prepare('SELECT * FROM Votes WHERE username= ? AND comment_id= ?');
+            $votes->execute(array($username,$comment_id));
+        }
 
-        return $upVotes->fetch();
+        return $votes->fetch();
     }
 
     //DONE
@@ -207,12 +251,20 @@
     }
     
     //DONE
-    function deleteVotes($publication_id)
+    function deleteVotes($publication_id, $comment_id)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('DELETE FROM Votes WHERE publication_id= ?');
 
-        $stmt->execute(array($publication_id));
+        if($publication_id != NULL)
+        {
+            $stmt = $db->prepare('DELETE FROM Votes WHERE publication_id= ?');
+            $stmt->execute(array($publication_id));
+        }
+        else if($comment_id != NULL)
+        {
+            $stmt = $db->prepare('DELETE FROM Votes WHERE comment_id= ?');
+            $stmt->execute(array($comment_id));   
+        }
     }
 
     //DONE
