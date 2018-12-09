@@ -14,6 +14,8 @@
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
             <link rel="icon" href="../assets/logo.png" type="image/x-icon" />
             <script src="../scripts/main.js"></script>
+            <script src="../scripts/script.js" defer></script>
+            
         </head>
 
         <body>
