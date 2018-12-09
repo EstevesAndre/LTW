@@ -1,8 +1,3 @@
-function myFunction(x)
-{
-  x.classList.toggle("fa-thumbs-down");
-}
-
 function burguer_menu() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
