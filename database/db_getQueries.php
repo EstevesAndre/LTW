@@ -148,6 +148,8 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare("INSERT INTO Comment VALUES(NULL, ?, ?, ?, DATETIME('now'), ?, ?)");
         $stmt->execute(array($username, $publication_id, $comment_id, $tags, $text));        
+
+        return $db->lastInsertId();
     }
 
     //DONE
