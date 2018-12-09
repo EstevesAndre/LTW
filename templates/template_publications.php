@@ -129,14 +129,16 @@
                             </a> 
                         </div>
                     <?php } ?>
-                </div>
+                </div>                
                 <div class="comment-section">
-                    <div class="new-comment">
-                        <form method="post" action="../actions/add_comment.php?publication_id=<?=$pub['id']?>">
-                            <textarea name="fulltext" rows="4" cols="100"></textarea><br>
-                            <input class="button" type="submit" value="Comment">
-                        </form>
-                    </div>
+                    <section id="comments-section">
+                        <div class="new-comment">
+                            <form>
+                                <input type="hidden" name="publication_id" value="<?=$pub['id']?>">
+                                <textarea name="fulltext" rows="4" cols="100"></textarea><br>
+                                <input class="button" type="submit" value="Comment">
+                            </form>
+                        </div>
                         <ol>
                             <?php
                                 foreach($comments as $comment)
@@ -146,8 +148,9 @@
                                     draw_comment($comment, $pub['id'], $commentVote['upDown'], $commentVoteCnt);
                                 }
                             ?> 
-                        </ol>                
-                </div>
+                        </ol>      
+                    </section>                
+                </div> 
             </div>
         </article>
     </div>
@@ -197,10 +200,14 @@
                     </div>
                 </div>
                 <!-- CSS DOWN HERE -->
-                <form method="post" action="../actions/add_comment.php?publication_id=<?=$pub_id?>&comment_id=<?=$comment['id']?>">
-                    <textarea name="fulltext" rows="2" cols="40"></textarea>
-                    <input class="button" type="submit" value="Comment">
-                </form>
+                <section id="comments-section">
+                    <form>                                
+                        <input type="hidden" name="publication_id" value="<?=$pub_id?>">
+                        <input type="hidden" name="comment_id" value="<?=$comment['id']?>">
+                        <textarea name="fulltext" rows="2" cols="40"></textarea>
+                        <input class="button" type="submit" value="Comment">
+                    </form>
+                </section>
         </div>
         <ol>
             <?php 
@@ -219,21 +226,26 @@
 ?>
 
 <?php 
-    function draw_new_article() 
+    function draw_new_article($channels) 
     { 
 ?>
     <section id="login">      
         <div class="article-container">
             <div class="form-container">
-                <form method="post" action="../actions/add_publication.php">
+                <form method="post" action="../api/add_publication.php">
                     <p class="title">New Article</p><br><br>
                     <p>Title:</p>
                         <input type="text" name="title"><br>
                     <p>Category:</p>
-                        <input type="text" name="category" placeholder="Ex: 'Buddhism,Christianity'"><br>
+                    <input name="category" list="categories" value="General">
+                    <datalist id="categories">
+                        <?php foreach($channels as $channel) { ?>
+                            <option value="<?=$channel['cType']?>">
+                        <?php } ?>
+                    </datalist>
                     <p>Write Something:</p>
-                        <textarea name="fulltext"></textarea><br>
-                        <input class="button" type="submit" value="Post">
+                    <textarea name="fulltext"></textarea><br>
+                    <input class="button" type="submit" value="Post">
                 </form>
             </div>
         </div>
