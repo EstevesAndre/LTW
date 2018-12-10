@@ -13,14 +13,11 @@
             <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
             <link rel="icon" href="../assets/logo.png" type="image/x-icon" />
-            <script src="../scripts/main.js"></script>
-            <script src="../scripts/script.js" defer></script>
-            
         </head>
 
         <body>
             <header class="topnav" id="myTopnav">
-                <a href="javascript:void(0);" class="icon" onclick="burguer_menu()">
+                <a href="javascript:void(0);" class="icon" onclick="burger_menu()">
                     <i class="fa fa-bars"></i>
                 </a>
                 <a href="../pages/initialPage.php" class="logo"> </a>            
@@ -80,6 +77,8 @@
                     <span>All rights reserved to ANTERO TOTAL™</span>
                 </div>
             </footer>
+            <script src="../scripts/main.js"></script>
+            <script src="../scripts/script.js" defer></script>
         </body>
     </html>
 <?php 

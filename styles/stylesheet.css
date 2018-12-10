@@ -654,14 +654,19 @@ header .login-register {
 }
 
 .article-container .order .order-button {
-	width: 32.5%;
+	width: 33.33%;
+	margin-left: 0;
+	margin-right: 0;
+	float: left;
 	min-height: 50px;
+	border: 0px;
 	color: white;
 	font-family: Lato;
 	text-align: center;
-	padding-top: 25px;
 	font-size: 20px;
-	display: inline-block;
+	background: transparent;
+	outline: none;
+	cursor: pointer;
 }
 
 .article-container .order .order-button:hover {
