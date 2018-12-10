@@ -555,7 +555,8 @@ header .login-register {
 
 .max-article .dynamic-article .comment-section .new-comment .button:hover {
 	background-color: #cf1b1bd2;
-	transition: 0.3s;
+	transition: 0.1s;
+	cursor: pointer;
 }
 
 .max-article .dynamic-article .comment-section .comment {
@@ -577,12 +578,35 @@ header .login-register {
 	margin-right: 10px;
 }
 
-/* HERE */
 .max-article .dynamic-article .comment-section .comment .sep {
 	font-size: 15px;
 	float: left;
 }
-/* HERE ^ */
+
+.max-article .dynamic-article .comment-section .comment-response textarea{
+	margin-top: 10px;
+	font-size: 15px;
+	float: left;
+	border: 0px;
+	outline: none;
+	width: 50%;
+	margin-right: 50%;
+}
+
+.max-article .dynamic-article .comment-section .comment-response .button {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	width: 15%;
+	height: 30px;
+	background-color: #5f5f5f;
+	color: #f1f1f1;
+}
+
+.max-article .dynamic-article .comment-section .comment-response .button:hover {
+	background-color: #cf1b1bd2;
+	transition: 0.1s;
+	cursor: pointer;
+}
 
 .max-article .dynamic-article .comment-section .comment .com-text {
 	width: 100%;
