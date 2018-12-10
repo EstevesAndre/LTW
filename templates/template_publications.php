@@ -160,7 +160,7 @@
     {
 ?>        
     <div class="comment">
-            <p class="com-user"><?=$comment['username']?></p>
+            <a href="" class="com-user"><?=$comment['username']?></a>
             <p class="sep">&nbsp - &nbsp</p>
             <p class="com-date"><?=$comment['timestamp']?></p>
             <?php if(checkIsCommentOwner($_SESSION['username'], $comment['id'])) { ?>

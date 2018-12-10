@@ -509,18 +509,19 @@ header .login-register {
 	font-weight: 300;
 }
 
-.max-article .dynamic-article .vote-section {
+.vote-section {
+	margin-top: 10px;
 	width: 100%;
 	float: left;
 }
 
-.max-article .dynamic-article .vote-section .votes {
+.vote-section .votes {
 	float: left;
 	height: 20px;
 	margin-right: 15px;
 }
 
-.max-article .dynamic-article .vote-section .votes img {
+.vote-section .votes img {
 	width: 18px;
 	height: 18px;
 }
@@ -568,6 +569,8 @@ header .login-register {
 }
 
 .max-article .dynamic-article .comment-section .comment .com-user {
+	font-family: Lato;
+	text-decoration: underline;
 	font-size: 15px;
 	float: left;
 }
