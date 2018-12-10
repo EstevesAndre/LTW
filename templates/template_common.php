@@ -40,7 +40,7 @@
                 ?>
                         <a href="../actions/logout.php" class="button login-register"><p>Logout</p> </a>         
                         <a class="button login-register"><p>20 points</p></a>
-                        <a href="../pages/profile.php" class="button login-register"><p>Hi, <?=$username?></p> </a> 
+                        <a href="../pages/user-posts.php" class="button login-register"><p>Hi, <?=$username?></p></a> 
                 <?php
                     }
                 ?>

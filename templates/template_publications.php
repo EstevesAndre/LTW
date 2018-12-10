@@ -1,7 +1,6 @@
 <?php function draw_publications($publications) 
     {
 ?>
-    <div class="article-container">
 
     <?php
         foreach($publications as $pub)
@@ -15,8 +14,6 @@
         
         draw_add_publication();
     ?>
-    
-    </div>
 <?php
     }
 ?>

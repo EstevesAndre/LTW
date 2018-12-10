@@ -235,6 +235,7 @@ footer .copywrite span {
 	width: 100%;
 	background-image: url('../assets/sky.jpg');
 	background-size: cover;
+	padding-bottom: 20px;
 }
 
 .min-article {
@@ -600,6 +601,77 @@ header .login-register {
 	height: 70px;
 }
 
+.article-container .user {
+	width: 80%;
+	float: left;
+	background-color: #3f3f3faa;
+	color: white;
+	font-family: Lato;
+	text-align: left;
+	font-size: 30px;
+	padding-top: 30px;
+	height: 70px;
+}
+
+.article-container .user p {
+	margin-left: 5%;
+}
+
+.article-container .edit-profile {
+	height: 100px;
+	background-color: #3f3f3faa;
+	width: 20%;
+	float: left;
+}
+
+.article-container .edit-profile .button {
+    float: right;
+	padding-left: 2.5%;
+	padding-right: 2.5%;
+	margin-right: 10%;
+	margin-top: 15px;
+}
+
+.article-container .edit-profile .button p {
+	font-family: Lato;
+	font-size: 20px;
+	color: #f1f1f1f1;
+	margin-top: 23px;
+	margin-bottom: 23px;
+}
+
+.article-container .edit-profile a:hover {
+	background-color: #cf1b1ba2;
+	transition: 0.3s;
+}
+
+.article-container .order {
+	width: 30%;
+	min-height: 50px;
+	background-color: #3f3f3faa;
+	margin-top: 20px;
+	margin-left: 1.5%;
+}
+
+.article-container .order .order-button {
+	width: 32.5%;
+	min-height: 50px;
+	color: white;
+	font-family: Lato;
+	text-align: center;
+	padding-top: 25px;
+	font-size: 20px;
+	display: inline-block;
+}
+
+.article-container .order .order-button:hover {
+	background-color: #cf1b1ba2;
+}
+
+.article-container .order .order-button.active {
+	background-color: #cf1b1ba2;
+}
+
 .message-log {
 	font-family: Lato;
 	font-size: 30px;
@@ -701,6 +773,43 @@ header .login-register {
 		height: 70px;
 		padding-top: 15px;
 		text-align: center;
+	}
+
+	.article-container .user {
+		width: 50%;
+		min-height: 50px;
+	}
+
+	.article-container .user p{
+		width: 100%;
+		text-align: left;
+		margin-left: 10%;
+	}
+	
+	.article-container .edit-profile {
+		height: 100px;
+		width: 50%;
+		float: left;
+	}
+	
+	.article-container .edit-profile .button {
+		margin-top: 0;
+		float: right;
+		width: 60%;
+		text-align: center;
+		margin-left: 10%;
+		margin-top: 15px; 
+		margin-right: 10%;
+	}
+
+	.article-container .edit-profile .button p {
+		padding: 0 0 0 0;
+	}
+
+	.article-container .order {
+		width: 80%;
+		margin-left: 10%;
+		margin-right: 10%;
 	}
 
 }
