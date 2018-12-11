@@ -3,13 +3,10 @@
     include_once('../database/db_getQueries.php');
     include_once('../templates/template_common.php');
     include_once('../partials/categories-page.php');
-<<<<<<< HEAD
 
     // verifies if user is logged in
     // if (!isset($_SESSION['username']))
     //     die(header('Location: login.php'));
-=======
->>>>>>> eacadfb1a87db92e2510897a9597b1b829975f54
     
     $channels = getChannels();
 

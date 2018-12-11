@@ -26,7 +26,6 @@
 <?php function draw_publication($pub, $vote) 
     {
 ?>
-<<<<<<< HEAD
         <article class="min-article">
                 <div class="article-head">
                     <div class="categories">
@@ -58,54 +57,6 @@
                             </p>
                         </div>
                     </a>
-=======
-    <article class="min-article">
-        <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
-        <div class="article-head">
-            <div class="categories">
-                <span>
-        </a>
-                    <?php
-                        $tags = explode(",",$pub['tags']);
-                        foreach($tags as $tag) 
-                        { 
-                    ?>
-                        <a href="../pages/category.php?category=<?=$tag?>" class="com-user"><?=$tag?>&nbsp</a>
-                    <?php } ?>
-                </span>
-            </div>
-            <div class="op"><span>Posted by <a href="../pages/user-posts.php?username=<?=$pub['username']?>" class="com-user"><?=$pub['username']?></a></span></div>
-        <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
-                <div class="time"><span><?=$pub['timestamp']?></span></div>
-                <div class="title"><span><?=$pub['title']?></span></div>
-            </div>
-            <div class="text-container">
-                <p class="text">
-                    <?=$pub['fulltext']?>
-                </p>
-            </div>
-        </a>
-        <div class="footer">
-            <?php
-                drawFreshVotes($pub['id'], $vote);
-            ?>
-            <div class="comments">
-                <?php if(isset($_SESSION['username'])) { ?>
-                    <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
-                        <i class="far fa-comments"></i> 
-                    </a>
-                <?php } else { ?>                
-                    <a href="../pages/login.php">
-                        <i class="far fa-comments"></i> 
-                    </a>
-                <?php } ?>
-            </div>
-            <?php if(isset($_SESSION['username']) && checkIsPublicationOwner($_SESSION['username'], $pub['id'])) { ?>
-                <div class="trash">
-                    <a href="../api/deletePublication.php?publication_id=<?=$pub['id']?>">
-                        <i class="far fa-trash-alt"></i>
-                    </a> 
->>>>>>> eacadfb1a87db92e2510897a9597b1b829975f54
                 </div>
             <div class="footer">
                 <?php
