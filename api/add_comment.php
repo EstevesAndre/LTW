@@ -1,19 +1,18 @@
 <?php
     include_once('../includes/session.php');
     include_once('../database/db_getQueries.php');
+    include_once('../templates/template_publications.php');
 
     $username = $_SESSION['username'];
     $publication_id = $_POST['publication_id'];
     $comment_id = $_POST['comment_id'];
     $fulltext = $_POST['fulltext'];
     
-    $id = 0;
-
     if($comment_id != NULL)
-        $id = insertComment($username, NULL, $comment_id, '', $fulltext);
+        insertComment($username, NULL, $comment_id, '', $fulltext);
     else
-        $id = insertComment($username, $publication_id, NULL, '', $fulltext);
-       
-    $comment = getComment($id);
-    echo json_encode($comment);
+        insertComment($username, $publication_id, NULL, '', $fulltext);
+    
+    $comments = getPublicationComments($publication_id);
+    drawCommentsOfPublication($publication_id, $comments);
 ?>
