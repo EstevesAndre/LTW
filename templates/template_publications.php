@@ -23,9 +23,21 @@
 ?>
     <article class="min-article">
         <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
-            <div class="article-head">
-                <div class="categories"><span><?=$pub['tags']?></span></div>
-                <div class="op"><span>Posted by <?=$pub['username']?></span></div>
+        <div class="article-head">
+            <div class="categories">
+                <span>
+        </a>
+                    <?php
+                        $tags = explode(",",$pub['tags']);
+                        foreach($tags as $tag) 
+                        { 
+                    ?>
+                        <a href="../pages/category.php?category=<?=$tag?>" class="com-user"><?=$tag?>&nbsp</a>
+                    <?php } ?>
+                </span>
+            </div>
+            <div class="op"><span>Posted by <a href="../pages/user-posts.php?username=<?=$pub['username']?>" class="com-user"><?=$pub['username']?></a></span></div>
+        <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
                 <div class="time"><span><?=$pub['timestamp']?></span></div>
                 <div class="title"><span><?=$pub['title']?></span></div>
             </div>
@@ -76,8 +88,16 @@
     <div class="article-container">
         <article class="max-article">
             <div class="static-article">
-                <p class="article-category"><?=$pub['tags']?></p>
-                <p class="op"><span>Posted by <?=$pub['username']?></span></p>
+                <p class="article-category">
+                    <?php
+                        $tags = explode(",",$pub['tags']);
+                        foreach($tags as $tag) 
+                        { 
+                    ?>
+                        <a href="../pages/category.php?category=<?=$tag?>" class="com-user"><?=$tag?>&nbsp</a>
+                    <?php } ?>
+                </p>
+                <p class="op"><span>Posted by <a href="../pages/user-posts.php?username=<?=$pub['username']?>" class="com-user"><?=$pub['username']?></a></span></p>
                 <p class="time"><span><?=$pub['timestamp']?></span></p>
                 <p class="title"><span><?=$pub['title']?></span></p>
                 <p class="text"><?=$pub['fulltext']?></p>
