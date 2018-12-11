@@ -6,12 +6,16 @@
     include_once('../partials/fresh-page.php');
 
     // verifies if user is logged in
-    // if (!isset($_SESSION['username']))
     //     die(header('Location: login.php'));
         
     $publications = getNewestPublications();
 
-    draw_header($_SESSION['username'], ' | Fresh');
+    
+    if (!isset($_SESSION['username']))
+        draw_header(NULL, ' | Fresh');
+    else
+        draw_header($_SESSION['username'], ' | Fresh');
+        
     draw_fresh_page($publications);
     draw_footer();
 ?>

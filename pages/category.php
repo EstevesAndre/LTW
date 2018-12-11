@@ -9,7 +9,10 @@
 
     $pubOfCategory = getCategoryPublications('%' . $category . '%');
     
-    draw_header($_SESSION['username'], ' | ' . $category);
+    if (!isset($_SESSION['username']))
+        draw_header(NULL, ' | ' . $category);
+    else
+        draw_header($_SESSION['username'], ' | ' . $category);
     draw_category_page($category, $pubOfCategory);
     draw_footer();
 ?>
