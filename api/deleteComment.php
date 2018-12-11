@@ -10,7 +10,7 @@
     $publication_id = $_GET['publication_id'];
     $comment_id = $_GET['comment_id'];
 
-    if($username == 'admin' || checkIsCommentOwner($username,$comment_id))
+    if(checkIsCommentOwner($username,$comment_id))
     {
         deleteComment($comment_id);
     }
