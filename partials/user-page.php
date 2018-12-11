@@ -1,12 +1,14 @@
 <?php 
-    function draw_user_page($user, $pubOfUser) { 
+    function draw_user_page($username, $pubOfUser) { 
 ?>
     <div class="article-container">
         <div class="user">
-            <p><?=$user?></p>
+            <p><?=$username?></p>
         </div>
-        <div class="edit-profile">
-            <a href="../pages/profile.php" class="button login-register"><p>Edit Profile</p></a>
+        <div class="edit-profile">    
+            <?php if ($username == $_SESSION['username'])  { ?>
+                <a href="../pages/profile.php" class="button login-register"><p>Edit Profile</p></a>
+            <?php } ?>        
         </div>
         <?php
             draw_publications($pubOfUser);
