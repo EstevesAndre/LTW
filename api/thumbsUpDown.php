@@ -1,6 +1,7 @@
 <?php
     include_once('../includes/session.php');
     include_once('../database/db_getQueries.php');
+    include_once('../templates/template_publications.php');
 
     // verifies if user is logged in
     if (!isset($_SESSION['username']))
@@ -16,34 +17,22 @@
         $vote = getVote($username, NULL, $comment_id);
     else
         $vote = getVote($username, $publication_id, NULL);
-        
+    
     if($choice == 'up')
     {
         if($vote != NULL)
         {
             if ($vote['upDown'] == 1)
-            {
                 deleteVote($vote['id']);
-                echo json_encode(null);
-            }
             else if($vote['upDown'] == -1)
-            {
                 toggleVote($vote['id']);
-
-                $voteChanged = getVoteWithId($vote['id']);
-                echo json_encode($voteChanged);
-            }
         }
         else
         {
-            $id = 1;
             if($comment_id != NULL)
-                $id = insertVote("C", $username, NULL, $comment_id, 1);
+                insertVote("C", $username, NULL, $comment_id, 1);
             else
-                $id = insertVote("P", $username, $publication_id, NULL, 1);
-            
-            $voteChanged = getVoteWithId($id);
-            echo json_encode($voteChanged);
+                insertVote("P", $username, $publication_id, NULL, 1);
         }
     }
     else if($choice == 'down')
@@ -51,28 +40,39 @@
         if($vote != NULL)
         {
             if ($vote['upDown'] == -1)
-            {
                 deleteVote($vote['id']);
-                echo json_encode(null);
-            }
             else if($vote['upDown'] == 1)
-            {
-                toggleVote($vote['id']);   
-
-                $voteChanged = getVoteWithId($vote['id']);
-                echo json_encode($voteChanged);
-            }
+                toggleVote($vote['id']);
         }
         else
         {
-            $id = 1;
             if($comment_id != NULL)
-                $id = insertVote("C", $username, NULL, $comment_id, -1);
+                insertVote("C", $username, NULL, $comment_id, -1);
             else
-                $id = insertVote("P", $username, $publication_id, NULL, -1);
-            
-            $voteChanged = getVoteWithId($id);
-            echo json_encode($voteChanged);
+                insertVote("P", $username, $publication_id, NULL, -1);
+        }
+    }
+        
+    if($option == 'fresh')        
+    {
+        $newVote = getVote($username, $publication_id, NULL);
+        drawFreshVotes($publication_id, $newVote['upDown']);
+    }
+    else if($option == 'single_article')
+    {        
+        if($comment_id != NULL)
+        {   
+            $newVote = getVote($username, NULL, $comment_id);
+            $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$comment_id,1)['cnt'], 'down' => getPublicationVotes(NULL, $comment_id,-1)['cnt']]; 
+                                    
+            drawInPubVotes($publication_id,$comment_id, $newVote['upDown'], $commentVoteCnt);
+        }
+        else
+        {
+            $newVote = getVote($username, $publication_id, NULL);
+            $votes_cnt = [ 'up' => getPublicationVotes($publication_id, NULL, 1)['cnt'], 'down' => getPublicationVotes($publication_id, NULL,-1)['cnt']];
+
+            drawInPubVotes($publication_id, NULL, $newVote['upDown'], $votes_cnt);
         }
     }
 ?>
