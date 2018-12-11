@@ -6,7 +6,7 @@
         <?php foreach($channels as $channel) 
             {
         ?>
-            <a href="../pages/category.php?category=<?=$channel['cType']?>" class="category">
+            <a href="../pages/category.php?category=<?=$channel['cType']?>" class="category-card">
                 <img src="../assets/Buddhism.png" />
                 <p class="title"><?=$channel['cType']?></p>
             </a>

@@ -5,8 +5,8 @@
     include_once('../partials/categories-page.php');
 
     // verifies if user is logged in
-    if (!isset($_SESSION['username']))
-        die(header('Location: login.php'));
+    // if (!isset($_SESSION['username']))
+    //     die(header('Location: login.php'));
     
     $channels = getChannels();
 

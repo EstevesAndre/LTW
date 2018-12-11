@@ -21,50 +21,56 @@
 <?php function draw_publication($pub, $vote) 
     {
 ?>
-    <article class="min-article">
-        <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
-        <div class="article-head">
-            <div class="categories">
-                <span>
-        </a>
-                    <?php
-                        $tags = explode(",",$pub['tags']);
-                        foreach($tags as $tag) 
-                        { 
-                    ?>
-                        <a href="../pages/category.php?category=<?=$tag?>" class="com-user"><?=$tag?>&nbsp</a>
-                    <?php } ?>
-                </span>
-            </div>
-            <div class="op"><span>Posted by <a href="../pages/user-posts.php?username=<?=$pub['username']?>" class="com-user"><?=$pub['username']?></a></span></div>
-        <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
-                <div class="time"><span><?=$pub['timestamp']?></span></div>
-                <div class="title"><span><?=$pub['title']?></span></div>
-            </div>
-            <div class="text-container">
-                <p class="text">
-                    <?=$pub['fulltext']?>
-                </p>
-            </div>
-        </a>
-        <div class="footer">
-            <?php
-                drawFreshVotes($pub['id'], $vote);
-            ?>
-            <div class="comments">
-                <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
-                    <i class="far fa-comments"></i> 
-                </a>
-            </div>
-            <?php if(checkIsPublicationOwner($_SESSION['username'], $pub['id'])) { ?>
-                <div class="trash">
-                    <a href="../api/deletePublication.php?publication_id=<?=$pub['id']?>">
-                        <i class="far fa-trash-alt"></i>
-                    </a> 
+        <article class="min-article">
+                <div class="article-head">
+                    <div class="categories">
+                            <?php
+                                $tags = explode(",",$pub['tags']);
+                                foreach($tags as $tag) 
+                                { 
+                            ?>
+                                <a class="category" href="../pages/category.php?category=<?=$tag?>">
+                                    <?=$tag?>&nbsp
+                                </a>
+                            <?php } ?>
+                    </div>
+                    <div class="op">
+                        <span>
+                            Posted by <a href="../pages/user-posts.php?username=<?=$pub['username']?>" class="com-user"><?=$pub['username']?></a>
+                        </span>
+                    </div>
+                    <div class="time">
+                        <span><?=$pub['timestamp']?></span>
+                    </div>
+                    <a class="link" href="../pages/publication.php?publication_id=<?=$pub['id']?>">
+                        <div class="title">
+                            <span><?=$pub['title']?></span>
+                        </div>
+                        <div class="text-container">
+                            <p class="text">
+                                <?=$pub['fulltext']?>
+                            </p>
+                        </div>
+                    </a>
                 </div>
-            <?php } ?>
-        </div>
-    </article>
+            <div class="footer">
+                <?php
+                    drawFreshVotes($pub['id'], $vote);
+                ?>
+                <div class="comments">
+                    <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
+                        <i class="far fa-comments"></i> 
+                    </a>
+                </div>
+                <?php if(checkIsPublicationOwner($_SESSION['username'], $pub['id'])) { ?>
+                    <div class="trash">
+                        <a href="../api/deletePublication.php?publication_id=<?=$pub['id']?>">
+                            <i class="far fa-trash-alt"></i>
+                        </a> 
+                    </div>
+                <?php } ?>
+            </div>
+        </article>
 <?php
     }
 ?>
