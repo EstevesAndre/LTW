@@ -8,6 +8,7 @@
         ?>
             <a href="../pages/category.php?category=<?=$channel['cType']?>" class="category">
                 <img src="../assets/Buddhism.png" />
+                <p class="title"><?=$channel['cType']?></p>
             </a>
         <?php 
             }

@@ -349,9 +349,17 @@ footer .copywrite span {
 	margin-bottom: 20px;
 }
 
-.category:hover {
-	filter: blur(1px);
-	transition: 300ms;
+.category .title {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	text-align: center;
+	font-family: Lato;
+	font-size: 40px;
+	font-weight: 700;
+	color: black;
 }
 
 .min-article .article-head .category:hover {
@@ -361,6 +369,8 @@ footer .copywrite span {
 
 .category img {
 	width: 100%;
+	filter:opacity(40%);
+	background-color: white;
 }
 
 .form-container {
