@@ -11,10 +11,28 @@
     }
 
     //DONE
+    function getNewestPublications()
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Publication ORDER BY timestamp');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    //DONE
+    function getMostVotedPublications()
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Publication');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }    
+
+    //DONE
     function getUserPublications($username)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Publication WHERE username= ?');
+        $stmt = $db->prepare('SELECT * FROM Publication JOIN User USING (username) WHERE username= ?');
         $stmt->execute(array($username));
         return $stmt->fetchAll();
     }
@@ -50,7 +68,7 @@
     function getUserComments($username)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Comment WHERE username= ?');
+        $stmt = $db->prepare('SELECT * FROM Comment JOIN User USING (username) WHERE username= ?');
         $stmt->execute(array($username));
         return $stmt->fetchAll();
     }
@@ -102,7 +120,7 @@
     function checkIsPublicationOwner($username, $idPublication)
     {        
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Publication WHERE username= ? AND id= ?');
+        $stmt = $db->prepare('SELECT * FROM Publication JOIN User USING (username) WHERE username= ? AND id= ?');
         $stmt->execute(array($username, $idPublication));
         return $stmt->fetch()?true:false; // return true if a line exists
     }
@@ -111,7 +129,7 @@
     function checkIsCommentOwner($username, $idComment)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Comment WHERE username= ? AND id= ?');
+        $stmt = $db->prepare('SELECT * FROM Comment JOIN User USING (username) WHERE username= ? AND id= ?');
         $stmt->execute(array($username, $idComment));
         return $stmt->fetch()?true:false; // return true if a line exists
     }
@@ -185,7 +203,7 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT * FROM Comment WHERE id= ?');
         $stmt->execute(array($idComment));
-        return $stmt->fetch()?true:false; // return true if a line exists
+        return $stmt->fetch();
     }
 
     //DONE
@@ -235,12 +253,24 @@
     }
 
     //DONE
+    function getVoteWithId($id)
+    {        
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT * FROM Votes WHERE id= ?');
+        $stmt->execute(array($id));
+        return $stmt->fetch();
+    }
+
+    //DONE
     function insertVote($type, $username, $publication_id, $comment_id, $upDown)
     {
         $db = Database::instance()->db();
         $stmt = $db->prepare('INSERT INTO Votes VALUES(NULL, ?, ?, ?, ?, ?)');
 
         $stmt->execute(array($type,$username,$publication_id, $comment_id, $upDown));
+        
+        return $db->lastInsertId();
     }
 
     //DONE

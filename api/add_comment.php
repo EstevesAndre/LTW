@@ -14,7 +14,6 @@
     else
         $id = insertComment($username, $publication_id, NULL, '', $fulltext);
        
-    //header("Location: ../pages/publication.php?publication_id=$publication_id");
     $comment = getComment($id);
     echo json_encode($comment);
 ?>

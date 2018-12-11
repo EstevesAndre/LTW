@@ -9,7 +9,7 @@
     // if (!isset($_SESSION['username']))
     //     die(header('Location: login.php'));
         
-    $publications = getPublications();
+    $publications = getNewestPublications();
 
     draw_header($_SESSION['username'], ' | Fresh');
     draw_fresh_page($publications);

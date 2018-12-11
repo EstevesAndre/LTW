@@ -100,7 +100,12 @@
             <div class="dynamic-article">
                 <div class="vote-section">
                     <div class="votes">
-                        <a href="../api/thumbsUpDown.php?publication_id=<?=$pub['id']?>&choice=up&option=single_article">
+                        <a id="thumb">
+                            <input type="hidden" name="publication_id" value="<?=$pub['id']?>">
+                            <input type="hidden" name="comment_id">  
+                            <input type="hidden" name="choice" value="up">
+                            <input type="hidden" name="option" value="single_article"> 
+
                             <?php if($vote == 1) { ?>
                                 <i class="fas fa-thumbs-up"></i>
                             <?php } else { ?>
@@ -110,7 +115,12 @@
                         <span><?=$votes_cnt['up']?></span>
                     </div>
                     <div class="votes">
-                        <a href="../api/thumbsUpDown.php?publication_id=<?=$pub['id']?>&choice=down&option=single_article">
+                        <a id="thumb">
+                            <input type="hidden" name="publication_id" value="<?=$pub['id']?>">
+                            <input type="hidden" name="comment_id">  
+                            <input type="hidden" name="choice" value="down">
+                            <input type="hidden" name="option" value="single_article">   
+
                             <?php if($vote == -1) { ?>
                                 <i class="fas fa-thumbs-down"></i>
                             <?php } else { ?>
@@ -132,19 +142,20 @@
                         <div class="new-comment">
                             <form>
                                 <input type="hidden" name="publication_id" value="<?=$pub['id']?>">
+                                <input type="hidden" name="comment_id">
                                 <textarea name="fulltext" rows="4" cols="100"></textarea><br>
-                                <input class="button" type="submit" value="Comment">
+                                <input class="button" type="button" value="Comment">
                             </form>
                         </div>
                         <div class="sub-comment">
-                        <?php
-                            foreach($comments as $comment)
-                            {   
-                                $commentVote = getVote($_SESSION['username'], NULL, $comment['id']);
-                                $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$comment['id'],1)['cnt'], 'down' => getPublicationVotes(NULL, $comment['id'],-1)['cnt']]; 
-                                draw_comment($comment, $pub['id'], $commentVote['upDown'], $commentVoteCnt);
-                            }
-                        ?>  
+                            <?php
+                                foreach($comments as $comment)
+                                {   
+                                    $commentVote = getVote($_SESSION['username'], NULL, $comment['id']);
+                                    $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$comment['id'],1)['cnt'], 'down' => getPublicationVotes(NULL, $comment['id'],-1)['cnt']]; 
+                                    draw_comment($comment, $pub['id'], $commentVote['upDown'], $commentVoteCnt);
+                                }
+                            ?>  
                         </div>
                     </section>                
                 </div> 
@@ -159,7 +170,7 @@
     function draw_comment($comment, $pub_id, $vote, $votes_cnt)
     {
 ?>        
-    <div class="comment">
+        <div class="comment">
             <a href="" class="com-user"><?=$comment['username']?></a>
             <p class="sep">&nbsp - &nbsp</p>
             <p class="com-date"><?=$comment['timestamp']?></p>
@@ -175,7 +186,12 @@
             &nbsp<?=$comment['text']?></p>
             <div class="vote-section">
                 <div class="votes">
-                    <a href="../api/thumbsUpDown.php?publication_id=<?=$pub_id?>&choice=up&option=single_article&comment_id=<?=$comment['id']?>">
+                    <a id="thumb">
+                        <input type="hidden" name="publication_id" value="<?=$pub_id?>">
+                        <input type="hidden" name="comment_id" value="<?=$comment['id']?>">  
+                        <input type="hidden" name="choice" value="up">
+                        <input type="hidden" name="option" value="single_article">    
+
                         <?php if($vote == 1) { ?>
                             <i class="fas fa-thumbs-up"></i>
                         <?php } else { ?>
@@ -195,24 +211,25 @@
                     <span><?=$votes_cnt['down']?></span>
                 </div>
             </div>
-            <section class="comments-section">
+            <section class="sub-comment-section">
                 <form class="comment-response">                                
                     <input type="hidden" name="publication_id" value="<?=$pub_id?>">
                     <input type="hidden" name="comment_id" value="<?=$comment['id']?>">
                     <textarea name="fulltext" rows="2" cols="40"></textarea>
-                    <input class="button" type="submit" value="Comment">
+                    <input class="button" type="button" value="Comment">
                 </form>
+                <div class="sub-comment">
+                    <?php 
+                        $childComments = getCommentsOfComment($comment['id']);
+                        foreach($childComments as $childcomment)
+                        {   
+                            $commentVote = getVote($_SESSION['username'], NULL, $childcomment['id']);
+                            $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$childcomment['id'],1)['cnt'], 'down' => getPublicationVotes(NULL, $childcomment['id'],-1)['cnt']]; 
+                            draw_comment($childcomment, $pub_id, $commentVote['upDown'], $commentVoteCnt);
+                        }
+                    ?>            
+                </div>
             </section>
-        <div class="sub-comment">
-            <?php 
-                $childComments = getCommentsOfComment($comment['id']);
-                foreach($childComments as $childcomment)
-                {   
-                    $commentVote = getVote($_SESSION['username'], NULL, $childcomment['id']);
-                    $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$childcomment['id'],1)['cnt'], 'down' => getPublicationVotes(NULL, $childcomment['id'],-1)['cnt']]; 
-                    draw_comment($childcomment, $pub_id, $commentVote['upDown'], $commentVoteCnt);
-                }
-            ?>            
         </div>
 <?php
     }

@@ -78,7 +78,8 @@
                 </div>
             </footer>
             <script src="../scripts/main.js"></script>
-            <script src="../scripts/script.js" defer></script>
+            <script src="../scripts/comment.js" defer></script>
+            <script src="../scripts/thumbs-up.js" defer></script>
         </body>
     </html>
 <?php 
