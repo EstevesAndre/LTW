@@ -14,7 +14,7 @@ function submitThumb(event) {
     let comment_id = parent.querySelector('input[name=comment_id]').value;
     let choice = parent.querySelector('input[name=choice]').value;
     let option = parent.querySelector('input[name=option]').value;
-
+    
     let request = new XMLHttpRequest();
     request.open('POST', '../api/thumbsUpDown.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');  

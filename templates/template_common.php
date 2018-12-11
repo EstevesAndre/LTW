@@ -1,6 +1,8 @@
 <?php 
     function draw_header($username, $subtitle) 
     { 
+        if(!isset($_SESSION['username']))
+            $username = NULL;
 ?>
     <!DOCTYPE html>
     <html>

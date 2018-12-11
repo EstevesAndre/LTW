@@ -9,7 +9,11 @@
     $username = $_GET['username'];
     $pubOfUser = getUserPublications($username);
     
-    draw_header($_SESSION['username'], ' | User');
+    if (!isset($_SESSION['username']))
+        draw_header(NULL, ' | User');
+    else
+        draw_header($_SESSION['username'], ' | User');
+
     draw_user_page($username, $pubOfUser);
     draw_footer();
 ?>

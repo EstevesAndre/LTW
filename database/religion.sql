@@ -53,7 +53,7 @@ DROP TABLE IF EXISTS Comment;
 
 CREATE TABLE Comment (
     id INTEGER PRIMARY KEY,
-    username VARCHAR REFERENCES User,
+    username VARCHAR NOT NULL REFERENCES User,
     publication_id INTEGER REFERENCES Publication(id),
     comment_id INTEGER NULL REFERENCES Comment(id), -- self relationship
     timestamp DATETIME CHECK (timestamp > 0), -- date when this was published

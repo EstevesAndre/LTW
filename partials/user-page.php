@@ -6,7 +6,7 @@
             <p><?=$username?></p>
         </div>
         <div class="edit-profile">    
-            <?php if ($username == $_SESSION['username'])  { ?>
+            <?php if (isset($_SESSION['username']) && $username == $_SESSION['username'])  { ?>
                 <a href="../pages/profile.php" class="button login-register"><p>Edit Profile</p></a>
             <?php } ?>        
         </div>
