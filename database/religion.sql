@@ -43,7 +43,9 @@ CREATE TABLE Publication (
     timestamp DATETIME CHECK (timestamp > 0), -- date when this was published
     tags VARCHAR NOT NULL, -- comma separated tags
     title VARCHAR,
-    fulltext VARCHAR NOT NULL
+    fulltext VARCHAR NOT NULL,
+    upVotes INTEGER,
+    downVotes INTEGER
 );
 
 -- Table: Comment
@@ -56,7 +58,9 @@ CREATE TABLE Comment (
     comment_id INTEGER NULL REFERENCES Comment(id), -- self relationship
     timestamp DATETIME CHECK (timestamp > 0), -- date when this was published
     tags VARCHAR, -- comma separated tags
-    text VARCHAR NOT NULL
+    text VARCHAR NOT NULL,
+    upVotes INTEGER,
+    downVotes INTEGER
 );
 
 -- Table: Votes
@@ -70,6 +74,66 @@ CREATE TABLE Votes(
     comment_id INTEGER NULL REFERENCES Comment(id),
     upDown INTEGER NOT NULL CHECK (upDown = -1 OR upDown = 1)
 );
+
+CREATE TRIGGER IF NOT EXISTS AddCommentUpVote
+AFTER INSERT ON Votes
+WHEN NEW.type = 'C' AND upDown = 1 AND NEW.comment_id IS NOT NULL
+BEGIN
+    UPDATE Comment SET upVotes = upVotes + 1 WHERE id = NEW.id;
+    UPDATE User
+    SET points = points + 1
+    WHERE username IN
+    (
+        SELECT username
+        FROM Comment
+        WHERE id = NEW.comment_id
+    );
+END;
+
+CREATE TRIGGER IF NOT EXISTS AddCommentDownVote
+AFTER INSERT ON Votes
+WHEN NEW.type = 'C' AND upDown = -1 AND NEW.comment_id IS NOT NULL
+BEGIN
+    UPDATE Comment SET downVotes = downVotes + 1 WHERE id = NEW.id;
+    UPDATE User
+    SET points = points - 1
+    WHERE username IN
+    (
+        SELECT username
+        FROM Comment
+        WHERE id = NEW.comment_id
+    );
+END;
+
+CREATE TRIGGER IF NOT EXISTS AddPublicationUpVote
+AFTER INSERT ON Votes
+WHEN NEW.type = 'P' AND upDown = 1 AND NEW.publication_id IS NOT NULL
+BEGIN
+    UPDATE Publication SET upVotes = upVotes + 1 WHERE id = NEW.id;
+    UPDATE User
+    SET points = points + 10
+    WHERE username IN
+    (
+        SELECT username
+        FROM Publication
+        WHERE id = NEW.publication_id
+    );
+END;
+
+CREATE TRIGGER IF NOT EXISTS AddPublicationUpVote
+AFTER INSERT ON Votes
+WHEN NEW.type = 'P' AND upDown = 1 AND NEW.publication_id IS NOT NULL
+BEGIN
+    UPDATE Publication SET downVotes = downVotes + 1 WHERE id = NEW.id;
+    UPDATE User
+    SET points = points - 10
+    WHERE username IN
+    (
+        SELECT username
+        FROM Publication
+        WHERE id = NEW.publication_id
+    );
+END;
 
 INSERT INTO Channel VALUES (NULL, 'General');
 INSERT INTO Channel VALUES (NULL, 'Christianity');
@@ -126,7 +190,9 @@ INSERT INTO Publication VALUES (
     'Buddhism',
     'Nam aliquet leo vel scelerisque sagittis. Praesent hendrerit lectus et augue condimentum, vitae dapibus elit bibendum. Quisque id sapien nec nisl commodo vulputate. Cras vehicula semper lectus. Duis a purus in velit iaculis luctus id ac justo. Mauris a lectus eu dui aliquam pretium nec a massa. Suspendisse risus metus, laoreet quis velit eu, mollis auctor tellus. Maecenas vulputate, nulla a commodo porttitor, urna arcu viverra dolor, a eleifend lectus leo a justo.',
     'Morbi bibendum volutpat pellentesque. In bibendum est et orci semper rhoncus. Sed cursus vel orci sed malesuada. Fusce ac dictum ligula, quis hendrerit ipsum. Proin hendrerit a. 
-    Nulla commodo eu nulla ac facilisis. Donec ante lorem, tincidunt nec interdum vulputate, fringilla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sapien erat, suscipit a nisl sed, molestie convallis eros. Curabitur egestas massa et metus dignissim, et vestibulum libero porttitor. Sed non metus pharetra, lobortis orci a, commodo diam. Praesent a sagittis massa, quis condimentum augue. Donec id est feugiat ipsum egestas vulputate vel in dolor. Pellentesque pretium placerat lorem, sed sodales diam molestie a. Donec dictum dui ut accumsan tempor. Nam vestibulum in erat et sagittis. Donec venenatis, ante vitae tristique tristique, nisi metus aliquet.'
+    Nulla commodo eu nulla ac facilisis. Donec ante lorem, tincidunt nec interdum vulputate, fringilla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sapien erat, suscipit a nisl sed, molestie convallis eros. Curabitur egestas massa et metus dignissim, et vestibulum libero porttitor. Sed non metus pharetra, lobortis orci a, commodo diam. Praesent a sagittis massa, quis condimentum augue. Donec id est feugiat ipsum egestas vulputate vel in dolor. Pellentesque pretium placerat lorem, sed sodales diam molestie a. Donec dictum dui ut accumsan tempor. Nam vestibulum in erat et sagittis. Donec venenatis, ante vitae tristique tristique, nisi metus aliquet.',
+    0,
+    0
 );
 
 INSERT INTO Publication VALUES (
@@ -135,7 +201,9 @@ INSERT INTO Publication VALUES (
     '2018-12-03',
     'Buddhism',
     'TITLLEEEE',
-    'TEXTTTT'
+    'TEXTTTT',
+    0,
+    0
 );
 
 INSERT INTO Comment VALUES(
@@ -145,7 +213,9 @@ INSERT INTO Comment VALUES(
     NULL,
     '2018-12-04',
     'Pedro459669,Antero13',
-    'I THINK THAT THIS IS LIT AF'
+    'I THINK THAT THIS IS LIT AF',
+    0,
+    0
 );
 
 INSERT INTO Comment VALUES(
@@ -155,7 +225,9 @@ INSERT INTO Comment VALUES(
     NULL,
     '2018-12-04',
     'Pedro459669',
-    'nothing else'
+    'nothing else',
+    0,
+    0
 );
 
 INSERT INTO Comment VALUES(
@@ -165,7 +237,9 @@ INSERT INTO Comment VALUES(
     2,
     '2018-12-04',
     'Pedro459669',
-    'HI_Comment_HERE'
+    'HI_Comment_HERE',
+    0,
+    0
 );
 
 INSERT INTO Votes VALUES(
