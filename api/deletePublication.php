@@ -9,7 +9,7 @@
     $username = $_SESSION['username'];
     $publication_id = $_GET['publication_id'];
 
-    if($username == 'admin' || checkIsPublicationOwner($username,$publication_id))
+    if(checkIsPublicationOwner($username,$publication_id))
     {
         deletePublication($publication_id);
     }

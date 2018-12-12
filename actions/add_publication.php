@@ -12,9 +12,9 @@
     $fulltext = htmlentities($_POST['fulltext']);
 
     if($category != NULL)
-        insertPublication($username,$category,$title,$fulltext);
+        $id = insertPublication($username,$category,$title,$fulltext);
     else 
-        insertPublication($username,'General',$title,$fulltext);
+        $id = insertPublication($username,'General',$title,$fulltext);
 
-    header('Location: ../pages/fresh.php');
+    header('Location: ../pages/publication.php?publication_id=' . $id );
 ?>

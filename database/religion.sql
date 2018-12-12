@@ -77,7 +77,7 @@ CREATE TABLE Votes(
 
 CREATE TRIGGER IF NOT EXISTS AddCommentUpVote
 AFTER INSERT ON Votes
-WHEN NEW.type = 'C' AND upDown = 1 AND NEW.comment_id IS NOT NULL
+WHEN NEW.type = 'C' AND NEW.upDown = 1 AND NEW.comment_id IS NOT NULL
 BEGIN
     UPDATE Comment SET upVotes = upVotes + 1 WHERE id = NEW.id;
     UPDATE User
@@ -92,7 +92,7 @@ END;
 
 CREATE TRIGGER IF NOT EXISTS AddCommentDownVote
 AFTER INSERT ON Votes
-WHEN NEW.type = 'C' AND upDown = -1 AND NEW.comment_id IS NOT NULL
+WHEN NEW.type = 'C' AND NEW.upDown = -1 AND NEW.comment_id IS NOT NULL
 BEGIN
     UPDATE Comment SET downVotes = downVotes + 1 WHERE id = NEW.id;
     UPDATE User
@@ -107,7 +107,7 @@ END;
 
 CREATE TRIGGER IF NOT EXISTS AddPublicationUpVote
 AFTER INSERT ON Votes
-WHEN NEW.type = 'P' AND upDown = 1 AND NEW.publication_id IS NOT NULL
+WHEN NEW.type = 'P' AND NEW.upDown = 1 AND NEW.publication_id IS NOT NULL
 BEGIN
     UPDATE Publication SET upVotes = upVotes + 1 WHERE id = NEW.id;
     UPDATE User
@@ -122,7 +122,7 @@ END;
 
 CREATE TRIGGER IF NOT EXISTS AddPublicationUpVote
 AFTER INSERT ON Votes
-WHEN NEW.type = 'P' AND upDown = 1 AND NEW.publication_id IS NOT NULL
+WHEN NEW.type = 'P' AND NEW.upDown = 1 AND NEW.publication_id IS NOT NULL
 BEGIN
     UPDATE Publication SET downVotes = downVotes + 1 WHERE id = NEW.id;
     UPDATE User

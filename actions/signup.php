@@ -2,8 +2,8 @@
     include_once('../includes/session.php');
     include_once('../database/db_checkUser.php');
 
-    $email = $_POST['email'];
     $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
     // Don't allow certain characters

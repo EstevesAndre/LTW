@@ -156,8 +156,10 @@
     function insertPublication($username, $tags, $title, $fulltext)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare("INSERT INTO Publication VALUES(NULL, ?, DATETIME('now'), ?, ?, ?)");
+        $stmt = $db->prepare("INSERT INTO Publication VALUES(NULL, ?, DATETIME('now'), ?, ?, ?, 0, 0)");
         $stmt->execute(array($username, $tags, $title, $fulltext));
+
+        return $db->lastInsertId();
     }
 
     //DONE
@@ -182,7 +184,7 @@
     function insertComment($username, $publication_id, $comment_id, $tags, $text)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare("INSERT INTO Comment VALUES(NULL, ?, ?, ?, DATETIME('now'), ?, ?)");
+        $stmt = $db->prepare("INSERT INTO Comment VALUES(NULL, ?, ?, ?, DATETIME('now'), ?, ?, 0, 0)");
         $stmt->execute(array($username, $publication_id, $comment_id, $tags, $text));        
 
         return $db->lastInsertId();

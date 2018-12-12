@@ -9,7 +9,7 @@
     function isLoginCorrect($username,$password)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM user WHERE username = ?');
+        $stmt = $db->prepare('SELECT * FROM User WHERE username = ?');
         $stmt->execute(array($username));
 
         $user = $stmt->fetch();
@@ -22,7 +22,7 @@
 
         $options = ['cost' => 12];
 
-        $stmt = $db->prepare('INSERT INTO user VALUES(?, ?, ?, NULL, NULL, NULL, NULL, 0)');
+        $stmt = $db->prepare('INSERT INTO User VALUES(?, ?, ?, NULL, NULL, NULL, NULL, 0)');
         $stmt->execute(array($username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));
-    }
+    } 
 ?>
