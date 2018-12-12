@@ -58,10 +58,12 @@
                 </div>
             </a>
         </div>
-        <div class="footer">
-            <?php
-                drawFreshVotes($pub['id'], $vote);
-            ?>
+        <div class="footer">                        
+            <div class="vote-toggle">
+                <?php
+                    drawFreshVotes($pub['id'], $vote, $pub['username']);
+                ?>
+            </div>
             <div class="comments">
                 <?php if(isset($_SESSION['username'])) { ?>
                     <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
@@ -126,7 +128,7 @@
             <div class="dynamic-article">
                 <div class="vote-section">
                     <?php 
-                        drawInPubVotes($pub['id'], NULL, $vote, $votes_cnt);
+                        drawInPubVotes($pub['id'], NULL, $vote, $votes_cnt, $pub['username'], NULL);
                     ?>
                     <?php if(isset($_SESSION['username']) && checkIsPublicationOwner($_SESSION['username'], $pub['id'])) { ?>
                         <div class="trash">
@@ -189,7 +191,7 @@
             <?php } ?>
             &nbsp<?=$comment['text']?></p>
             <div class="vote-section">
-                <?php drawInPubVotes($pub_id, $comment['id'], $vote, $votes_cnt); ?>
+                <?php drawInPubVotes($pub_id, $comment['id'], $vote, $votes_cnt, NULL, $comment['username']); ?>
             </div>
             <div class="comment-response">
             <?php if($session != NULL) { ?>
@@ -258,53 +260,55 @@
 ?>
 
 <?php
-    function drawFreshVotes($publication_id, $vote)
+    function drawFreshVotes($publication_id, $vote, $pub_owner_name)
     {
         if(isset($_SESSION['username']))
             $session = $_SESSION['username'];
         else
             $session = NULL;
 ?>
-        <div class="vote-toggle">
-            <div class="thumbs-up">
-                <?php if($session != NULL) { ?>
-                    <a id="thumb">
+        <div class="thumbs-up">
+            <?php if($session != NULL) { ?>
+                <a id="thumb">
+            <?php } ?>
+                <input type="hidden" name="publication_id" value="<?=$publication_id?>">
+                <input type="hidden" name="comment_id">
+                <input type="hidden" name="publication_username" value="<?=$pub_owner_name?>">
+                <input type="hidden" name="comment_username">
+                <input type="hidden" name="choice" value="up">
+                <input type="hidden" name="option" value="fresh"> 
+                
+                <?php if($vote != 1) { ?><i class="far fa-thumbs-up"></i>
+                <?php } else { ?><i class="fas fa-thumbs-up"></i>
                 <?php } ?>
-                    <input type="hidden" name="publication_id" value="<?=$publication_id?>">
-                    <input type="hidden" name="comment_id">  
-                    <input type="hidden" name="choice" value="up">
-                    <input type="hidden" name="option" value="fresh"> 
-                    
-                    <?php if($vote != 1) { ?><i class="far fa-thumbs-up"></i>
-                    <?php } else { ?><i class="fas fa-thumbs-up"></i>
-                    <?php } ?>
-                <?php if($session != NULL) { ?>
-                    </a>
-                <?php } ?>
-            </div>
-            <div class="thumbs-down">
-                <?php if($session != NULL) { ?>
-                    <a id="thumb">
-                <?php } ?>
-                    <input type="hidden" name="publication_id" value="<?=$publication_id?>">
-                    <input type="hidden" name="comment_id">  
-                    <input type="hidden" name="choice" value="down">
-                    <input type="hidden" name="option" value="fresh"> 
+            <?php if($session != NULL) { ?>
+                </a>
+            <?php } ?>
+        </div>
+        <div class="thumbs-down">
+            <?php if($session != NULL) { ?>
+                <a id="thumb">
+            <?php } ?>
+                <input type="hidden" name="publication_id" value="<?=$publication_id?>">
+                <input type="hidden" name="comment_id">  
+                <input type="hidden" name="publication_username" value="<?=$pub_owner_name?>">
+                <input type="hidden" name="comment_username">
+                <input type="hidden" name="choice" value="down">
+                <input type="hidden" name="option" value="fresh"> 
 
-                    <?php if($vote != -1) { ?><i class="far fa-thumbs-down"></i>
-                    <?php } else { ?><i class="fas fa-thumbs-down"></i>
-                    <?php } ?>
-                <?php if($session != NULL) { ?>
-                    </a>
+                <?php if($vote != -1) { ?><i class="far fa-thumbs-down"></i>
+                <?php } else { ?><i class="fas fa-thumbs-down"></i>
                 <?php } ?>
-            </div>
+            <?php if($session != NULL) { ?>
+                </a>
+            <?php } ?>
         </div>
 <?php
     }
 ?>
 
 <?php
-    function drawInPubVotes($publication_id, $comment_id, $vote, $votes_cnt)
+    function drawInPubVotes($publication_id, $comment_id, $vote, $votes_cnt, $pub_owner_name, $com_owner_name)
     {
         if(isset($_SESSION['username']))
             $session = $_SESSION['username'];
@@ -318,7 +322,9 @@
                     <a id="thumb">
                 <?php } ?>
                     <input type="hidden" name="publication_id" value="<?=$publication_id?>">
-                    <input type="hidden" name="comment_id" value="<?=$comment_id?>">  
+                    <input type="hidden" name="comment_id" value="<?=$comment_id?>">
+                    <input type="hidden" name="publication_username" value="<?=$pub_owner_name?>">
+                    <input type="hidden" name="comment_username" value="<?=$com_owner_name?>">
                     <input type="hidden" name="choice" value="up">
                     <input type="hidden" name="option" value="single_article"> 
 
@@ -337,7 +343,9 @@
                     <a id="thumb">
                 <?php } ?>
                     <input type="hidden" name="publication_id" value="<?=$publication_id?>">
-                    <input type="hidden" name="comment_id" value="<?=$comment_id?>">  
+                    <input type="hidden" name="comment_id" value="<?=$comment_id?>"> 
+                    <input type="hidden" name="publication_username" value="<?=$pub_owner_name?>">
+                    <input type="hidden" name="comment_username" value="<?=$com_owner_name?>"> 
                     <input type="hidden" name="choice" value="down">
                     <input type="hidden" name="option" value="single_article">   
 

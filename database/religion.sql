@@ -90,6 +90,21 @@ BEGIN
     );
 END;
 
+CREATE TRIGGER IF NOT EXISTS RemoveCommentUpVote
+AFTER DELETE ON Votes
+WHEN OLD.type = 'C' AND OLD.upDown = 1 AND OLD.comment_id IS NOT NULL
+BEGIN
+    UPDATE Comment SET upVotes = upVotes - 1 WHERE id = OLD.id;
+    UPDATE User
+    SET points = points - 1
+    WHERE username IN
+    (
+        SELECT username
+        FROM Comment
+        WHERE id = OLD.comment_id
+    );
+END;
+
 CREATE TRIGGER IF NOT EXISTS AddCommentDownVote
 AFTER INSERT ON Votes
 WHEN NEW.type = 'C' AND NEW.upDown = -1 AND NEW.comment_id IS NOT NULL
@@ -102,6 +117,21 @@ BEGIN
         SELECT username
         FROM Comment
         WHERE id = NEW.comment_id
+    );
+END;
+
+CREATE TRIGGER IF NOT EXISTS RemoveCommentDownVote
+AFTER DELETE ON Votes
+WHEN OLD.type = 'C' AND OLD.upDown = -1 AND OLD.comment_id IS NOT NULL
+BEGIN
+    UPDATE Comment SET downVotes = downVotes - 1 WHERE id = OLD.id;
+    UPDATE User
+    SET points = points + 1
+    WHERE username IN
+    (
+        SELECT username
+        FROM Comment
+        WHERE id = OLD.comment_id
     );
 END;
 
@@ -120,6 +150,21 @@ BEGIN
     );
 END;
 
+CREATE TRIGGER IF NOT EXISTS RemovePublicationUpVote
+AFTER INSERT ON Votes
+WHEN OLD.type = 'P' AND OLD.upDown = 1 AND OLD.publication_id IS NOT NULL
+BEGIN
+    UPDATE Publication SET upVotes = upVotes - 1 WHERE id = OLD.id;
+    UPDATE User
+    SET points = points - 10
+    WHERE username IN
+    (
+        SELECT username
+        FROM Publication
+        WHERE id = OLD.publication_id
+    );
+END;
+
 CREATE TRIGGER IF NOT EXISTS AddPublicationUpVote
 AFTER INSERT ON Votes
 WHEN NEW.type = 'P' AND NEW.upDown = 1 AND NEW.publication_id IS NOT NULL
@@ -132,6 +177,21 @@ BEGIN
         SELECT username
         FROM Publication
         WHERE id = NEW.publication_id
+    );
+END;
+
+CREATE TRIGGER IF NOT EXISTS RemovePublicationUpVote
+AFTER INSERT ON Votes
+WHEN OLD.type = 'P' AND OLD.upDown = 1 AND OLD.publication_id IS NOT NULL
+BEGIN
+    UPDATE Publication SET downVotes = downVotes - 1 WHERE id = OLD.id;
+    UPDATE User
+    SET points = points + 10
+    WHERE username IN
+    (
+        SELECT username
+        FROM Publication
+        WHERE id = OLD.publication_id
     );
 END;
 

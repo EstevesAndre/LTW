@@ -44,7 +44,7 @@
                     {
                 ?>
                         <a href="../actions/logout.php" class="button login-register"><p>Logout</p> </a>         
-                        <a name="pontuation" class="button login-register"><p><?=$points?> points</p></a>
+                        <a name="pontuation" class="button login-register"><p><?=$points?> point<?=$points==1?'':'s'?></p></a>
                         <a href="../pages/user-posts.php?username=<?=$username?>" class="button login-register"><p>Hi, <?=$username?></p></a> 
                 <?php
                     }
@@ -89,6 +89,7 @@
             <script src="../scripts/comment.js" defer></script>
             <script src="../scripts/thumbs-up-down.js" defer></script>
             <script src="../scripts/un-subscribe.js" defer></script>
+            <script src="../scripts/points.js" defer></script>
         </body>
     </html>
 <?php 

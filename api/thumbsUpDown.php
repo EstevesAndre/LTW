@@ -10,6 +10,8 @@
     $username = $_SESSION['username'];
     $publication_id = $_POST['publication_id'];
     $comment_id = $_POST['comment_id'];
+    $publication_username = $_POST['publication_username'];
+    $comment_username = $_POST['comment_username'];
     $choice = $_POST['choice'];
     $option = $_POST['option'];
 
@@ -56,7 +58,7 @@
     if($option == 'fresh')        
     {
         $newVote = getVote($username, $publication_id, NULL);
-        drawFreshVotes($publication_id, $newVote['upDown']);
+        drawFreshVotes($publication_id, $newVote['upDown'], $publication_username);
     }
     else if($option == 'single_article')
     {        
@@ -65,14 +67,14 @@
             $newVote = getVote($username, NULL, $comment_id);
             $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$comment_id,1)['cnt'], 'down' => getPublicationVotes(NULL, $comment_id,-1)['cnt']]; 
                                     
-            drawInPubVotes($publication_id,$comment_id, $newVote['upDown'], $commentVoteCnt);
+            drawInPubVotes($publication_id,$comment_id, $newVote['upDown'], $commentVoteCnt, $publication_username, $comment_username);
         }
         else
         {
             $newVote = getVote($username, $publication_id, NULL);
             $votes_cnt = [ 'up' => getPublicationVotes($publication_id, NULL, 1)['cnt'], 'down' => getPublicationVotes($publication_id, NULL,-1)['cnt']];
 
-            drawInPubVotes($publication_id, NULL, $newVote['upDown'], $votes_cnt);
+            drawInPubVotes($publication_id, NULL, $newVote['upDown'], $votes_cnt, $publication_username, $comment_username);
         }
     }
 ?>
