@@ -237,16 +237,16 @@
                 <form method="post" action="../actions/add_publication.php">
                     <p class="title">New Article</p><br><br>
                     <p>Title:</p>
-                        <input type="text" name="title"><br>
+                        <input type="text" name="title" required><br>
                     <p>Category:</p>
-                    <input name="category" list="categories" value="">
+                    <input name="category" list="categories" value="" required>
                     <datalist id="categories">
                         <?php foreach($channels as $channel) { ?>
                             <option value="<?=$channel['cType']?>">
                         <?php } ?>
                     </datalist>
                     <p>Write Something:</p>
-                    <textarea name="fulltext"></textarea><br>
+                    <textarea name="fulltext" required></textarea><br>
                     <input class="button" type="submit" value="Post">
                 </form>
             </div>
