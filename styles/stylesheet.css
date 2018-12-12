@@ -497,8 +497,6 @@ header .login-register {
 .max-article .dynamic-article {
 	margin-top: 20px;
 	width: 80%;
-	padding-left: 10%;
-	padding-right: 10%;
 	float: left;
 }
 
@@ -514,6 +512,7 @@ header .login-register {
 
 .vote-section {
 	margin-top: 10px;
+	margin-left: 40px;
 	width: 100%;
 	float: left;
 }
@@ -533,11 +532,13 @@ header .login-register {
 	float: left;
 	width: 100%;
 	margin-top: 10px;
+	margin-left: 20px;
 }
 
 .max-article .dynamic-article .comment-section .new-comment {
 	border-top: 1px solid #5f5f5f;
 	padding-top: 20px;
+	margin-left: 20px;
 	width: 100%;
 	float: left;
 }
@@ -676,6 +677,51 @@ header .login-register {
 
 .article-container .edit-profile a:hover {
 	background-color: #cf1b1ba2;
+	transition: 0.3s;
+}
+
+.article-container .category-name {
+	width: 80%;
+	float: left;
+	background-color: #3f3f3faa;
+	color: white;
+	font-family: Lato;
+	text-align: left;
+	font-size: 30px;
+	padding-top: 30px;
+	height: 70px;
+}
+
+.article-container .category-name p {
+	margin-left: 5%;
+}
+
+.article-container .subscribe {
+	height: 100px;
+	background-color: #3f3f3faa;
+	width: 20%;
+	float: left;
+}
+
+.article-container .subscribe .button {
+    float: right;
+	padding-left: 2.5%;
+	padding-right: 2.5%;
+	margin-right: 10%;
+	margin-top: 15px;
+	background-color: #cf1b1ba2;
+}
+
+.article-container .subscribe .button p {
+	font-family: Lato;
+	font-size: 20px;
+	color: #f1f1f1f1;
+	margin-top: 23px;
+	margin-bottom: 23px;
+}
+
+.article-container .subscribe a:hover {
+	background-color: #37758e;
 	transition: 0.3s;
 }
 
@@ -842,6 +888,37 @@ header .login-register {
 	}
 
 	.article-container .edit-profile .button p {
+		padding: 0 0 0 0;
+	}
+
+	.article-container .category-name {
+		width: 50%;
+		min-height: 50px;
+	}
+
+	.article-container .category-name p{
+		width: 100%;
+		text-align: left;
+		margin-left: 10%;
+	}
+	
+	.article-container .subscribe {
+		height: 100px;
+		width: 50%;
+		float: left;
+	}
+	
+	.article-container .subscribe .button {
+		margin-top: 0;
+		float: right;
+		width: 60%;
+		text-align: center;
+		margin-left: 10%;
+		margin-top: 15px; 
+		margin-right: 10%;
+	}
+
+	.article-container .subscribe .button p {
 		padding: 0 0 0 0;
 	}
 

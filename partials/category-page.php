@@ -2,16 +2,11 @@
     function draw_category_page($channel, $pubOfChannel) { 
 ?>
     <div class="article-container">
-        <div class="category-title">
+        <div class="category-name">
             <p><?=$channel['cType']?></p>
-            <?php if (isset($_SESSION['username']))  { ?>
-                <div class="subs-toggle">
-                    <a id="subscribe">
-                        <?php draw_sub($channel['id']); ?>
-                        <input type="hidden" name="channel" value="<?=$channel['id']?>">
-                    </a>
-                </div>
-            <?php } ?>
+        </div>
+        <div class="subscribe">    
+        <?php draw_sub($channel['id']); ?>
         </div>
         <?php
             draw_publications($pubOfChannel);
@@ -27,12 +22,12 @@
         if(isUserSubOfChannel($_SESSION['username'], $idChannel)) 
         {
 ?>
-            <p>Unsubscribe</p>
+            <a href="../pages/profile.php" class="button login-register"><p>Unsubscribe</p></a>
 <?php   } 
         else 
         { 
 ?>
-            <p>Subscribe</p> 
+            <a href="../pages/profile.php" class="button login-register"><p>Subscribe</p></a>
 <?php 
         }
     }
