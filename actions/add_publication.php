@@ -7,9 +7,9 @@
         die(header('Location: login.php'));
 
     $username = $_SESSION['username'];
-    $category = $_POST['category'];
-    $title = $_POST['title'];
-    $fulltext = $_POST['fulltext'];
+    $category = htmlentities($_POST['category']);
+    $title = htmlentities($_POST['title']);
+    $fulltext = htmlentities($_POST['fulltext']);
 
     if($category != NULL)
         insertPublication($username,$category,$title,$fulltext);

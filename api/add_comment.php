@@ -6,7 +6,7 @@
     $username = $_SESSION['username'];
     $publication_id = $_POST['publication_id'];
     $comment_id = $_POST['comment_id'];
-    $fulltext = $_POST['fulltext'];
+    $fulltext = htmlentities($_POST['fulltext']);
     
     if($comment_id != NULL)
         insertComment($username, NULL, $comment_id, '', $fulltext);
