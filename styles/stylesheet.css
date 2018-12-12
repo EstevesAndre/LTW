@@ -532,12 +532,12 @@ header .login-register {
 .max-article .dynamic-article .comment-section {
 	float: left;
 	width: 100%;
-	border-top: 1px solid #5f5f5f;
 	margin-top: 10px;
-	padding-top: 20px;
 }
 
 .max-article .dynamic-article .comment-section .new-comment {
+	border-top: 1px solid #5f5f5f;
+	padding-top: 20px;
 	width: 100%;
 	float: left;
 }
@@ -618,6 +618,10 @@ header .login-register {
 	width: 100%;
 	float: left;
 	margin-top: 5px;
+}
+
+.sub-comment {
+	margin-left: 20px;
 }
 
 .article-container .category-title {
