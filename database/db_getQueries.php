@@ -90,6 +90,24 @@
         $stmt->execute(array($pudlication_id));
         return $stmt->fetchAll();
     }
+    
+    //DONE
+    function getChannel($cType)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Channel WHERE cType= ?');
+        $stmt->execute(array($cType));
+        return $stmt->fetch();
+    }
+
+    //DONE
+    function isUserSubOfChannel($username, $idChannel)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM UserLikesChannel WHERE id_Channel= ? AND username_user= ?');
+        $stmt->execute(array($idChannel, $username));
+        return $stmt->fetch()?true:false;
+    }
 
     //DONE
     function insertUserLikesChannel($idChannel, $username)
@@ -103,7 +121,7 @@
     function deleteUserLikesChannel($idChannel, $username)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('DELETE FROM UserLikesChannel WHERE id_channel= ? username_user= ?');
+        $stmt = $db->prepare('DELETE FROM UserLikesChannel WHERE id_Channel= ? AND username_user= ?');
         $stmt->execute(array($idChannel, $username));
     }
 

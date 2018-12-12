@@ -6,6 +6,7 @@
     include_once('../partials/category-page.php');
 
     $category = $_GET['category'];
+    $channel = getChannel($category);
 
     $pubOfCategory = getCategoryPublications('%' . $category . '%');
     
@@ -13,6 +14,7 @@
         draw_header(NULL, ' | ' . $category);
     else
         draw_header($_SESSION['username'], ' | ' . $category);
-    draw_category_page($category, $pubOfCategory);
+
+    draw_category_page($channel, $pubOfCategory);
     draw_footer();
 ?>

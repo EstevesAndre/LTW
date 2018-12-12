@@ -81,7 +81,8 @@
             </footer>
             <script src="../scripts/main.js"></script>
             <script src="../scripts/comment.js" defer></script>
-            <script src="../scripts/thumbs-up.js" defer></script>
+            <script src="../scripts/thumbs-up-down.js" defer></script>
+            <script src="../scripts/un-subscribe.js" defer></script>
         </body>
     </html>
 <?php 

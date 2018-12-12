@@ -5,8 +5,8 @@
     include_once('../templates/template_publications.php');
 
     // verifies if user is logged in
-    // if (!isset($_SESSION['username']))
-    //     die(header('Location: login.php'));
+    if (!isset($_SESSION['username']))
+        die(header('Location: login.php'));
     
     $channels = getChannels();
 

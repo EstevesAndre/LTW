@@ -4,10 +4,6 @@
     include_once('../templates/template_common.php');
     include_once('../templates/template_publications.php');
 
-    // verifies if user is logged in
-    // if (!isset($_SESSION['username']))
-    //     die(header('Location: login.php'));
-    
     $pub_id = $_GET['publication_id'];
     $pub = getPublication($pub_id);
 

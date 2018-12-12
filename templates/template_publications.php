@@ -26,56 +26,62 @@
 <?php function draw_publication($pub, $vote) 
     {
 ?>
-        <article class="min-article">
-                <div class="article-head">
-                    <div class="categories">
-                            <?php
-                                $tags = explode(",",$pub['tags']);
-                                foreach($tags as $tag) 
-                                { 
-                            ?>
-                                <a class="category" href="../pages/category.php?category=<?=$tag?>">
-                                    <?=$tag?>&nbsp
-                                </a>
-                            <?php } ?>
-                    </div>
-                    <div class="op">
-                        <span>
-                            Posted by <a href="../pages/user-posts.php?username=<?=$pub['username']?>" class="com-user"><?=$pub['username']?></a>
-                        </span>
-                    </div>
-                    <div class="time">
-                        <span><?=$pub['timestamp']?></span>
-                    </div>
-                    <a class="link" href="../pages/publication.php?publication_id=<?=$pub['id']?>">
-                        <div class="title">
-                            <span><?=$pub['title']?></span>
-                        </div>
-                        <div class="text-container">
-                            <p class="text">
-                                <?=$pub['fulltext']?>
-                            </p>
-                        </div>
-                    </a>
-                </div>
-            <div class="footer">
+     <article class="min-article">
+        <div class="article-head">
+            <div class="categories">
                 <?php
-                    drawFreshVotes($pub['id'], $vote);
+                    $tags = explode(",",$pub['tags']);
+                    foreach($tags as $tag) 
+                    { 
                 ?>
-                <div class="comments">
+                    <a class="category" href="../pages/category.php?category=<?=$tag?>">
+                        <?=$tag?>&nbsp
+                    </a>
+                <?php } ?>
+            </div>
+            <div class="op">
+                <span>
+                    Posted by <a href="../pages/user-posts.php?username=<?=$pub['username']?>" class="com-user"><?=$pub['username']?></a>
+                </span>
+            </div>
+            <div class="time">
+                <span><?=$pub['timestamp']?></span>
+            </div>
+            <a class="link" href="../pages/publication.php?publication_id=<?=$pub['id']?>">
+                <div class="title">
+                    <span><?=$pub['title']?></span>
+                </div>
+                <div class="text-container">
+                    <p class="text">
+                        <?=$pub['fulltext']?>
+                    </p>
+                </div>
+            </a>
+        </div>
+        <div class="footer">
+            <?php
+                drawFreshVotes($pub['id'], $vote);
+            ?>
+            <div class="comments">
+                <?php if(isset($_SESSION['username'])) { ?>
                     <a href="../pages/publication.php?publication_id=<?=$pub['id']?>">
                         <i class="far fa-comments"></i> 
                     </a>
-                </div>
-                <?php if(checkIsPublicationOwner($_SESSION['username'], $pub['id'])) { ?>
-                    <div class="trash">
-                        <a href="../api/deletePublication.php?publication_id=<?=$pub['id']?>">
-                            <i class="far fa-trash-alt"></i>
-                        </a> 
-                    </div>
+                <?php } else { ?>                
+                    <a href="../pages/login.php">
+                        <i class="far fa-comments"></i> 
+                    </a>
                 <?php } ?>
             </div>
-        </article>
+            <?php if(isset($_SESSION['username']) && checkIsPublicationOwner($_SESSION['username'], $pub['id'])) { ?>
+                <div class="trash">
+                    <a href="../api/deletePublication.php?publication_id=<?=$pub['id']?>">
+                        <i class="far fa-trash-alt"></i>
+                    </a> 
+                </div>
+            <?php } ?>
+        </div>
+    </article>
 <?php
     }
 ?>
@@ -183,9 +189,7 @@
             <?php } ?>
             &nbsp<?=$comment['text']?></p>
             <div class="vote-section">
-                <?php
-                    drawInPubVotes($pub_id, $comment['id'], $vote, $votes_cnt);
-                ?>
+                <?php drawInPubVotes($pub_id, $comment['id'], $vote, $votes_cnt); ?>
             </div>
             <div class="comment-response">
             <?php if($session != NULL) { ?>

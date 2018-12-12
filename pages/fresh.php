@@ -4,13 +4,9 @@
     include_once('../templates/template_common.php');
     include_once('../templates/template_publications.php');
     include_once('../partials/fresh-page.php');
-
-    // verifies if user is logged in
-    //     die(header('Location: login.php'));
-        
+ 
     $publications = getNewestPublications();
 
-    
     if (!isset($_SESSION['username']))
         draw_header(NULL, ' | Fresh');
     else
