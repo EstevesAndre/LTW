@@ -3,11 +3,16 @@
 ?>
     <div class="article-container">
         <div class="category-name">
-            <p><?=$channel['cType']?></p>
-        </div>
-        <div class="subscribe">    
-        <?php draw_sub($channel['id']); ?>
-        </div>
+            <p><?=$channel['cType']?></p>            
+        </div>        
+        <?php if (isset($_SESSION['username']))  { ?>
+            <div class="subscribe">    
+                <a class="button login-register">
+                    <?php draw_sub($channel['id']); ?>
+                </a>
+                <input type="hidden" name="channel" value="<?=$channel['id']?>">
+            </div>
+        <?php } ?>
         <?php
             draw_publications($pubOfChannel);
         ?>
@@ -22,12 +27,12 @@
         if(isUserSubOfChannel($_SESSION['username'], $idChannel)) 
         {
 ?>
-            <a href="../pages/profile.php" class="button login-register"><p>Unsubscribe</p></a>
+            <p>Unsubscribe</p>
 <?php   } 
         else 
         { 
 ?>
-            <a href="../pages/profile.php" class="button login-register"><p>Subscribe</p></a>
+            <p>Subscribe</p>
 <?php 
         }
     }
