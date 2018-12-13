@@ -153,10 +153,12 @@
                             <?php if($session != NULL) { ?>
                                 </form>
                             <?php } ?>  
+                            </div>                            
+                            <div class="sub-comment">
+                                <?php
+                                    drawCommentsOfPublication($pub['id'], $comments);
+                                ?>      
                             </div>
-                        <?php
-                            drawCommentsOfPublication($pub['id'], $comments);
-                        ?>      
                     <?php if($session != NULL) { ?>                  
                         </section> 
                     <?php } ?>                 
@@ -195,7 +197,7 @@
             </div>
             <div class="comment-response">
             <?php if($session != NULL) { ?>
-                <section class="sub-comment-section" id="comments-section">
+                <section class="sub-comment-section">
                     <form class="comment-response"> 
                 <?php } ?>                               
                         <input type="hidden" name="publication_id" value="<?=$pub_id?>">
@@ -275,6 +277,7 @@
                 <input type="hidden" name="comment_id">
                 <input type="hidden" name="publication_username" value="<?=$pub_owner_name?>">
                 <input type="hidden" name="comment_username">
+                <input type="hidden" name="session_username" value="<?=$session?>">
                 <input type="hidden" name="choice" value="up">
                 <input type="hidden" name="option" value="fresh"> 
                 
@@ -293,6 +296,7 @@
                 <input type="hidden" name="comment_id">  
                 <input type="hidden" name="publication_username" value="<?=$pub_owner_name?>">
                 <input type="hidden" name="comment_username">
+                <input type="hidden" name="session_username" value="<?=$session?>">
                 <input type="hidden" name="choice" value="down">
                 <input type="hidden" name="option" value="fresh"> 
 
@@ -325,6 +329,7 @@
                     <input type="hidden" name="comment_id" value="<?=$comment_id?>">
                     <input type="hidden" name="publication_username" value="<?=$pub_owner_name?>">
                     <input type="hidden" name="comment_username" value="<?=$com_owner_name?>">
+                    <input type="hidden" name="session_username" value="<?=$session?>">
                     <input type="hidden" name="choice" value="up">
                     <input type="hidden" name="option" value="single_article"> 
 
@@ -346,6 +351,7 @@
                     <input type="hidden" name="comment_id" value="<?=$comment_id?>"> 
                     <input type="hidden" name="publication_username" value="<?=$pub_owner_name?>">
                     <input type="hidden" name="comment_username" value="<?=$com_owner_name?>"> 
+                    <input type="hidden" name="session_username" value="<?=$session?>">
                     <input type="hidden" name="choice" value="down">
                     <input type="hidden" name="option" value="single_article">   
 
@@ -368,20 +374,18 @@
     function drawCommentsOfPublication($publication_id, $comments) 
     {
 ?>
-    <div class="sub-comment">
-        <?php
-            foreach($comments as $comment)
-            {   
-                if(!isset($_SESSION['username']))  
-                    $commentVote = ['upDown' => 0];
-                else
-                    $commentVote = getVote($_SESSION['username'], NULL, $comment['id']);
-                    
-                $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$comment['id'],1)['cnt'], 'down' => getPublicationVotes(NULL, $comment['id'],-1)['cnt']]; 
-                draw_comment($comment, $publication_id, $commentVote['upDown'], $commentVoteCnt);
-            }
-        ?>  
-    </div>
+    <?php
+        foreach($comments as $comment)
+        {   
+            if(!isset($_SESSION['username']))  
+                $commentVote = ['upDown' => 0];
+            else
+                $commentVote = getVote($_SESSION['username'], NULL, $comment['id']);
+                
+            $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$comment['id'],1)['cnt'], 'down' => getPublicationVotes(NULL, $comment['id'],-1)['cnt']]; 
+            draw_comment($comment, $publication_id, $commentVote['upDown'], $commentVoteCnt);
+        }
+    ?>
 <?php
     }
 ?>
