@@ -75,6 +75,7 @@ CREATE TABLE Votes(
     upDown INTEGER NOT NULL CHECK (upDown = -1 OR upDown = 1)
 );
 
+-- ADD COMMENT UP
 CREATE TRIGGER IF NOT EXISTS AddCommentUpVote
 AFTER INSERT ON Votes
 WHEN NEW.type = 'C' AND NEW.upDown = 1 AND NEW.comment_id IS NOT NULL
@@ -89,7 +90,7 @@ BEGIN
         WHERE id = NEW.comment_id
     );
 END;
-
+-- REMOVE COMMENT UP
 CREATE TRIGGER IF NOT EXISTS RemoveCommentUpVote
 AFTER DELETE ON Votes
 WHEN OLD.type = 'C' AND OLD.upDown = 1 AND OLD.comment_id IS NOT NULL
@@ -104,7 +105,7 @@ BEGIN
         WHERE id = OLD.comment_id
     );
 END;
-
+-- ADD COMMENT DOWN
 CREATE TRIGGER IF NOT EXISTS AddCommentDownVote
 AFTER INSERT ON Votes
 WHEN NEW.type = 'C' AND NEW.upDown = -1 AND NEW.comment_id IS NOT NULL
@@ -119,7 +120,7 @@ BEGIN
         WHERE id = NEW.comment_id
     );
 END;
-
+-- REMOVE COMMENT DOWN
 CREATE TRIGGER IF NOT EXISTS RemoveCommentDownVote
 AFTER DELETE ON Votes
 WHEN OLD.type = 'C' AND OLD.upDown = -1 AND OLD.comment_id IS NOT NULL
@@ -134,7 +135,7 @@ BEGIN
         WHERE id = OLD.comment_id
     );
 END;
-
+-- ADD PUBLICATION UP
 CREATE TRIGGER IF NOT EXISTS AddPublicationUpVote
 AFTER INSERT ON Votes
 WHEN NEW.type = 'P' AND NEW.upDown = 1 AND NEW.publication_id IS NOT NULL
@@ -149,9 +150,9 @@ BEGIN
         WHERE id = NEW.publication_id
     );
 END;
-
+-- REMOVE PUBLICATION UP
 CREATE TRIGGER IF NOT EXISTS RemovePublicationUpVote
-AFTER INSERT ON Votes
+AFTER DELETE ON Votes
 WHEN OLD.type = 'P' AND OLD.upDown = 1 AND OLD.publication_id IS NOT NULL
 BEGIN
     UPDATE Publication SET upVotes = upVotes - 1 WHERE id = OLD.id;
@@ -164,10 +165,10 @@ BEGIN
         WHERE id = OLD.publication_id
     );
 END;
-
-CREATE TRIGGER IF NOT EXISTS AddPublicationUpVote
+-- ADD PUBLICATION DOWN
+CREATE TRIGGER IF NOT EXISTS AddPublicationDownVote
 AFTER INSERT ON Votes
-WHEN NEW.type = 'P' AND NEW.upDown = 1 AND NEW.publication_id IS NOT NULL
+WHEN NEW.type = 'P' AND NEW.upDown = -1 AND NEW.publication_id IS NOT NULL
 BEGIN
     UPDATE Publication SET downVotes = downVotes + 1 WHERE id = NEW.id;
     UPDATE User
@@ -179,10 +180,10 @@ BEGIN
         WHERE id = NEW.publication_id
     );
 END;
-
-CREATE TRIGGER IF NOT EXISTS RemovePublicationUpVote
-AFTER INSERT ON Votes
-WHEN OLD.type = 'P' AND OLD.upDown = 1 AND OLD.publication_id IS NOT NULL
+-- REMOVE PUBLICATION DOWN
+CREATE TRIGGER IF NOT EXISTS RemovePublicationDownVote
+AFTER DELETE ON Votes
+WHEN OLD.type = 'P' AND OLD.upDown = -1 AND OLD.publication_id IS NOT NULL
 BEGIN
     UPDATE Publication SET downVotes = downVotes - 1 WHERE id = OLD.id;
     UPDATE User
@@ -247,10 +248,9 @@ INSERT INTO Publication VALUES (
     NULL,
     'Antero13',
     '2018-08-12',
-    'Buddhism',
-    'Nam aliquet leo vel scelerisque sagittis. Praesent hendrerit lectus et augue condimentum, vitae dapibus elit bibendum. Quisque id sapien nec nisl commodo vulputate. Cras vehicula semper lectus. Duis a purus in velit iaculis luctus id ac justo. Mauris a lectus eu dui aliquam pretium nec a massa. Suspendisse risus metus, laoreet quis velit eu, mollis auctor tellus. Maecenas vulputate, nulla a commodo porttitor, urna arcu viverra dolor, a eleifend lectus leo a justo.',
-    'Morbi bibendum volutpat pellentesque. In bibendum est et orci semper rhoncus. Sed cursus vel orci sed malesuada. Fusce ac dictum ligula, quis hendrerit ipsum. Proin hendrerit a. 
-    Nulla commodo eu nulla ac facilisis. Donec ante lorem, tincidunt nec interdum vulputate, fringilla a urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sapien erat, suscipit a nisl sed, molestie convallis eros. Curabitur egestas massa et metus dignissim, et vestibulum libero porttitor. Sed non metus pharetra, lobortis orci a, commodo diam. Praesent a sagittis massa, quis condimentum augue. Donec id est feugiat ipsum egestas vulputate vel in dolor. Pellentesque pretium placerat lorem, sed sodales diam molestie a. Donec dictum dui ut accumsan tempor. Nam vestibulum in erat et sagittis. Donec venenatis, ante vitae tristique tristique, nisi metus aliquet.',
+    'Buddhism,Taoism',
+    'first pub',
+    'some text',
     0,
     0
 );
@@ -333,7 +333,7 @@ INSERT INTO Votes VALUES(
     NULL,
     'P',
     'Andre548392',
-    2,
+    1,
     NULL,
     -1
 );
