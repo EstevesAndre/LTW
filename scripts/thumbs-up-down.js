@@ -25,6 +25,11 @@ function submitThumb(event) {
         request.addEventListener('load', function() {  
             votes.innerHTML = this.responseText;
         });
-        request.send(encodeForAjax({publication_id: publication_id, comment_id: comment_id, publication_username: publication_username, comment_username: comment_username, choice: choice, option: option}));
+        request.send(encodeForAjax({publication_id:         publication_id, 
+                                    comment_id:             comment_id, 
+                                    publication_username:   publication_username, 
+                                    comment_username:       comment_username, 
+                                    choice:                 choice, 
+                                    option:                 option}));
     }
 }
