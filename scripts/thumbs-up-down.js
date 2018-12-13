@@ -1,5 +1,5 @@
 let thumbs = document.querySelectorAll("div.vote-toggle");
-thumbs.forEach((thumb) => thumb.addEventListener('click', submitThumb));
+if(thumbs) thumbs.forEach((thumb) => thumb.addEventListener('click', submitThumb));
 
 function encodeForAjax(data) {
     return Object.keys(data).map(function(k){

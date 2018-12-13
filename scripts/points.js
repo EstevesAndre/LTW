@@ -1,5 +1,5 @@
 let pontuation = document.querySelectorAll("div.vote-toggle");
-pontuation.forEach((clicked) => clicked.addEventListener('click', updatePontuation));
+if(pontuation) pontuation.forEach((clicked) => clicked.addEventListener('click', updatePontuation));
 
 function encodeForAjax(data) {
     return Object.keys(data).map(function(k){
@@ -9,18 +9,26 @@ function encodeForAjax(data) {
 
 function updatePontuation(event) {
     
-    let a = event.target.closest("a[id=thumb]");
-    console.log(a);
-    console.log(a.querySelector('input[name=publication_username]'));
-    console.log(a.querySelector('input[name=comment_username]'));
+    let thumb = event.target.closest("a[id=thumb]");
 
-    /*let idChannel = subscribe.querySelector('input[name=channel]').value;
-    
-    let request = new XMLHttpRequest();
-    request.open('POST', '../api/userLikesChannel.php', true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');  
-    request.addEventListener('load', function() {
-        toggle.innerHTML = this.responseText;
-    });
-    request.send(encodeForAjax({idChannel: idChannel}));*/
+    if(thumb)
+    {
+        let publication_username = thumb.querySelector('input[name=publication_username]').value;
+        let comment_username = thumb.querySelector('input[name=comment_username]').value;
+        let session_username = thumb.querySelector('input[name=session_username]').value;
+
+        if(session_username && (session_username == comment_username || session_username == publication_username))
+        {
+            let request = new XMLHttpRequest();
+            request.open('POST', '../api/pontuation.php', true);
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');  
+            request.addEventListener('load', function() {
+                let points = document.querySelector("header a[name=pontuation]");                
+                console.log(points);
+                points.innerHTML = this.responseText;
+                console.log(points);
+            });
+            request.send(encodeForAjax({session_username: session_username}));
+        }
+    }
 } 

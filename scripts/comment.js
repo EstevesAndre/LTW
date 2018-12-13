@@ -1,5 +1,5 @@
 let commentForm = document.querySelectorAll('#comments-section');
-commentForm.forEach((comment) => comment.addEventListener('click', submitComment));
+if(commentForm) commentForm.forEach((comment) => comment.addEventListener('click', submitComment));
 
 function encodeForAjax(data) {
   return Object.keys(data).map(function(k){

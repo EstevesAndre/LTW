@@ -8,11 +8,14 @@ function burger_menu() {
 }
 
 var btnContainer = document.getElementById("orderDiv");
-var btns = btnContainer.getElementsByClassName("order-button");
-for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function() {
-      var current = document.getElementsByClassName("active");
-      current[0].className = current[0].className.replace(" active", "");
-      this.className += " active";
-    });
-  }
+if(btnContainer) var btns = btnContainer.getElementsByClassName("order-button");
+if(btns)
+{
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+        });
+    }
+}
