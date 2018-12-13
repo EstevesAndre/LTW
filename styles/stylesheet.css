@@ -928,4 +928,16 @@ header .login-register {
 		margin-right: 10%;
 	}
 
+	.max-article .dynamic-article .comment-section .new-comment .button {
+		width: 50%;
+	}
+
+	.max-article .dynamic-article .comment-section .comment-response .button {
+		width: 50%;
+	}
+
+	.max-article .dynamic-article .comment-section .comment-response textarea {
+		width: 90%;
+	}
+
 }
