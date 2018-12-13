@@ -43,14 +43,25 @@
                     else
                     {
                 ?>
-                        <a href="../actions/logout.php" class="button login-register"><p>Logout</p> </a>         
-                        <a name="pontuation" class="button login-register"><p><?=$points?> point<?=$points==1?'':'s'?></p></a>
+                        <a href="../actions/logout.php" class="button login-register"><p>Logout</p> </a>
+                        <a name="pontuation" class="button login-register">        
+                            <?php drawPoints($points) ?>
+                        </a>
                         <a href="../pages/user-posts.php?username=<?=$username?>" class="button login-register"><p>Hi, <?=$username?></p></a> 
                 <?php
                     }
                 ?>
             </header>
 <?php 
+    }
+?>
+
+<?php
+    function drawPoints($points) 
+    {
+?>
+        <p><?=$points?> point<?=$points==1?'':'s'?></p>
+<?php
     }
 ?>
 
