@@ -1,19 +1,18 @@
-<?php function draw_publications($publications) 
+<?php function draw_publications($publications, $order) 
     {
 ?>
-
     <?php
         foreach($publications as $pub)
         {
             if(!isset($_SESSION['username']))
-                draw_publication($pub, 0);
+                draw_publication($pub, 0, $order);
             else
             { 
                     $vote = getVote($_SESSION['username'], $pub['id'], NULL);
                 if($vote == NULL)
-                    draw_publication($pub, 0);
+                    draw_publication($pub, 0, $order);
                 else 
-                    draw_publication($pub,$vote['upDown']); 
+                    draw_publication($pub,$vote['upDown'], $order); 
             }
         }
         
@@ -23,7 +22,7 @@
     }
 ?>
 
-<?php function draw_publication($pub, $vote) 
+<?php function draw_publication($pub, $vote, $order) 
     {
 ?>
      <article class="min-article">
@@ -77,7 +76,9 @@
             </div>
             <?php if(isset($_SESSION['username']) && checkIsPublicationOwner($_SESSION['username'], $pub['id'])) { ?>
                 <div class="trash">
-                    <a href="../api/deletePublication.php?publication_id=<?=$pub['id']?>">
+                    <a class="fresh-trash">
+                        <input type="hidden" name="publication_id" value="<?=$pub['id']?>">
+                        <input type="hidden" name="order" value="<?=$order?>">
                         <i class="far fa-trash-alt"></i>
                     </a> 
                 </div>
@@ -132,7 +133,7 @@
                     ?>
                     <?php if(isset($_SESSION['username']) && checkIsPublicationOwner($_SESSION['username'], $pub['id'])) { ?>
                         <div class="trash">
-                            <a href="../api/deletePublication.php?publication_id=<?=$pub['id']?>">
+                            <a href="../actions/deletePublication.php?publication_id=<?=$pub['id']?>">                                
                                 <i class="far fa-trash-alt"></i>
                             </a> 
                         </div>
@@ -183,7 +184,9 @@
             <p class="sep">&nbsp - &nbsp</p>
             <p class="com-date"><?=$comment['timestamp']?></p>
             <?php if(isset($_SESSION['username']) && checkIsCommentOwner($_SESSION['username'], $comment['id'])) { ?>
-                <a class="com-trash" href="../api/deleteComment.php?publication_id=<?=$pub_id?>&comment_id=<?=$comment['id']?>">
+                <a class="com-trash">
+                    <input type="hidden" name="publication_id" value="<?=$pub_id?>">                    
+                    <input type="hidden" name="comment_id" value="<?=$comment['id']?>">
                     <i class="far fa-trash-alt"></i>
                 </a>
             <?php } ?>
@@ -281,8 +284,14 @@
                 <input type="hidden" name="choice" value="up">
                 <input type="hidden" name="option" value="fresh"> 
                 
-                <?php if($vote != 1) { ?><i class="far fa-thumbs-up"></i>
-                <?php } else { ?><i class="fas fa-thumbs-up"></i>
+                <?php if($vote == 1) { ?>
+                    <?php if($session == NULL) { ?> <a href="../pages/login.php"> <?php } ?>
+                        <i class="fas fa-thumbs-up"></i>
+                    <?php if($session == NULL) { ?> </a> <?php } ?>
+                <?php } else { ?>
+                    <?php if($session == NULL) { ?> <a href="../pages/login.php"> <?php } ?>
+                        <i class="far fa-thumbs-up"></i>
+                    <?php if($session == NULL) { ?> </a> <?php } ?>
                 <?php } ?>
             <?php if($session != NULL) { ?>
                 </a>
@@ -300,8 +309,14 @@
                 <input type="hidden" name="choice" value="down">
                 <input type="hidden" name="option" value="fresh"> 
 
-                <?php if($vote != -1) { ?><i class="far fa-thumbs-down"></i>
-                <?php } else { ?><i class="fas fa-thumbs-down"></i>
+                <?php if($vote == -1) { ?>
+                    <?php if($session == NULL) { ?> <a href="../pages/login.php"> <?php } ?>
+                        <i class="fas fa-thumbs-down"></i>
+                    <?php if($session == NULL) { ?> </a> <?php } ?>
+                <?php } else { ?>
+                    <?php if($session == NULL) { ?> <a href="../pages/login.php"> <?php } ?>
+                        <i class="far fa-thumbs-down"></i>
+                    <?php if($session == NULL) { ?> </a> <?php } ?>
                 <?php } ?>
             <?php if($session != NULL) { ?>
                 </a>
@@ -334,9 +349,13 @@
                     <input type="hidden" name="option" value="single_article"> 
 
                     <?php if($vote == 1) { ?>
-                        <i class="fas fa-thumbs-up"></i>
+                        <?php if($session == NULL) { ?> <a href="../pages/login.php"> <?php } ?>
+                            <i class="fas fa-thumbs-up"></i>
+                        <?php if($session == NULL) { ?> </a> <?php } ?>
                     <?php } else { ?>
-                        <i class="far fa-thumbs-up"></i>
+                        <?php if($session == NULL) { ?> <a href="../pages/login.php"> <?php } ?>
+                            <i class="far fa-thumbs-up"></i>
+                        <?php if($session == NULL) { ?> </a> <?php } ?>
                     <?php } ?>
                 <?php if($session != NULL) { ?>
                     </a>
@@ -356,9 +375,13 @@
                     <input type="hidden" name="option" value="single_article">   
 
                     <?php if($vote == -1) { ?>
-                        <i class="fas fa-thumbs-down"></i>
+                        <?php if($session == NULL) { ?> <a href="../pages/login.php"> <?php } ?>
+                            <i class="fas fa-thumbs-down"></i>
+                        <?php if($session == NULL) { ?> </a> <?php } ?>
                     <?php } else { ?>
-                        <i class="far fa-thumbs-down"></i>
+                        <?php if($session == NULL) { ?> <a href="../pages/login.php"> <?php } ?>
+                            <i class="far fa-thumbs-down"></i>
+                        <?php if($session == NULL) { ?> </a> <?php } ?>
                     <?php } ?>
                 <?php if($session != NULL) { ?>
                     </a>

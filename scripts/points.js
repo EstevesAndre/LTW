@@ -24,9 +24,7 @@ function updatePontuation(event) {
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');  
             request.addEventListener('load', function() {
                 let points = document.querySelector("header a[name=pontuation]");                
-                console.log(points);
                 points.innerHTML = this.responseText;
-                console.log(points);
             });
             request.send(encodeForAjax({session_username: session_username}));
         }
