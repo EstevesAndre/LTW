@@ -1,17 +1,17 @@
 <?php
     include_once('../includes/database.php');
-    
+ 
     //DONE
-    function getPublications()
+    function getNewestPublications()
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Publication');
+        $stmt = $db->prepare('SELECT * FROM Publication ORDER BY timestamp DESC');
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
     //DONE
-    function getNewestPublications()
+    function getOldestPublications()
     {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT * FROM Publication ORDER BY timestamp');
@@ -20,10 +20,28 @@
     }
 
     //DONE
+    function getAlphabeticalPublications()
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Publication ORDER BY title COLLATE NOCASE ASC');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    //DONE
+    function getReverseAlphabeticalPublications()
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Publication ORDER BY title COLLATE NOCASE DESC');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    //DONE
     function getMostVotedPublications()
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Publication');
+        $stmt = $db->prepare('SELECT * FROM Publication ORDER BY upVotes DESC');
         $stmt->execute();
         return $stmt->fetchAll();
     }    

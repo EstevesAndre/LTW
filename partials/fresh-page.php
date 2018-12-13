@@ -1,15 +1,20 @@
 <?php 
-    function draw_fresh_page($publications) { 
+    function draw_fresh_page() { 
 ?>
     <div class="article-container">
         <div class="order" id="orderDiv">
             <button class="order-button active"><p>Fresh</p></button>
+            <button class="order-button"><p>Old</p></button>
+            <button class="order-button"><p>Alphabetical</p></button>
+            <button class="order-button"><p>ReverseAlphabetical</p></button>
             <button class="order-button"><p>Hot</p></button>
-            <button class="order-button"><p>Discussed</p></button>
         </div>
-        <?php
-            draw_publications($publications);
-        ?>
+        <div class="ordered-publications">
+            <?php                
+                $publications = getNewestPublications();
+                draw_publications($publications, "Fresh");
+            ?>
+        </div>
     </div>
 <?php 
     }
