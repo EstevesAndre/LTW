@@ -15,7 +15,7 @@
     $choice = $_POST['choice'];
     $option = $_POST['option'];
 
-    if($comment_id != NULL)
+    if($comment_id != NULL && $comment_id != "")
         $vote = getVote($username, NULL, $comment_id);
     else
         $vote = getVote($username, $publication_id, NULL);
@@ -27,11 +27,17 @@
             if ($vote['upDown'] == 1)
                 deleteVote($vote['id']);
             else if($vote['upDown'] == -1)
-                toggleVote($vote['id']);
+            {
+                deleteVote($vote['id']);                
+                if($comment_id != NULL && $comment_id != "")
+                    insertVote("C", $username, NULL, $comment_id, 1);
+                else
+                    insertVote("P", $username, $publication_id, NULL, 1);
+            }
         }
         else
         {
-            if($comment_id != NULL)
+            if($comment_id != NULL && $comment_id != "")
                 insertVote("C", $username, NULL, $comment_id, 1);
             else
                 insertVote("P", $username, $publication_id, NULL, 1);
@@ -44,11 +50,17 @@
             if ($vote['upDown'] == -1)
                 deleteVote($vote['id']);
             else if($vote['upDown'] == 1)
-                toggleVote($vote['id']);
+            {
+                deleteVote($vote['id']);
+                if($comment_id != NULL && $comment_id != "")
+                    insertVote("C", $username, NULL, $comment_id, -1);
+                else
+                    insertVote("P", $username, $publication_id, NULL, -1);
+            }
         }
         else
         {
-            if($comment_id != NULL)
+            if($comment_id != NULL && $comment_id != "")
                 insertVote("C", $username, NULL, $comment_id, -1);
             else
                 insertVote("P", $username, $publication_id, NULL, -1);
@@ -62,7 +74,7 @@
     }
     else if($option == 'single_article')
     {        
-        if($comment_id != NULL)
+        if($comment_id != NULL && $comment_id != "")
         {   
             $newVote = getVote($username, NULL, $comment_id);
             $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$comment_id,1)['cnt'], 'down' => getPublicationVotes(NULL, $comment_id,-1)['cnt']]; 

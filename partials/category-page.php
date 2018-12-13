@@ -14,7 +14,7 @@
             </div>
         <?php } ?>
         <?php
-            draw_publications($pubOfChannel);
+            draw_publications($pubOfChannel, "Fresh");
         ?>
     </div>
 <?php 

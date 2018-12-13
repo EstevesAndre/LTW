@@ -11,7 +11,7 @@
             <?php } ?>        
         </div>
         <?php
-            draw_publications($pubOfUser);
+            draw_publications($pubOfUser, "Fresh");
         ?>
     </div>
 <?php 

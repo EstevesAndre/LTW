@@ -75,6 +75,13 @@ CREATE TABLE Votes(
     upDown INTEGER NOT NULL CHECK (upDown = -1 OR upDown = 1)
 );
 
+-- CREATE TRIGGER IF NOT EXISTS DeleteComment
+-- BEFORE DELETE ON Comment
+-- WHEN :OLD.comment_id IS NOT NULL
+-- BEGIN
+--     DELETE 
+-- END;
+
 -- ADD COMMENT UP
 CREATE TRIGGER IF NOT EXISTS AddCommentUpVote
 AFTER INSERT ON Votes
