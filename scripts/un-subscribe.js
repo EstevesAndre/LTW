@@ -1,5 +1,5 @@
-let subscribe = document.querySelector("div.subs-toggle a[id=subscribe]");
-subscribe.addEventListener('click', toggleSubscribe);
+let subscribe = document.querySelector("div.subscribe");
+if(subscribe) subscribe.addEventListener('click', toggleSubscribe);
 
 function encodeForAjax(data) {
     return Object.keys(data).map(function(k){
@@ -8,9 +8,10 @@ function encodeForAjax(data) {
 }
 
 function toggleSubscribe(event) {
-    let toggle = subscribe.querySelector('p');
+
+    let toggle = subscribe.querySelector('a');
     let idChannel = subscribe.querySelector('input[name=channel]').value;
-    
+
     let request = new XMLHttpRequest();
     request.open('POST', '../api/userLikesChannel.php', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');  
