@@ -360,7 +360,8 @@ footer .copywrite span {
 
 
 .category-card img {
-	width: 100%;
+	width: 400px;
+	height: 400px;
 	filter:opacity(40%);
 	background-color: white;
 }
