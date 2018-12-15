@@ -776,6 +776,8 @@ header .login-register {
 
 .topnav .search-container {
 	float: right;
+	margin-left: 2%;
+	
 }
   
 .topnav input[type=text] {
@@ -783,6 +785,7 @@ header .login-register {
 	margin-top: 16px;
 	font-size: 17px;
 	border: none;
+	outline: none;
 }
 
 .topnav .search-container button {
