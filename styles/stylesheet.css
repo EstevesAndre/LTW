@@ -696,6 +696,22 @@ header .login-register {
 	margin-left: 5%;
 }
 
+.article-container .search-title {
+	width: 100%;
+	float: left;
+	background-color: #3f3f3faa;
+	color: white;
+	font-family: Lato;
+	text-align: left;
+	font-size: 30px;
+	padding-top: 30px;
+	height: 70px;
+}
+
+.article-container .search-title p {
+	margin-left: 5%;
+}
+
 .article-container .subscribe {
 	height: 100px;
 	background-color: #3f3f3faa;
@@ -801,6 +817,15 @@ header .login-register {
 
 .topnav .search-container button:hover {
 	background: #ccc;
+}
+
+.not-found {
+	font-family: Lato;
+	font-size: 20px;
+	margin-bottom: 30px;
+	margin-left: 5%;
+	margin-top: 30px;
+	float: left;
 }
 
 @media screen and (max-width: 860px) {
