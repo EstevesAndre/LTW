@@ -302,6 +302,11 @@ footer .copywrite span {
 	float: left;
 }
 
+.min-article .article-head .op a {
+	text-decoration: underline;
+	font-weight: 500;
+}
+
 .min-article .article-head .categories .category {
 	font-family: Lato;
 	font-size: 18px;
@@ -492,6 +497,11 @@ header .login-register {
 .max-article .static-article .text {
 	font-size: 18px;
 	margin-bottom: 10px;
+}
+
+.max-article .static-article .op a {
+	text-decoration: underline;
+	font-weight: 500;
 }
 
 .max-article .dynamic-article {
