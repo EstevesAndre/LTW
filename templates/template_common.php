@@ -75,20 +75,13 @@
     function print_messages() 
     { 
 ?>
-    <?php if (isset($_SESSION['messages'])) 
-            {
-    ?>
+    <?php if (isset($_SESSION['messages'])) { ?>
         <section>
-        <?php foreach($_SESSION['messages'] as $message) { ?>
-            <div class="message-log"><?=$message['content']?></div>
-    <?php 
-        } 
-    ?>
+            <?php foreach($_SESSION['messages'] as $message) { ?>
+                <div class="message-log"><?=$message['content']?></div>
+            <?php } ?>
         </section>
-        <?php unset($_SESSION['messages']); 
-            } 
-        ?>
-
+    <?php unset($_SESSION['messages']); } ?>
 <?php 
     }
 ?>
@@ -99,7 +92,7 @@
 ?>
             <footer>
                 <div class="copywrite">
-                    <span>All rights reserved to ANTERO TOTAL™</span>
+                    <span>All rights reserved to <a href="https://github.com/SantosAntero">Antero Santos™</a> <a href="https://github.com/EstevesAndre">André Esteves™</a> <a href="https://github.com/pedrogneto">Pedro Neto™</a></span>
                 </div>
             </footer>
             <script src="../scripts/main.js"></script>
