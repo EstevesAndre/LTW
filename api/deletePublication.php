@@ -15,7 +15,7 @@
     {
         deletePublication($publication_id);
     }
-    
+
     switch($order)
     {
         case 'Fresh':
@@ -27,11 +27,11 @@
         case 'Alphabetical':
             draw_publications(getAlphabeticalPublications(), $order);
             break;
-        case 'ReverseAlphabetical':
-            draw_publications(getReverseAlphabeticalPublications(), $order);
-            break;
         case 'Hot':
             draw_publications(getMostVotedPublications(), $order);
+            break;
+        case 'Subscribed':
+            draw_publications(getSubscribedPublications($username), $order);
             break;
         default:
             draw_publications(getNewestPublications(), $order);

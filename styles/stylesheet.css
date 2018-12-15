@@ -360,8 +360,8 @@ footer .copywrite span {
 
 
 .category-card img {
-	width: 400px;
-	height: 400px;
+	width: 300px;
+	height: 300px;
 	filter:opacity(40%);
 	background-color: white;
 }
@@ -774,6 +774,32 @@ header .login-register {
     display: none;
 }
 
+.topnav .search-container {
+	float: right;
+}
+  
+.topnav input[type=text] {
+	padding: 6px;
+	margin-top: 16px;
+	font-size: 17px;
+	border: none;
+}
+
+.topnav .search-container button {
+	float: right;
+	padding: 6px 10px;
+	margin-top: 16px;
+	margin-right: 16px;
+	background: #ddd;
+	font-size: 17px;
+	border: none;
+	cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+	background: #ccc;
+}
+
 @media screen and (max-width: 860px) {
 	header a:hover {
 		background-color: #5f5f5f;
@@ -932,11 +958,11 @@ header .login-register {
 		width: 50%;
 	}
 
-	.max-article .dynamic-article .comment-section .comment-response .button {
+ 	.max-article .dynamic-article .comment-section .comment-response .button {
 		width: 50%;
 	}
-
-	.max-article .dynamic-article .comment-section .comment-response textarea {
+	
+ 	.max-article .dynamic-article .comment-section .comment-response textarea {
 		width: 90%;
 	}
 

@@ -6,8 +6,8 @@
             <button class="order-button active"><p>Fresh</p></button>
             <button class="order-button"><p>Old</p></button>
             <button class="order-button"><p>Alphabetical</p></button>
-            <button class="order-button"><p>ReverseAlphabetical</p></button>
             <button class="order-button"><p>Hot</p></button>
+            <button class="order-button"><p>Subscribed</p></button>
         </div>
         <div class="ordered-publications">
             <?php                

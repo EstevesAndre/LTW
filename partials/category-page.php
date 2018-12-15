@@ -5,14 +5,14 @@
         <div class="category-name">
             <p><?=$channel['cType']?></p>            
         </div>        
-        <?php if (isset($_SESSION['username']))  { ?>
-            <div class="subscribe">    
+        <div class="subscribe">            
+            <?php if (isset($_SESSION['username']))  { ?>
                 <a class="button login-register">
                     <?php draw_sub($channel['id']); ?>
                 </a>
                 <input type="hidden" name="channel" value="<?=$channel['id']?>">
-            </div>
-        <?php } ?>
+            <?php } ?>
+        </div>
         <?php
             draw_publications($pubOfChannel, "Fresh");
         ?>

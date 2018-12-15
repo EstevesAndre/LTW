@@ -29,11 +29,63 @@
     }
 
     //DONE
-    function getReverseAlphabeticalPublications()
+    function getSubscribedPublications($username)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Publication ORDER BY title COLLATE NOCASE DESC');
-        $stmt->execute();
+        
+        $stmt = $db->prepare("SELECT * FROM Publication 
+                                WHERE tags IN (SELECT cType 
+                                    FROM Channel
+                                    WHERE id IN (
+                                        SELECT id_Channel
+                                        FROM UserLikesChannel 
+                                        WHERE username_user= ?)
+                                    ) 
+                                ORDER BY timestamp DESC");
+        $stmt->execute(array($username));
+        return $stmt->fetchAll();
+    }
+
+    function getPublicationsSearch($search)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare("SELECT * FROM Publication 
+                                WHERE (title LIKE ?) OR
+                                    (tags LIKE ?) OR
+                                    (username LIKE ?) OR
+                                    (fulltext LIKE ?)");
+        $stmt->execute(array($search,$search,$search,$search));
+        return $stmt->fetchAll();
+    }
+    
+    function getChannelsSearch($search)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Channel 
+                                WHERE cType LIKE ?');
+        $stmt->execute(array($search));
+        return $stmt->fetchAll();
+    }
+
+    function getUsersSearch($search)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM User 
+                                WHERE (username LIKE ?) OR
+                                    (name LIKE ?) OR
+                                    (surname LIKE ?)');
+        $stmt->execute(array($search,$search,$search));
+        return $stmt->fetchAll();
+    }
+
+    function getCommentsSearch($search)
+    {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Comment 
+                                WHERE (username LIKE ?) OR
+                                    (tags LIKE ?) OR
+                                    (text LIKE ?)');
+        $stmt->execute(array($search,$search,$search));
         return $stmt->fetchAll();
     }
 
