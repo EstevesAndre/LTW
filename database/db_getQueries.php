@@ -156,7 +156,7 @@
     function getPublicationComments($pudlication_id)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT * FROM Comment WHERE publication_id= ?');
+        $stmt = $db->prepare('SELECT * FROM Comment WHERE publication_id= ? AND comment_id IS NULL');
         $stmt->execute(array($pudlication_id));
         return $stmt->fetchAll();
     }
@@ -310,16 +310,17 @@
     {
         $db = Database::instance()->db();
 
-        if($publication_id != NULL)
-        {
-            $votes = $db->prepare('SELECT count(*) as cnt FROM Votes WHERE publication_id= ? AND upDown= ?');
-            $votes->execute(array($publication_id,$upDown));
-        }
-        else if($comment_id != NULL)
+        if($comment_id != NULL)
         {
             $votes = $db->prepare('SELECT count(*) as cnt FROM Votes WHERE comment_id= ? AND upDown= ?');
             $votes->execute(array($comment_id,$upDown));
         }
+        else
+        {
+            $votes = $db->prepare('SELECT count(*) as cnt FROM Votes WHERE publication_id= ? AND upDown= ?');
+            $votes->execute(array($publication_id,$upDown));
+        }
+
         return $votes->fetch();
     }
 
@@ -328,15 +329,15 @@
     {        
         $db = Database::instance()->db();
 
-        if($publication_id != NULL)
-        {
-            $votes = $db->prepare('SELECT * FROM Votes WHERE username= ? AND publication_id= ?');
-            $votes->execute(array($username,$publication_id));
-        }
-        else if($comment_id != NULL)
+        if($comment_id != NULL)
         {
             $votes = $db->prepare('SELECT * FROM Votes WHERE username= ? AND comment_id= ?');
             $votes->execute(array($username,$comment_id));
+        }
+        else
+        {
+            $votes = $db->prepare('SELECT * FROM Votes WHERE username= ? AND publication_id= ?');
+            $votes->execute(array($username,$publication_id));
         }
 
         return $votes->fetch();

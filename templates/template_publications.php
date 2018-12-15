@@ -34,9 +34,7 @@
                     foreach($tags as $tag) 
                     { 
                 ?>
-                    <a class="category" href="../pages/category.php?category=<?=$tag?>">
-                        <?=$tag?>&nbsp
-                    </a>
+                    <a class="category" href="../pages/category.php?category=<?=$tag?>"> <?=$tag?>&nbsp</a>
                 <?php } ?>
             </div>
             <div class="op">
@@ -151,14 +149,16 @@
                             <div class="new-comment">
                             <?php if($session != NULL) { ?>
                                 <form>
-                            <?php } ?>  
                                     <input type="hidden" name="publication_id" value="<?=$pub['id']?>">
                                     <input type="hidden" name="comment_id">
                                     <textarea name="fulltext" rows="4" cols="100"></textarea><br>
                                     <input class="button" type="button" value="Comment">
-                            <?php if($session != NULL) { ?>
-                                </form>
-                            <?php } ?>  
+                            <?php } else { ?>                                 
+                                <textarea name="fulltext" rows="4" cols="100"></textarea><br>
+                                <a href="../pages/login.php"> 
+                                    <input class="button" type="button" value="Comment">
+                                </a>
+                            <?php } ?>
                             </div>                            
                             <div class="sub-comment">
                                 <?php
@@ -206,15 +206,17 @@
             <div class="comment-response">
             <?php if($session != NULL) { ?>
                 <section class="sub-comment-section">
-                    <form class="comment-response"> 
-                <?php } ?>                               
+                    <form class="comment-response">
                         <input type="hidden" name="publication_id" value="<?=$pub_id?>">
                         <input type="hidden" name="comment_id" value="<?=$comment['id']?>">
                         <textarea name="fulltext" rows="2" cols="40"></textarea>
                         <input class="button" type="button" value="Comment">
-                <?php if($session != NULL) { ?>
                     </form>
-                <?php } ?>   
+                <?php } else { ?>
+                    <a href="../pages/login.php"> 
+                        <input class="button" type="button" value="Comment">
+                    </a>
+                <?php } ?>
                 <div class="sub-comment">
                     <?php 
                         $childComments = getCommentsOfComment($comment['id']);
@@ -401,8 +403,6 @@
 <?php
     function drawCommentsOfPublication($publication_id, $comments) 
     {
-?>
-    <?php
         foreach($comments as $comment)
         {   
             if(!isset($_SESSION['username']))  
@@ -413,7 +413,15 @@
             $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$comment['id'],1)['cnt'], 'down' => getPublicationVotes(NULL, $comment['id'],-1)['cnt']]; 
             draw_comment($comment, $publication_id, $commentVote['upDown'], $commentVoteCnt);
         }
-    ?>
+    }
+?>
+
 <?php
+    function drawSearchedComments($comments)
+    {
+        foreach($comments as $comment)
+        {
+            
+        }
     }
 ?>

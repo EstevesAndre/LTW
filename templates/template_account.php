@@ -7,8 +7,8 @@
         <div class="article-container">
             <div class="form-container">
                 <form method="post" action="../actions/login.php">
-                <p class="title">Welcome Prayer</p><br><br>
-                <?php print_messages() ?>
+                    <p class="title">Welcome Prayer</p><br><br>
+                    <?php print_messages() ?>
                     <p>Username:</p>
                     <input type="text" name="username" required><br>
                     <p>Password:</p>

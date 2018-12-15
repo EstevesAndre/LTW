@@ -11,7 +11,7 @@
     if($fulltext != NULL)
     {
         if($comment_id != NULL)
-            insertComment($username, NULL, $comment_id, '', $fulltext);
+            insertComment($username, $publication_id, $comment_id, '', $fulltext);
         else
             insertComment($username, $publication_id, NULL, '', $fulltext);
     }

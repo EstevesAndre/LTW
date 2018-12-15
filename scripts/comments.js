@@ -14,20 +14,23 @@ function submitComment(event) {
     if(event.target.closest("form input[type=button]"))
     {
         let form = event.target.parentElement;
+        let fulltext = form.querySelector('textarea[name=fulltext]').value;
+        form.querySelector('textarea').value = '';
         let publication_id = form.querySelector('input[name=publication_id]').value;
         let comment_id = form.querySelector('input[name=comment_id]').value;
-        let fulltext = form.querySelector('textarea[name=fulltext]').value;
-
+        
         let request = new XMLHttpRequest();
         request.open('POST', '../api/add_comment.php', true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');  
         request.addEventListener('load', function() {
             let section = document.querySelector('#comments-section .sub-comment');
-            section.innerHTML = this.responseText;          
+            section.innerHTML = this.responseText;
             let thumbs = document.querySelectorAll("div.vote-toggle");
             if (thumbs) thumbs.forEach((thumb) => thumb.addEventListener('click', submitThumb));
             delComment = document.querySelectorAll('a.com-trash');
             if(delComment) delComment.forEach( (comment) => comment.addEventListener('click', deleteComment));
+            let pontuation = document.querySelectorAll("div.vote-toggle");
+            if(pontuation) pontuation.forEach((clicked) => clicked.addEventListener('click', updatePontuation));
         });
         request.send(encodeForAjax({publication_id: publication_id, comment_id: comment_id, fulltext: fulltext}));
 
@@ -46,13 +49,15 @@ function deleteComment(event) {
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');  
     request.addEventListener('load', function() {
         let section = document.querySelector('#comments-section .sub-comment');
-        section.innerHTML = this.responseText;          
-        let thumbs = document.querySelectorAll("div.vote-toggle");
+        section.innerHTML = this.responseText;
+        let thumbs = section.querySelectorAll("div.vote-toggle");
         if (thumbs) thumbs.forEach((thumb) => thumb.addEventListener('click', submitThumb)); 
-        delComment = document.querySelectorAll('a.com-trash');
+        delComment = section.querySelectorAll('a.com-trash');
         if(delComment) delComment.forEach( (comment) => comment.addEventListener('click', deleteComment));
+        let pontuation = section.querySelectorAll("div.vote-toggle");
+        if(pontuation) pontuation.forEach((clicked) => clicked.addEventListener('click', updatePontuation));
     });
     request.send(encodeForAjax({publication_id: publication_id, comment_id: comment_id}));
-
+    
     event.preventDefault();
 }

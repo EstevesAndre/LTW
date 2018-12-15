@@ -3,6 +3,7 @@
 .nullvalue NULL
 
 PRAGMA foreign_keys = ON;
+PRAGMA recursive_triggers = ON;
 
 -- Table: Channel
 DROP TABLE IF EXISTS Channel;
@@ -55,7 +56,7 @@ CREATE TABLE Comment (
     id INTEGER PRIMARY KEY,
     username VARCHAR NOT NULL REFERENCES User,
     publication_id INTEGER REFERENCES Publication(id),
-    comment_id INTEGER NULL REFERENCES Comment(id), -- self relationship
+    comment_id INTEGER NULL REFERENCES Comment(id) ON DELETE CASCADE, -- self relationship
     timestamp DATETIME CHECK (timestamp > 0), -- date when this was published
     tags VARCHAR, -- comma separated tags
     text VARCHAR NOT NULL,
@@ -75,19 +76,27 @@ CREATE TABLE Votes(
     upDown INTEGER NOT NULL CHECK (upDown = -1 OR upDown = 1)
 );
 
--- CREATE TRIGGER IF NOT EXISTS DeleteComment
--- BEFORE DELETE ON Comment
--- WHEN :OLD.comment_id IS NOT NULL
--- BEGIN
---     DELETE 
--- END;
+CREATE TRIGGER IF NOT EXISTS DeleteComment
+BEFORE DELETE ON Comment
+FOR EACH ROW
+BEGIN
+    DELETE FROM Votes WHERE comment_id = OLD.id;
+END;
+
+CREATE TRIGGER IF NOT EXISTS DeletePublication
+BEFORE DELETE ON Publication
+FOR EACH ROW
+BEGIN
+    DELETE FROM Votes WHERE publication_id = OLD.id;
+    DELETE FROM Comment WHERE publication_id = OLD.id;
+END;
 
 -- ADD COMMENT UP
 CREATE TRIGGER IF NOT EXISTS AddCommentUpVote
 AFTER INSERT ON Votes
 WHEN NEW.type = 'C' AND NEW.upDown = 1 AND NEW.comment_id IS NOT NULL
 BEGIN
-    UPDATE Comment SET upVotes = upVotes + 1 WHERE id = NEW.id;
+    UPDATE Comment SET upVotes = upVotes + 1 WHERE id = NEW.comment_id;
     UPDATE User
     SET points = points + 1
     WHERE username IN
@@ -102,7 +111,7 @@ CREATE TRIGGER IF NOT EXISTS RemoveCommentUpVote
 AFTER DELETE ON Votes
 WHEN OLD.type = 'C' AND OLD.upDown = 1 AND OLD.comment_id IS NOT NULL
 BEGIN
-    UPDATE Comment SET upVotes = upVotes - 1 WHERE id = OLD.id;
+    UPDATE Comment SET upVotes = upVotes - 1 WHERE id = OLD.comment_id;
     UPDATE User
     SET points = points - 1
     WHERE username IN
@@ -117,7 +126,7 @@ CREATE TRIGGER IF NOT EXISTS AddCommentDownVote
 AFTER INSERT ON Votes
 WHEN NEW.type = 'C' AND NEW.upDown = -1 AND NEW.comment_id IS NOT NULL
 BEGIN
-    UPDATE Comment SET downVotes = downVotes + 1 WHERE id = NEW.id;
+    UPDATE Comment SET downVotes = downVotes + 1 WHERE id = NEW.comment_id;
     UPDATE User
     SET points = points - 1
     WHERE username IN
@@ -132,7 +141,7 @@ CREATE TRIGGER IF NOT EXISTS RemoveCommentDownVote
 AFTER DELETE ON Votes
 WHEN OLD.type = 'C' AND OLD.upDown = -1 AND OLD.comment_id IS NOT NULL
 BEGIN
-    UPDATE Comment SET downVotes = downVotes - 1 WHERE id = OLD.id;
+    UPDATE Comment SET downVotes = downVotes - 1 WHERE id = OLD.comment_id;
     UPDATE User
     SET points = points + 1
     WHERE username IN
@@ -147,7 +156,7 @@ CREATE TRIGGER IF NOT EXISTS AddPublicationUpVote
 AFTER INSERT ON Votes
 WHEN NEW.type = 'P' AND NEW.upDown = 1 AND NEW.publication_id IS NOT NULL
 BEGIN
-    UPDATE Publication SET upVotes = upVotes + 1 WHERE id = NEW.id;
+    UPDATE Publication SET upVotes = upVotes + 1 WHERE id = NEW.publication_id;
     UPDATE User
     SET points = points + 10
     WHERE username IN
@@ -162,7 +171,7 @@ CREATE TRIGGER IF NOT EXISTS RemovePublicationUpVote
 AFTER DELETE ON Votes
 WHEN OLD.type = 'P' AND OLD.upDown = 1 AND OLD.publication_id IS NOT NULL
 BEGIN
-    UPDATE Publication SET upVotes = upVotes - 1 WHERE id = OLD.id;
+    UPDATE Publication SET upVotes = upVotes - 1 WHERE id = OLD.publication_id;
     UPDATE User
     SET points = points - 10
     WHERE username IN
@@ -177,7 +186,7 @@ CREATE TRIGGER IF NOT EXISTS AddPublicationDownVote
 AFTER INSERT ON Votes
 WHEN NEW.type = 'P' AND NEW.upDown = -1 AND NEW.publication_id IS NOT NULL
 BEGIN
-    UPDATE Publication SET downVotes = downVotes + 1 WHERE id = NEW.id;
+    UPDATE Publication SET downVotes = downVotes + 1 WHERE id = NEW.publication_id;
     UPDATE User
     SET points = points - 10
     WHERE username IN
@@ -192,7 +201,7 @@ CREATE TRIGGER IF NOT EXISTS RemovePublicationDownVote
 AFTER DELETE ON Votes
 WHEN OLD.type = 'P' AND OLD.upDown = -1 AND OLD.publication_id IS NOT NULL
 BEGIN
-    UPDATE Publication SET downVotes = downVotes - 1 WHERE id = OLD.id;
+    UPDATE Publication SET downVotes = downVotes - 1 WHERE id = OLD.publication_id;
     UPDATE User
     SET points = points + 10
     WHERE username IN
@@ -300,7 +309,7 @@ INSERT INTO Comment VALUES(
 INSERT INTO Comment VALUES(
     NULL,
     'Andre548392',
-    NULL,
+    1,
     2,
     '2018-12-04',
     'Pedro459669',
