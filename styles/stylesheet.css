@@ -718,7 +718,7 @@ header .login-register {
 	height: 70px;
 }
 
-.article-container .search-title p {
+ .article-container .search-title p {
 	margin-left: 5%;
 }
 
@@ -803,7 +803,6 @@ header .login-register {
 .topnav .search-container {
 	float: right;
 	margin-left: 2%;
-	
 }
   
 .topnav input[type=text] {
