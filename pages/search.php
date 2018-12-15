@@ -18,21 +18,18 @@
     $channelsLike = getChannelsSearch('%' . $search . '%');
     $usersLike = getUsersSearch('%' . $search . '%');
 
-    /*if($commentsLike != NULL)
-    {
-        draw_searched_comments($commentsLike);
-    }*/
-    ?>
+?>
     <div class="article-container">
-    <?php
+<?php
     draw_searched_pub($publicationsLike);
 
-    draw_searched_channels($channelsLike);
+    draw_searched_comments($commentsLike);
     
-    draw_searched_users($usersLike);
-    ?>
-    </div>
-    <?php
-    draw_footer();
+    draw_searched_channels($channelsLike);
 
-    ?>
+    draw_searched_users($usersLike);
+?>
+    </div>
+<?php
+    draw_footer();
+?>

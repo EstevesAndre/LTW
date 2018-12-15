@@ -11,7 +11,17 @@
             <?php } ?>        
         </div>
         <?php
-            draw_publications($pubOfUser, "Fresh");
+            if(sizeof($pubOfUser))
+            {
+                if (isset($_SESSION['username']) && $username == $_SESSION['username'])
+                    draw_publications($pubOfUser, "Fresh");
+                else
+                    draw_publications($pubOfUser, "Fresh", "search");
+            }
+            else
+            {?>
+                <p class="not-found">User has no publications!</p>
+            <?php }
         ?>
     </div>
 <?php 
