@@ -1,4 +1,4 @@
-<?php function draw_publications($publications, $order) 
+<?php function draw_publications($publications, $order, $type = "pub") 
     {
 ?>
     <?php
@@ -16,7 +16,8 @@
             }
         }
         
-        draw_add_publication();
+        if($type == "pub")
+            draw_add_publication();
     ?>
 <?php
     }
@@ -92,7 +93,11 @@
 <?php function draw_add_publication() 
     {
 ?>
-    <a href="../pages/new-article.php">
+    <?php if(isset($_SESSION['username'])) { ?>
+        <a href="../pages/new-article.php">
+    <?php } else { ?> 
+        <a href="../pages/login.php">
+    <?php } ?>
         <article class="min-article">
             <img class="add" src="../assets/plus.png" />
         </article>

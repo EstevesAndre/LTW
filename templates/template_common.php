@@ -32,6 +32,12 @@
                 <a href="../pages/initialPage.php" class="button"><p>Home</p> </a>            
                 <a href="../pages/fresh.php" class="button"><p>Fresh</p> </a>            
                 <a href="../pages/categories.php" class="button"><p>Categories</p> </a>
+                <div class="search-container">
+                    <form method="post" action="../actions/search-bar.php">
+                        <input type="text" placeholder="Search.." name="search" required>
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
                 <?php
                     if($username == null)
                     {
