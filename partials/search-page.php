@@ -14,7 +14,7 @@
         drawTitle("Publications");
         
         if (sizeof($publications))
-            draw_publications($publications, "Fresh", "search");
+            draw_publications($publications, "Fresh", NULL, "search");
         else
             draw_not_found(" Publications");
     }
@@ -29,9 +29,7 @@
         {
 ?>
             <section id="comments-section">
-                <div class="sub-comment">
-                    <?php drawSearchedComments($comments); ?>
-                </div>
+                <?php drawSearchedComments($comments); ?>
             </section>
 <?php
         }

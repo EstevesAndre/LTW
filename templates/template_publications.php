@@ -1,4 +1,4 @@
-<?php function draw_publications($publications, $order, $type = "pub") 
+<?php function draw_publications($publications, $order, $pref_category = NULL, $type = "pub") 
     {
 ?>
     <?php
@@ -17,7 +17,7 @@
         }
         
         if($type == "pub")
-            draw_add_publication();
+            draw_add_publication($pref_category);
     ?>
 <?php
     }
@@ -29,13 +29,7 @@
      <article class="min-article">
         <div class="article-head">
             <div class="categories">
-                <?php
-                    $tags = explode(",",$pub['tags']);
-                    foreach($tags as $tag) 
-                    { 
-                ?>
-                    <a class="category" href="../pages/category.php?category=<?=$tag?>"> <?=$tag?>&nbsp</a>
-                <?php } ?>
+                <a class="category" href="../pages/category.php?category=<?=$pub['category']?>"><?=$pub['category']?></a>
             </div>
             <div class="op">
                 <span>
@@ -51,7 +45,7 @@
                 </div>
                 <div class="text-container">
                     <p class="text">
-                        <?=$pub['fulltext']?>
+                        <?=drawTextWithTags($pub['fulltext']);?>
                     </p>
                 </div>
             </a>
@@ -88,11 +82,11 @@
     }
 ?>
 
-<?php function draw_add_publication() 
+<?php function draw_add_publication($category = NULL) 
     {
 ?>
     <?php if(isset($_SESSION['username'])) { ?>
-        <a href="../pages/new-article.php">
+            <a href="../pages/new-article.php?pref_category=<?=$category?>">
     <?php } else { ?> 
         <a href="../pages/login.php">
     <?php } ?>
@@ -102,6 +96,36 @@
     </a>
 <?php
     }
+?>
+
+<?php 
+    function draw_new_article($channels, $category = "") 
+    { 
+?>
+    <section id="login">      
+        <div class="article-container">
+            <div class="form-container">
+                <form method="post" action="../actions/add_publication.php">
+                    <p class="title">New Article</p><br><br>
+                    <p>Title:</p>
+                        <input type="text" name="title" required><br>
+                    <p>Category:</p>
+                    <input name="category" list="categories" value='<?=$category?>' required>
+                    <datalist id="categories">
+                        <?php foreach($channels as $channel) { ?>
+                            <option value="<?=$channel['cType']?>">
+                        <?php } ?>
+                    </datalist>
+                    <p>Write Something:</p>
+                    <textarea name="fulltext" required></textarea><br>
+                    <input class="button" type="submit" value="Post">
+                </form>
+            </div>
+        </div>
+
+    </section>
+<?php 
+    } 
 ?>
 
  <?php 
@@ -116,18 +140,12 @@
         <article class="max-article">
             <div class="static-article">
                 <p class="article-category">
-                    <?php
-                        $tags = explode(",",$pub['tags']);
-                        foreach($tags as $tag) 
-                        { 
-                    ?>
-                        <a href="../pages/category.php?category=<?=$tag?>" class="com-user"><?=$tag?>&nbsp</a>
-                    <?php } ?>
+                    <a href="../pages/category.php?category=<?=$pub['category']?>" class="com-user"><?=$pub['category']?>&nbsp</a>
                 </p>
                 <p class="op"><span>Posted by <a href="../pages/user-posts.php?username=<?=$pub['username']?>" class="com-user"><?=$pub['username']?></a></span></p>
                 <p class="time"><span><?=$pub['timestamp']?></span></p>
                 <p class="title"><span><?=$pub['title']?></span></p>
-                <p class="text"><?=$pub['fulltext']?></p>
+                <p class="text"><?=drawTextWithTags($pub['fulltext']);?></p>
             </div>
             <div class="dynamic-article">
                 <div class="vote-section">
@@ -195,11 +213,7 @@
                     <i class="far fa-trash-alt"></i>
                 </a>
             <?php } ?>
-            <p class="com-text">&nbsp  &nbsp
-            <?php if ($comment['tags'] != null) { ?> 
-                @<?=$comment['tags']?>,
-            <?php } ?>
-            &nbsp<?=$comment['text']?></p>
+            <p class="com-text">&nbsp  &nbsp<?=drawTextWithTags($comment['text'])?></p>            
             <div class="vote-section">
                 <?php drawInPubVotes($pub_id, $comment['id'], $vote, $votes_cnt, NULL, $comment['username']); ?>
             </div>
@@ -239,36 +253,6 @@
         </div>
 <?php
     }
-?>
-
-<?php 
-    function draw_new_article($channels) 
-    { 
-?>
-    <section id="login">      
-        <div class="article-container">
-            <div class="form-container">
-                <form method="post" action="../actions/add_publication.php">
-                    <p class="title">New Article</p><br><br>
-                    <p>Title:</p>
-                        <input type="text" name="title" required><br>
-                    <p>Category:</p>
-                    <input name="category" list="categories" value="" required>
-                    <datalist id="categories">
-                        <?php foreach($channels as $channel) { ?>
-                            <option value="<?=$channel['cType']?>">
-                        <?php } ?>
-                    </datalist>
-                    <p>Write Something:</p>
-                    <textarea name="fulltext" required></textarea><br>
-                    <input class="button" type="submit" value="Post">
-                </form>
-            </div>
-        </div>
-
-    </section>
-<?php 
-    } 
 ?>
 
 <?php
@@ -421,7 +405,98 @@
     {
         foreach($comments as $comment)
         {
-            
+            if(!isset($_SESSION['username']))  
+                $commentVote = ['upDown' => 0];
+            else
+                $commentVote = getVote($_SESSION['username'], NULL, $comment['id']);
+                
+            $commentVoteCnt = [ 'up' => getPublicationVotes(NULL,$comment['id'],1)['cnt'], 'down' => getPublicationVotes(NULL, $comment['id'],-1)['cnt']]; 
+            draw_single_comment($comment, $comment['publication_id'], $commentVote['upDown'], $commentVoteCnt);
         }
+    }
+?>
+
+<?php
+    function draw_single_comment($comment, $pub_id, $vote, $votes_cnt)
+    {
+        if(isset($_SESSION['username']))
+            $session = $_SESSION['username'];
+        else
+            $session = NULL;
+?>        
+        <div class="single-comment">
+            <a href="../pages/user-posts.php?username=<?=$comment['username']?>" class="com-user"><?=$comment['username']?></a>
+            <p class="sep">&nbsp - &nbsp</p>
+            <p class="com-date"><?=$comment['timestamp']?></p>
+            <?php if(isset($_SESSION['username']) && checkIsCommentOwner($_SESSION['username'], $comment['id'])) { ?>
+                <a class="com-trash">
+                    <input type="hidden" name="publication_id" value="<?=$pub_id?>">                    
+                    <input type="hidden" name="comment_id" value="<?=$comment['id']?>">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            <?php } ?>
+            <p class="com-text">&nbsp  &nbsp<?=$comment['text']?></p>
+            <div class="vote-section">
+                <?php drawInPubVotes($pub_id, $comment['id'], $vote, $votes_cnt, NULL, $comment['username']); ?>
+        </div>
+<?php
+    }
+?>
+
+<?php
+    function getTagType($tag)
+    {
+        $type = 'no-type';
+
+        if(existsCategory($tag))
+            $type = 'channel';
+        else if(existsUser($tag))
+            $type = 'user';
+        else if (filter_var($tag, FILTER_VALIDATE_URL))
+            $type = 'url';
+        else if(substr($tag, 0, 3) == 'www')
+        {
+            $tag = "https://" . $tag;
+            if (filter_var($tag, FILTER_VALIDATE_URL))
+                $type = 'url-h';
+        }
+
+        return $type;
+    }
+?>
+
+<?php
+    function drawTextWithTags($text)
+    {
+        preg_match_all("~\[tag\](.*?)\[\/tag\]~",$text,$tags);
+
+        for($i = 0; $i < sizeof($tags[0]); $i++)
+        {
+            $type = getTagType($tags[1][$i]);
+
+            switch($type)
+            {
+                case 'channel':
+                    $tags[1][$i] = "<a href='../pages/category.php?category=" . $tags[1][$i] . "'>[Channel]" . $tags[1][$i] . "</a>";                    
+                    $text = str_replace($tags[0][$i], $tags[1][$i], $text);
+                    break;
+                case 'user':
+                    $tags[1][$i] = "<a href='../pages/user-posts.php?username=" . $tags[1][$i] . "'>[User]" . $tags[1][$i] . "</a>";
+                    $text = str_replace($tags[0][$i], $tags[1][$i], $text);
+                    break;
+                case 'url':
+                    $tags[1][$i] = "<a href='" . $tags[1][$i] . "'>Extern Link</a>";
+                    $text = str_replace($tags[0][$i], $tags[1][$i], $text);
+                    break;
+                case 'url-h':
+                    $tags[1][$i] = "<a href='https://" . $tags[1][$i] . "'>External Link</a>";
+                    $text = str_replace($tags[0][$i], $tags[1][$i], $text);
+                    break;
+                default: // NONE
+                    $text = str_replace($tags[0][$i], $tags[1][$i], $text);
+            }
+        }
+
+        return $text;
     }
 ?>

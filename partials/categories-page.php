@@ -10,10 +10,10 @@
             <?php
                 $image  = "../assets/".strtolower(str_replace(' ','',$channel['cType'])).".png";
                 if(!file_exists($image)){
-                    $image ="../assets/Buddhism.png";
+                    $image ="../assets/general.png";
                 }   
                 ?>
-                <img src= <?=$image?> />
+                <img src=<?=$image?> />
                 <p class="title"><?=$channel['cType']?></p>
             </a>
         <?php 

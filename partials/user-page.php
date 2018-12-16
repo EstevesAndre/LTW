@@ -16,11 +16,11 @@
                 if (isset($_SESSION['username']) && $username == $_SESSION['username'])
                     draw_publications($pubOfUser, "Fresh");
                 else
-                    draw_publications($pubOfUser, "Fresh", "search");
+                    draw_publications($pubOfUser, "Fresh", NULL, "search");
             }
             else
             {?>
-                <p class="not-found">User has no publications!</p>
+                <p class="not-found">Prayer <?=$username?> has no publications!</p>
             <?php }
         ?>
     </div>
