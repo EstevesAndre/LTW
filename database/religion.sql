@@ -42,7 +42,7 @@ CREATE TABLE Publication (
     id INTEGER PRIMARY KEY,
     username VARCHAR REFERENCES User,
     timestamp DATETIME CHECK (timestamp > 0), -- date when this was published
-    tags VARCHAR NOT NULL, -- comma separated tags
+    category VARCHAR NOT NULL,
     title VARCHAR,
     fulltext VARCHAR NOT NULL,
     upVotes INTEGER,
@@ -58,7 +58,6 @@ CREATE TABLE Comment (
     publication_id INTEGER REFERENCES Publication(id),
     comment_id INTEGER NULL REFERENCES Comment(id) ON DELETE CASCADE, -- self relationship
     timestamp DATETIME CHECK (timestamp > 0), -- date when this was published
-    tags VARCHAR, -- comma separated tags
     text VARCHAR NOT NULL,
     upVotes INTEGER,
     downVotes INTEGER
@@ -224,8 +223,6 @@ INSERT INTO Channel VALUES (NULL, 'Paganism');
 INSERT INTO Channel VALUES (NULL, 'Shintoism');
 INSERT INTO Channel VALUES (NULL, 'Sikhism');
 INSERT INTO Channel VALUES (NULL, 'Taoism');
-INSERT INTO Channel VALUES (NULL, 'Folk Channels');
-INSERT INTO Channel VALUES (NULL, 'IrChannel');
 
 INSERT INTO User VALUES (
     'Antero13',
@@ -264,7 +261,7 @@ INSERT INTO Publication VALUES (
     NULL,
     'Antero13',
     '2018-08-12',
-    'Buddhism,Taoism',
+    'Taoism',
     'first pub',
     'some text',
     0,
@@ -277,7 +274,7 @@ INSERT INTO Publication VALUES (
     '2018-12-03',
     'Buddhism',
     'TITLLEEEE',
-    'TEXTTTT',
+    'TEXTTTT *Buddhism*',
     0,
     0
 );
@@ -288,8 +285,7 @@ INSERT INTO Comment VALUES(
     1,
     NULL,
     '2018-12-04',
-    'Pedro459669,Antero13',
-    'I THINK THAT THIS IS LIT AF',
+    'I THINK THAT *Pedro459669* AND *Antero13* ARE LIT AF',
     0,
     0
 );
@@ -300,8 +296,7 @@ INSERT INTO Comment VALUES(
     1,
     NULL,
     '2018-12-04',
-    'Pedro459669',
-    'nothing else',
+    'nothing *https://www.google.com* else',
     0,
     0
 );
@@ -312,7 +307,6 @@ INSERT INTO Comment VALUES(
     1,
     2,
     '2018-12-04',
-    'Pedro459669',
     'HI_Comment_HERE',
     0,
     0
