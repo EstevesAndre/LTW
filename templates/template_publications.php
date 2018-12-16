@@ -226,11 +226,11 @@
                         <textarea name="fulltext" rows="2" cols="40"></textarea>
                         <input class="button" type="button" value="Comment">
                     </form>
-                <?php } else { ?>
+            <?php } else { ?>
                     <a href="../pages/login.php"> 
                         <input class="button" type="button" value="Comment">
                     </a>
-                <?php } ?>
+            <?php } ?>
                 <div class="sub-comment">
                     <?php 
                         $childComments = getCommentsOfComment($comment['id']);
