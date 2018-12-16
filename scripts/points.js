@@ -16,7 +16,7 @@ function updatePontuation(event) {
         let publication_username = thumb.querySelector('input[name=publication_username]').value;
         let comment_username = thumb.querySelector('input[name=comment_username]').value;
         let session_username = thumb.querySelector('input[name=session_username]').value;
-
+        
         if(session_username && (session_username == comment_username || session_username == publication_username))
         {
             let request = new XMLHttpRequest();
@@ -25,6 +25,8 @@ function updatePontuation(event) {
             request.addEventListener('load', function() {
                 let points = document.querySelector("header a[name=pontuation]");                
                 points.innerHTML = this.responseText;
+                pontuation = document.querySelectorAll("div.vote-toggle");
+                if(pontuation) pontuation.forEach((clicked) => clicked.addEventListener('click', updatePontuation));
             });
             request.send(encodeForAjax({session_username: session_username}));
         }

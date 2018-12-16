@@ -426,16 +426,11 @@
 ?>      
         <div class="single-comment">
             <a href="../pages/user-posts.php?username=<?=$comment['username']?>" class="com-user"><?=$comment['username']?></a>
-            <p class="sep">&nbsp - &nbsp</p>
-            <p class="com-date"><?=$comment['timestamp']?></p>
-            <?php if(isset($_SESSION['username']) && checkIsCommentOwner($_SESSION['username'], $comment['id'])) { ?>
-                <a class="com-trash">
-                    <input type="hidden" name="publication_id" value="<?=$pub_id?>">                    
-                    <input type="hidden" name="comment_id" value="<?=$comment['id']?>">
-                    <i class="far fa-trash-alt"></i>
-                </a>
-            <?php } ?>
-            <a href=""><p class="com-text">&nbsp  &nbsp<?=$comment['text']?></p></a>
+            <a href="../pages/publication.php?publication_id=<?=$comment['publication_id']?>">
+                <p class="sep">&nbsp - &nbsp</p>
+                <p class="com-date"><?=$comment['timestamp']?></p>
+                <p class="com-text">&nbsp  &nbsp<?=$comment['text']?></p>
+            </a>
             <div class="vote-section">
                 <?php drawInPubVotes($pub_id, $comment['id'], $vote, $votes_cnt, NULL, $comment['username']); ?>
             </div>
