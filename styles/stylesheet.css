@@ -235,6 +235,7 @@ footer .copywrite span {
 	width: 100%;
 	background-image: url('../assets/sky.jpg');
 	background-size: cover;
+	background-attachment: fixed;
 }
 
 .min-article {
@@ -718,6 +719,10 @@ header .login-register {
 	height: 70px;
 }
 
+.article-container .search-title:not(:first-child) {
+	margin-top: 20px;
+}
+
  .article-container .search-title p {
 	margin-left: 5%;
 }
@@ -784,6 +789,71 @@ header .login-register {
 	background-color: #cf1b1ba2;
 }
 
+.article-container .comments-section .single-comment {
+	float: left;
+	width: 80%;
+	margin-top: 10px;
+	margin-left: 20px;
+	font-family: Lato;
+	background-color: #f1f1f1;
+	padding-left: 5%;
+	margin-bottom: 15px;
+	padding-top: 10px;
+}
+
+.article-container .comments-section .single-comment .com-user {
+	font-family: Lato;
+	text-decoration: underline;
+	font-size: 15px;
+	float: left;
+}
+
+.article-container .comments-section .single-comment .com-date {
+	font-size: 15px;
+	float: left;
+	margin-right: 10px;
+}
+
+.article-container .comments-section .single-comment .sep {
+	font-size: 15px;
+	float: left;
+}
+
+.article-container .comments-section .single-comment .com-text {
+	width: 100%;
+	float: left;
+	margin-top: 5px;
+}
+
+.article-container .search-users {
+	width: 100%;
+	float: left;
+	margin-bottom: 15px;
+}
+
+.article-container .search-users a {
+	float: left;
+	background-color: #f1f1f1;
+	width: 20%;
+	margin-right: 60%;
+	height: 40px;
+	margin-top: 15px;
+	margin-left: 2.5%;
+	text-align: center;
+	padding-top: 14px;
+}
+
+.article-container .search-users a p{
+	font-family: Lato;
+	font-size: 20px;
+}
+
+.article-container .category-card img{
+	width: 100%;
+	height: auto;
+	float: left;
+}
+
 .message-log {
 	font-family: Lato;
 	font-size: 30px;
@@ -791,12 +861,10 @@ header .login-register {
 	font-weight: 300;
 }
 
-/* Add a black background color to the top navigation */
 .topnav {
     overflow: hidden;
 }
 
-/* Hide the link that should open and close the topnav on small screens */
 .topnav .icon {
     display: none;
 }
@@ -877,6 +945,10 @@ header .login-register {
 	}
 	.category-card:hover {
 		filter: none;
+	}
+
+	.article-container .category-card {
+		width: 90%;
 	}
 
 	.topnav a:not(:first-child) {
@@ -1014,5 +1086,9 @@ header .login-register {
 		width: 50%;
 		margin-right: 0;
 		margin-left: 0;
+	}
+
+	.article-container .search-users a {
+		width: 40%;
 	}
 }

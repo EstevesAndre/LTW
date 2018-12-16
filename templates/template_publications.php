@@ -423,7 +423,7 @@
             $session = $_SESSION['username'];
         else
             $session = NULL;
-?>        
+?>      
         <div class="single-comment">
             <a href="../pages/user-posts.php?username=<?=$comment['username']?>" class="com-user"><?=$comment['username']?></a>
             <p class="sep">&nbsp - &nbsp</p>
@@ -435,9 +435,10 @@
                     <i class="far fa-trash-alt"></i>
                 </a>
             <?php } ?>
-            <p class="com-text">&nbsp  &nbsp<?=$comment['text']?></p>
+            <a href=""><p class="com-text">&nbsp  &nbsp<?=$comment['text']?></p></a>
             <div class="vote-section">
                 <?php drawInPubVotes($pub_id, $comment['id'], $vote, $votes_cnt, NULL, $comment['username']); ?>
+            </div>
         </div>
 <?php
     }

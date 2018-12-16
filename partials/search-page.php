@@ -28,7 +28,7 @@
         if (sizeof($comments)) 
         {
 ?>
-            <section id="comments-section">
+            <section class="comments-section">
                 <?php drawSearchedComments($comments); ?>
             </section>
 <?php
@@ -57,14 +57,21 @@
     function draw_searched_users($users) 
     {
         drawTitle("Users");
-
         if(sizeof($users)) {
+?>
+            <div class="search-users">
+<?php
             foreach($users as $user)
             {
 ?>
-                <a href="../pages/user-posts.php?username=<?=$user['username']?>"><?=$user['username']?></a><br>
+            <a href="../pages/user-posts.php?username=<?=$user['username']?>">
+                <p><?=$user['username']?></p>
+            </a><br>
 <?php
             }
+            ?>
+            </div>
+            <?php
         }
         else{
             draw_not_found(" Users");
