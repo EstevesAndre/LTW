@@ -19,21 +19,21 @@
     switch($order)
     {
         case 'Fresh':
-            draw_publications(getNewestPublications(), $order);
+            draw_publications(getNewestPublications(), NULL, $order);
             break;
         case 'Old':
-            draw_publications(getOldestPublications(), $order);
+            draw_publications(getOldestPublications(), NULL, $order);
             break;
         case 'Alphabetical':
-            draw_publications(getAlphabeticalPublications(), $order);
+            draw_publications(getAlphabeticalPublications(), NULL, $order);
             break;
         case 'Hot':
-            draw_publications(getMostVotedPublications(), $order);
+            draw_publications(getMostVotedPublications(), NULL, $order);
             break;
         case 'Subscribed':
-            draw_publications(getSubscribedPublications($username), $order);
+            draw_publications(getSubscribedPublications($username), NULL, $order);
             break;
         default:
-            draw_publications(getNewestPublications(), $order);
+            draw_publications(getNewestPublications(), NULL, $order);
     }
 ?>
