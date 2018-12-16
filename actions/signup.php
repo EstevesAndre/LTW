@@ -20,8 +20,7 @@
     }
     catch(PDOException $e)
     {
-        die($e->getMessage());
-        $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Failed to signup!');        
+        $_SESSION['messages'][] = array('type' => 'error', 'content' => 'Username already taken!');
         header('Location: ../pages/signup.php');
     } 
 ?>

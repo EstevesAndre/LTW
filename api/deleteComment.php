@@ -5,7 +5,7 @@
 
     // verifies if user is logged in
     if (!isset($_SESSION['username']))
-        die(header('Location: login.php'));
+        die(header('Location: ../pages/login.php'));
 
     $username = $_SESSION['username'];
     $publication_id = $_POST['publication_id'];

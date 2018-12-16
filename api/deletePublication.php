@@ -5,8 +5,11 @@
 
     // verifies if user is logged in
     if (!isset($_SESSION['username']))
-        die(header('Location: login.php'));
-
+    {
+        $_SESSION['messages'][] = array('type' => 'error', 'content' => 'You need to Login first!');
+        die(header('Location: ../pages/login.php'));
+    }
+    
     $username = $_SESSION['username'];
     $publication_id = $_POST['publication_id'];
     $order = $_POST['order'];
@@ -19,21 +22,21 @@
     switch($order)
     {
         case 'Fresh':
-            draw_publications(getNewestPublications(), NULL, $order);
+            draw_publications(getNewestPublications(), $order);
             break;
         case 'Old':
-            draw_publications(getOldestPublications(), NULL, $order);
+            draw_publications(getOldestPublications(), $order);
             break;
         case 'Alphabetical':
-            draw_publications(getAlphabeticalPublications(), NULL, $order);
+            draw_publications(getAlphabeticalPublications(), $order);
             break;
         case 'Hot':
-            draw_publications(getMostVotedPublications(), NULL, $order);
+            draw_publications(getMostVotedPublications(), $order);
             break;
         case 'Subscribed':
-            draw_publications(getSubscribedPublications($username), NULL, $order);
+            draw_publications(getSubscribedPublications($username), $order);
             break;
         default:
-            draw_publications(getNewestPublications(), NULL, $order);
+            draw_publications(getNewestPublications(), $order);
     }
 ?>

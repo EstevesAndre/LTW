@@ -6,7 +6,10 @@
 
     // verifies if user is logged in
     if (!isset($_SESSION['username']))
-        die(header('Location: login.php'));
+    {
+        $_SESSION['messages'][] = array('type' => 'error', 'content' => 'You need to Login first!');
+        die(header('Location: ../pages/login.php'));
+    }
     
     $pref_category = $_GET['pref_category'];
 
