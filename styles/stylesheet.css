@@ -757,6 +757,7 @@ header .login-register {
 	background-color: #3f3f3faa;
 	margin-top: 20px;
 	margin-left: 1.5%;
+	overflow-x: scroll;
 }
 
 .article-container .order .order-button {
@@ -803,6 +804,7 @@ header .login-register {
 .topnav .search-container {
 	float: right;
 	margin-left: 2%;
+	margin-top: 2px;
 }
   
 .topnav input[type=text] {
@@ -847,7 +849,7 @@ header .login-register {
 	}
 
 	.main .title p {
-		font-size: 100px;
+		font-size: 80px;
 	}
 
 	.section .button {
@@ -864,9 +866,9 @@ header .login-register {
 
 	.min-article {
 		width: 90%;
-		margin-left: 3.5%;
 		margin-bottom: 15px;
-
+		margin-left: 2.5%;
+		margin-right: 2.5%;
 	}
 
 	.category-card {
@@ -986,9 +988,9 @@ header .login-register {
 	}
 
 	.article-container .order {
-		width: 80%;
-		margin-left: 10%;
-		margin-right: 10%;
+		width: 95%;
+		margin-right: 2.5%;
+		margin-left: 2.5%;
 	}
 
 	.max-article .dynamic-article .comment-section .new-comment .button {
@@ -1002,5 +1004,15 @@ header .login-register {
  	.max-article .dynamic-article .comment-section .comment-response textarea {
 		width: 90%;
 	}
+	
+	.topnav .search-container {
+		position: absolute;
+		right: 10%;
+	}
 
+	.article-container .order .order-button {
+		width: 50%;
+		margin-right: 0;
+		margin-left: 0;
+	}
 }
