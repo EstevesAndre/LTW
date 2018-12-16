@@ -932,6 +932,11 @@ header .login-register {
 		margin-bottom: 10px;
 	}
 
+	.form-container form .button {
+		width: 50%;
+		margin-left: 25%;
+	}
+
 	.min-article {
 		width: 90%;
 		margin-bottom: 15px;
