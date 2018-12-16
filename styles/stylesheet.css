@@ -244,13 +244,13 @@ footer .copywrite span {
 	width: 30%;
 	margin-left: 1.5%;
 	float: left;
-	margin-top: 15px;
 	padding-left: 10px;
 	padding-top: 10px;
 	padding-right: 10px;
 	padding-bottom: 10px;
 	height: 150px;
 	padding-bottom: 40px;
+	margin-bottom: 15px;
 }
 
 .min-article a {
@@ -500,6 +500,11 @@ header .login-register {
 	margin-bottom: 10px;
 }
 
+.max-article .static-article .text a {
+	text-decoration: underline;
+	font-weight: 500;
+}
+
 .max-article .static-article .op a {
 	text-decoration: underline;
 	font-weight: 500;
@@ -701,6 +706,7 @@ header .login-register {
 	font-size: 30px;
 	padding-top: 30px;
 	height: 70px;
+	margin-bottom: 15px;
 }
 
 .article-container .category-name p {
@@ -717,6 +723,7 @@ header .login-register {
 	font-size: 30px;
 	padding-top: 30px;
 	height: 70px;
+	margin-bottom: 15px;
 }
 
 .article-container .search-title:not(:first-child) {
@@ -762,7 +769,7 @@ header .login-register {
 	background-color: #3f3f3faa;
 	margin-top: 20px;
 	margin-left: 1.5%;
-	overflow-x: scroll;
+	margin-bottom: 15px;
 }
 
 .article-container .order .order-button {
@@ -846,12 +853,6 @@ header .login-register {
 .article-container .search-users a p{
 	font-family: Lato;
 	font-size: 20px;
-}
-
-.article-container .category-card img{
-	width: 100%;
-	height: auto;
-	float: left;
 }
 
 .message-log {
@@ -945,8 +946,9 @@ header .login-register {
 	}
 
 	.category-card {
-		width: 45%;
-		margin-left: 3%;
+		float: left;
+		width: 90%;
+		margin-left: 10%;
 	}
 	.category-card:hover {
 		filter: none;
@@ -1095,5 +1097,9 @@ header .login-register {
 
 	.article-container .search-users a {
 		width: 40%;
+	}
+
+	.article-container .order {
+		overflow-x: scroll;
 	}
 }
