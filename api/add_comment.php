@@ -7,13 +7,13 @@
     $publication_id = $_POST['publication_id'];
     $comment_id = $_POST['comment_id'];
     $fulltext = htmlentities($_POST['fulltext']);
-
+    
     if($fulltext != NULL)
     {
         if($comment_id != NULL)
-            insertComment($username, $publication_id, $comment_id, '', $fulltext);
+            insertComment($username, $publication_id, $comment_id, $fulltext);
         else
-            insertComment($username, $publication_id, NULL, '', $fulltext);
+            insertComment($username, $publication_id, NULL, $fulltext);
     }
     
     $comments = getPublicationComments($publication_id);
