@@ -8,9 +8,11 @@
     if (!isset($_SESSION['username']))
         die(header('Location: login.php'));
     
+    $pref_category = $_GET['pref_category'];
+
     $channels = getChannels();
 
     draw_header($_SESSION['username'], ' | New Article');
-    draw_new_article($channels);
+    draw_new_article($channels, $pref_category);
     draw_footer();
 ?>
