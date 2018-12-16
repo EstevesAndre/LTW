@@ -11,10 +11,10 @@
     $title = htmlentities($_POST['title']);
     $fulltext = htmlentities($_POST['fulltext']);
 
-    if($category != NULL)
-        $id = insertPublication($username,$category,$title,$fulltext);
-    else 
-        $id = insertPublication($username,'General',$title,$fulltext);
+    if(!existsCategory($category))
+        createsCategory($category);
+    
+    $id = insertPublication($username,$category,$title,$fulltext);
 
     header('Location: ../pages/publication.php?publication_id=' . $id );
 ?>
