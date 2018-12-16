@@ -34,7 +34,7 @@
         $db = Database::instance()->db();
         
         $stmt = $db->prepare("SELECT * FROM Publication 
-                                WHERE tags IN (SELECT cType 
+                                WHERE category IN (SELECT cType 
                                     FROM Channel
                                     WHERE id IN (
                                         SELECT id_Channel
@@ -51,7 +51,7 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare("SELECT * FROM Publication 
                                 WHERE (title LIKE ?) OR
-                                    (tags LIKE ?) OR
+                                    (category LIKE ?) OR
                                     (username LIKE ?) OR
                                     (fulltext LIKE ?)");
         $stmt->execute(array($search,$search,$search,$search));
@@ -83,9 +83,8 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT * FROM Comment 
                                 WHERE (username LIKE ?) OR
-                                    (tags LIKE ?) OR
                                     (text LIKE ?)');
-        $stmt->execute(array($search,$search,$search));
+        $stmt->execute(array($search,$search));
         return $stmt->fetchAll();
     }
 
@@ -197,9 +196,8 @@
 
     function getCategoryPublications($category)
     {
-        $db = Database::instance()->db();
-        
-        $stmt = $db->prepare('SELECT * FROM Publication WHERE tags LIKE ?');
+        $db = Database::instance()->db();        
+        $stmt = $db->prepare('SELECT * FROM Publication WHERE category LIKE ?');
         $stmt->execute(array($category));
         return $stmt->fetchAll();
     }
@@ -223,12 +221,11 @@
     }
     
     //DONE
-    function insertPublication($username, $tags, $title, $fulltext)
+    function insertPublication($username, $category, $title, $fulltext)
     {
         $db = Database::instance()->db();
         $stmt = $db->prepare("INSERT INTO Publication VALUES(NULL, ?, DATETIME('now'), ?, ?, ?, 0, 0)");
-        $stmt->execute(array($username, $tags, $title, $fulltext));
-
+        $stmt->execute(array($username, $category, $title, $fulltext));
         return $db->lastInsertId();
     }
 
@@ -251,12 +248,11 @@
     }
 
     //DONE
-    function insertComment($username, $publication_id, $comment_id, $tags, $text)
+    function insertComment($username, $publication_id, $comment_id, $text)
     {
         $db = Database::instance()->db();
-        $stmt = $db->prepare("INSERT INTO Comment VALUES(NULL, ?, ?, ?, DATETIME('now'), ?, ?, 0, 0)");
-        $stmt->execute(array($username, $publication_id, $comment_id, $tags, $text));        
-
+        $stmt = $db->prepare("INSERT INTO Comment VALUES(NULL, ?, ?, ?, DATETIME('now'), ?, 0, 0)");
+        $stmt->execute(array($username, $publication_id, $comment_id, $text));        
         return $db->lastInsertId();
     }
 
@@ -346,8 +342,7 @@
     //DONE
     function getVoteWithId($id)
     {        
-        $db = Database::instance()->db();
-        
+        $db = Database::instance()->db();        
         $stmt = $db->prepare('SELECT * FROM Votes WHERE id= ?');
         $stmt->execute(array($id));
         return $stmt->fetch();
@@ -358,9 +353,7 @@
     {
         $db = Database::instance()->db();
         $stmt = $db->prepare('INSERT INTO Votes VALUES(NULL, ?, ?, ?, ?, ?)');
-
-        $stmt->execute(array($type,$username,$publication_id, $comment_id, $upDown));
-        
+        $stmt->execute(array($type,$username,$publication_id, $comment_id, $upDown));        
         return $db->lastInsertId();
     }
 
@@ -369,7 +362,6 @@
     {
         $db = Database::instance()->db();
         $stmt = $db->prepare('DELETE FROM Votes WHERE id= ?');
-
         $stmt->execute(array($idVote));
     }
     
@@ -395,15 +387,41 @@
     {
         $db = Database::instance()->db();
         $stmt = $db->prepare('UPDATE Votes SET upDown = -upDown WHERE id= ?');
-
         $stmt->execute(array($idVote));
     }
 
     function toggleFollowPublication($publication_id) {
-        $db = Database::instance()->db();
 
+        $db = Database::instance()->db();
         $stmt = $db->prepare('UPDATE Publication SET item_done = 1 - item_done WHERE item_id = ?');
         $stmt->execute(array($publication_id));
+    }
+
+    //DONE
+    function existsCategory($category)
+    {        
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM Channel WHERE cType= ?');
+        $stmt->execute(array($category));
+        return $stmt->fetch()?true:false;
+    }
+
+    //DONE
+    function createsCategory($category)
+    {        
+        $db = Database::instance()->db();        
+        $stmt = $db->prepare('INSERT INTO Channel VALUES(NULL, ?)');
+        $stmt->execute(array($category));
+        return $stmt->fetch();
+    }
+
+    //DONE
+    function existsUser($username)
+    {        
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT * FROM User WHERE username= ?');
+        $stmt->execute(array($username));
+        return $stmt->fetch()?true:false;
     }
 
 ?>
