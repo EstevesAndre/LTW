@@ -5,6 +5,13 @@
     include_once('../templates/template_common.php');
         
     draw_header(null, ' | Login');
-    draw_login();
+    if($_SESSION['wait'])
+    {
+        draw_login('wait_command');
+    }
+    else{
+        draw_login(null);
+    }
+   
     draw_footer();
 ?>

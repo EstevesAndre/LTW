@@ -1,5 +1,5 @@
 <?php 
-    function draw_login() 
+    function draw_login($command) 
     { 
 ?>
     <section id="login">    
@@ -8,7 +8,29 @@
             <div class="form-container">
                 <form method="post" action="../actions/login.php">
                     <p class="title">Welcome Prayer</p><br><br>
-                    <?php print_messages() ?>
+                    <?php print_messages();
+
+                    if($command != null)
+                    {   $time_left = $_SESSION['timeout'] - time();
+                        if($time_left > 0)
+                        {
+                            $date1 =  new DateTime();
+                            $date1->setTimestamp($_SESSION['timeout']);
+                            $date1->format('Y-m-d H:i:s');
+
+                            $date2 =  new DateTime();
+                            $date2->setTimestamp(time());
+                            $date2->format('Y-m-d H:i:s');
+                            
+                    
+                            $intervalo = $date1->diff($date2);
+                            $final = $intervalo->format(' %h hours %i minutes %s seconds');
+                            echo ('<p class="title"> You failed login too many times, please wait '.$final.'</p>'); 
+                        }
+                        
+                    }
+                    
+                    ?>
                     <p>Username:</p>
                     <input type="text" name="username" required><br>
                     <p>Password:</p>
